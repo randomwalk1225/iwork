@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>reAA — Discharge Measurement Uncertainty Analysis Platform</title>
+  <meta name="description" content="ISO 748 discharge measurement uncertainty analysis, real-time hydrological data, baseflow separation. A web-based hydrology analysis platform.">
+  <meta name="keywords" content="discharge measurement, uncertainty analysis, ISO 748, hydrological data, baseflow analysis, water resources, web application">
+  <meta property="og:title" content="reAA — Discharge Measurement Uncertainty Analysis">
+  <meta property="og:description" content="ISO 748 discharge measurement uncertainty analysis on the web. Real-time hydrological data integration.">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://randomwalk1225.github.io/iwork/reaa/en/">
+  <link rel="alternate" hreflang="ko" href="../kr/">
+  <link rel="alternate" hreflang="en" href="./">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] },
+          colors: { slate: { 925: '#0a0f1a' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Pretendard Variable', system-ui, sans-serif; }
+    .feature-card { transition: transform 0.2s ease; }
+    .feature-card:hover { transform: translateY(-2px); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "reAA",
+    "applicationCategory": "Scientific",
+    "operatingSystem": "Web",
+    "description": "ISO 748 discharge measurement uncertainty analysis web application",
+    "author": { "@type": "Person", "name": "Binary" }
+  }
+  </script>
+</head>
+<body class="bg-slate-925 text-gray-100 antialiased">
+
+  <nav class="fixed top-0 w-full z-50 bg-slate-925/80 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <span class="text-sm font-semibold tracking-wide text-white/90">reAA</span>
+      <div class="flex items-center gap-4">
+        <a href="#features" class="text-sm text-white/60 hover:text-white/90 transition">Features</a>
+        <a href="#tech" class="text-sm text-white/60 hover:text-white/90 transition">Tech</a>
+        <a href="#contact" class="text-sm text-white/60 hover:text-white/90 transition">Contact</a>
+        <a href="../kr/" class="text-xs px-3 py-1.5 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 transition">KR</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="pt-32 pb-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+        <span class="text-xs text-cyan-400 font-medium">Live</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
+        Discharge measurement<br>uncertainty analysis, on the web
+      </h1>
+      <p class="text-lg text-white/50 max-w-2xl leading-relaxed mb-6">
+        ISO 748 uncertainty quantification, real-time hydrological data,<br>
+        baseflow separation, and automated PDF reports.<br>
+        From field measurement to analysis report in one platform.
+      </p>
+      <p class="text-sm text-white/30 mb-10">Django · PostgreSQL · Chart.js · Google Earth Engine</p>
+      <div class="flex gap-3">
+        <a href="#features" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-medium rounded-lg transition">Explore Features</a>
+        <a href="#contact" class="px-6 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-cyan-400 font-medium mb-2">FEATURES</p>
+      <h2 class="text-2xl font-bold mb-12 text-white">Core Capabilities</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-4">
+            <span class="text-cyan-400 text-lg">&#916;</span>
+          </div>
+          <h3 class="font-semibold text-white mb-2">ISO 748 Uncertainty</h3>
+          <p class="text-sm text-white/40 leading-relaxed">Standard-compliant discharge uncertainty quantification. Velocity-area method with per-point uncertainty calculation.</p>
+        </div>
+        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
+            <span class="text-blue-400 text-lg">&#8967;</span>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Real-Time Hydro Data</h3>
+          <p class="text-sm text-white/40 leading-relaxed">Live integration with HRFCO API. Water level and discharge monitoring with dam gate operation markers.</p>
+        </div>
+        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+            <span class="text-emerald-400 text-lg">&#8595;</span>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Baseflow Separation</h3>
+          <p class="text-sm text-white/40 leading-relaxed">Automated direct runoff and baseflow separation with graphical visualization and export.</p>
+        </div>
+        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4">
+            <span class="text-violet-400 text-lg">&#9789;</span>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Satellite Integration</h3>
+          <p class="text-sm text-white/40 leading-relaxed">Google Earth Engine for satellite data. Evapotranspiration estimation and watershed analysis.</p>
+        </div>
+        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+            <span class="text-orange-400 text-lg">&#9776;</span>
+          </div>
+          <h3 class="font-semibold text-white mb-2">PDF Reports</h3>
+          <p class="text-sm text-white/40 leading-relaxed">Auto-generated measurement reports. Excel import/export for data interoperability.</p>
+        </div>
+        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center mb-4">
+            <span class="text-rose-400 text-lg">&#9749;</span>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Mobile-Ready</h3>
+          <p class="text-sm text-white/40 leading-relaxed">Responsive design for field access. HTMX-powered interactions for fast, app-like experience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tech" class="py-20 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-cyan-400 font-medium mb-2">TECHNOLOGY</p>
+      <h2 class="text-2xl font-bold mb-10 text-white">Tech Stack</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-sm font-semibold text-white/70 mb-4">Backend</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Django 6.0</span>
+            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">PostgreSQL</span>
+            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Python 3.12</span>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white/70 mb-4">Frontend</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Chart.js</span>
+            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Alpine.js</span>
+            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">HTMX</span>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white/70 mb-4">Data Science</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">NumPy / SciPy</span>
+            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">GeoPandas</span>
+            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Google Earth Engine</span>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white/70 mb-4">Infrastructure</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Railway</span>
+            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">OAuth 2.0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-20 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-cyan-400 font-medium mb-2">CONTACT</p>
+      <h2 class="text-2xl font-bold mb-4 text-white">Inquiries</h2>
+      <p class="text-white/40 mb-8">Need a similar analysis system or interested in customization? Let's talk.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="mailto:randomwalk1225@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">
+          randomwalk1225@gmail.com
+        </a>
+        <a href="https://github.com/randomwalk1225/reAA" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto flex items-center justify-between text-xs text-white/30">
+      <span>&copy; 2026 Binary</span>
+      <div class="flex gap-4">
+        <a href="../../dev/en/" class="hover:text-white/50 transition">Portfolio</a>
+        <a href="../kr/" class="hover:text-white/50 transition">&larr; Korean</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

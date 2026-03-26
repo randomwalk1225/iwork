@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AllWrite 2.0 — Interactive Geometry & Graphing Tool</title>
+  <meta name="description" content="Interactive geometry construction and graphing tool for math education. Build points, lines, circles, and polygons in real-time with formula sync. Free download.">
+  <meta name="keywords" content="geometry tool, math education software, construction program, graphing tool, interactive math, GeoGebra alternative">
+  <meta property="og:title" content="AllWrite 2.0 — Interactive Geometry & Graphing Tool">
+  <meta property="og:description" content="Real-time geometry construction and graphing for math education. Free download.">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://randomwalk1225.github.io/iwork/allwrite/en/">
+  <link rel="alternate" hreflang="ko" href="../kr/">
+  <link rel="alternate" hreflang="en" href="./">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] },
+          colors: { slate: { 925: '#0a0f1a' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Pretendard Variable', system-ui, sans-serif; }
+    .tool-card { transition: transform 0.2s ease; }
+    .tool-card:hover { transform: translateY(-2px); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AllWrite 2.0",
+    "applicationCategory": "Education",
+    "operatingSystem": "Windows, macOS",
+    "description": "Interactive geometry construction and graphing tool for math education",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Binary" }
+  }
+  </script>
+</head>
+<body class="bg-slate-925 text-gray-100 antialiased">
+
+  <nav class="fixed top-0 w-full z-50 bg-slate-925/80 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <span class="text-sm font-semibold tracking-wide text-white/90">AllWrite 2.0</span>
+      <div class="flex items-center gap-4">
+        <a href="#tools" class="text-sm text-white/60 hover:text-white/90 transition">Tools</a>
+        <a href="#download" class="text-sm text-white/60 hover:text-white/90 transition">Download</a>
+        <a href="#contact" class="text-sm text-white/60 hover:text-white/90 transition">Contact</a>
+        <a href="../kr/" class="text-xs px-3 py-1.5 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 transition">KR</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="pt-32 pb-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
+        <span class="text-xs text-emerald-400 font-medium">v2.0 · Free</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
+        Geometry construction<br>built for the classroom
+      </h1>
+      <p class="text-lg text-white/50 max-w-2xl leading-relaxed mb-6">
+        Construct points, lines, circles, and polygons in real-time.<br>
+        Drag a point and every connected shape transforms instantly.<br>
+        Formulas and graphs on the same canvas.
+      </p>
+      <p class="text-sm text-white/30 mb-10">React · TypeScript · Electron · Canvas</p>
+      <div class="flex gap-3">
+        <a href="#download" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg transition">Download</a>
+        <a href="#tools" class="px-6 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">See Features</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+      <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 md:p-10">
+        <p class="text-sm text-emerald-400 font-medium mb-3">CORE</p>
+        <h2 class="text-xl font-bold text-white mb-4">Real-Time Point-Shape Sync</h2>
+        <p class="text-white/40 leading-relaxed max-w-2xl">
+          At the heart of AllWrite is <strong class="text-white/70">perfect 1:1 correspondence between points and shapes</strong>.
+          Drag any point and all connected lines, circles, and polygons transform in real-time.
+          Control position with the center point, size and rotation with the radius point.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools" class="py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-emerald-400 font-medium mb-2">TOOLS</p>
+      <h2 class="text-2xl font-bold mb-12 text-white">Geometry Tools</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+          <span class="text-emerald-400 text-lg mb-3 block">&#8226;</span>
+          <h3 class="font-semibold text-white text-sm mb-2">Points</h3>
+          <p class="text-xs text-white/40 leading-relaxed">Fixed, midpoint, division, constrained</p>
+        </div>
+        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+          <span class="text-blue-400 text-lg mb-3 block">&#9135;</span>
+          <h3 class="font-semibold text-white text-sm mb-2">Lines</h3>
+          <p class="text-xs text-white/40 leading-relaxed">Segment, ray, line, real-time transform</p>
+        </div>
+        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+          <span class="text-violet-400 text-lg mb-3 block">&#9675;</span>
+          <h3 class="font-semibold text-white text-sm mb-2">Circles</h3>
+          <p class="text-xs text-white/40 leading-relaxed">Center-radius, diameter, three-point</p>
+        </div>
+        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+          <span class="text-orange-400 text-lg mb-3 block">&#11040;</span>
+          <h3 class="font-semibold text-white text-sm mb-2">Polygons</h3>
+          <p class="text-xs text-white/40 leading-relaxed">Regular (3-12), rectangle, parallelogram, rhombus, kite</p>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-bold mt-12 mb-6 text-white">Canvas & Features</h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+          <h3 class="font-semibold text-white text-sm mb-2">Infinite Canvas</h3>
+          <p class="text-xs text-white/40 leading-relaxed">Pan/zoom, coordinate plane, grid, axis display</p>
+        </div>
+        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+          <h3 class="font-semibold text-white text-sm mb-2">Formulas & Graphs</h3>
+          <p class="text-xs text-white/40 leading-relaxed">KaTeX formula rendering, function graphs</p>
+        </div>
+        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+          <h3 class="font-semibold text-white text-sm mb-2">Freehand Drawing</h3>
+          <p class="text-xs text-white/40 leading-relaxed">Pen, eraser, selection (rect/lasso), copy/paste</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="download" class="py-20 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-emerald-400 font-medium mb-2">DOWNLOAD</p>
+      <h2 class="text-2xl font-bold mb-10 text-white">Get AllWrite</h2>
+      <div class="grid md:grid-cols-2 gap-6 max-w-2xl">
+        <a href="https://github.com/randomwalk1225/allwrite/releases" target="_blank" class="block bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 hover:bg-white/[0.05] transition">
+          <h3 class="font-semibold text-white mb-2">Windows</h3>
+          <p class="text-sm text-white/40">.exe installer</p>
+        </a>
+        <a href="https://github.com/randomwalk1225/allwrite/releases" target="_blank" class="block bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 hover:bg-white/[0.05] transition">
+          <h3 class="font-semibold text-white mb-2">macOS</h3>
+          <p class="text-sm text-white/40">.dmg file</p>
+        </a>
+      </div>
+      <p class="text-xs text-white/30 mt-4">MIT License · Free · Open source on GitHub</p>
+    </div>
+  </section>
+
+  <section id="contact" class="py-20 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-emerald-400 font-medium mb-2">CONTACT</p>
+      <h2 class="text-2xl font-bold mb-4 text-white">Get in Touch</h2>
+      <p class="text-white/40 mb-8">Feature requests, bug reports, or institutional licensing inquiries welcome.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="mailto:randomwalk1225@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">
+          randomwalk1225@gmail.com
+        </a>
+        <a href="https://github.com/randomwalk1225/allwrite" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto flex items-center justify-between text-xs text-white/30">
+      <span>&copy; 2026 Binary</span>
+      <div class="flex gap-4">
+        <a href="../../dev/en/" class="hover:text-white/50 transition">Portfolio</a>
+        <a href="../kr/" class="hover:text-white/50 transition">&larr; Korean</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
