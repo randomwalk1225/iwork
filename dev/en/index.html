@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software Development Portfolio | Education + Automation</title>
+  <meta name="description" content="Education platforms, content automation, web applications. A developer who builds and operates real services.">
+  <meta property="og:title" content="Software Development Portfolio">
+  <meta property="og:description" content="Education platforms, content automation, web applications">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://randomwalk1225.github.io/iwork/dev/en/">
+  <link rel="alternate" hreflang="ko" href="../kr/">
+  <link rel="alternate" hreflang="en" href="./">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] },
+          colors: { slate: { 925: '#0a0f1a' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Pretendard Variable', system-ui, sans-serif; }
+    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+  </style>
+</head>
+<body class="bg-slate-925 text-gray-100 antialiased">
+
+  <nav class="fixed top-0 w-full z-50 bg-slate-925/80 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <span class="text-sm font-semibold tracking-wide text-white/90">DEV PORTFOLIO</span>
+      <div class="flex items-center gap-4">
+        <a href="#projects" class="text-sm text-white/60 hover:text-white/90 transition">Projects</a>
+        <a href="#contact" class="text-sm text-white/60 hover:text-white/90 transition">Contact</a>
+        <a href="../kr/" class="text-xs px-3 py-1.5 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 transition">KR</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="pt-32 pb-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-indigo-400 font-medium mb-4">Education x Automation x Web Dev</p>
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
+        I build software<br>that I actually use
+      </h1>
+      <p class="text-lg text-white/50 max-w-2xl leading-relaxed mb-10">
+        Academy management, math education tools, content automation engines.<br>
+        Software designed and built from real operational needs.
+      </p>
+      <div class="flex gap-3">
+        <a href="#projects" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-lg transition">View Projects</a>
+        <a href="#contact" class="px-6 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-indigo-400 font-medium mb-2">PROJECTS</p>
+      <h2 class="text-2xl font-bold mb-12 text-white">What I've Built</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <div class="card-hover bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+              <span class="text-emerald-400 text-lg">&#9651;</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white">AllWrite 2.0</h3>
+              <p class="text-xs text-white/40">Math Education Tool</p>
+            </div>
+          </div>
+          <p class="text-sm text-white/50 leading-relaxed mb-4">
+            Interactive geometry & graphing tool. Construct points, lines, circles,
+            and polygons in real-time with synced formula input. Used daily in math classes.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">React</span>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">TypeScript</span>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Canvas</span>
+          </div>
+        </div>
+
+        <div class="card-hover bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
+              <span class="text-blue-400 text-lg">&#9635;</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white">MyClass</h3>
+              <p class="text-xs text-white/40">Academy Management System</p>
+            </div>
+          </div>
+          <p class="text-sm text-white/50 leading-relaxed mb-4">
+            Attendance tracking, tuition billing, revenue statistics, and notice generation.
+            Supports prepaid, postpaid, and per-session payment models.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Django</span>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Python</span>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">PostgreSQL</span>
+          </div>
+        </div>
+
+        <div class="card-hover bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
+              <span class="text-purple-400 text-lg">&#9881;</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white">Content Engine</h3>
+              <p class="text-xs text-white/40">Content Automation</p>
+            </div>
+          </div>
+          <p class="text-sm text-white/50 leading-relaxed mb-4">
+            AI-powered content pipeline from generation to multi-platform publishing.
+            Handles video backgrounds, audio, thumbnails, and SEO metadata automatically.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Django</span>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Celery</span>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">FFmpeg</span>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">AI</span>
+          </div>
+        </div>
+
+        <div class="card-hover bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center">
+              <span class="text-orange-400 text-lg">&#9998;</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white">PPT Glyph Fixer</h3>
+              <p class="text-xs text-white/40">Document Tool</p>
+            </div>
+          </div>
+          <p class="text-sm text-white/50 leading-relaxed mb-4">
+            Web-based slide editor that auto-fixes broken glyphs in NotebookLM-generated PPTs.
+            Edit and download directly in the browser.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">JavaScript</span>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Web</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-indigo-400 font-medium mb-2">APPROACH</p>
+      <h2 class="text-2xl font-bold mb-10 text-white">How I Work</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-semibold text-white mb-2">Real-World First</h3>
+          <p class="text-sm text-white/40 leading-relaxed">Every project solves a real problem from businesses I operate. No hypothetical builds.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-white mb-2">Swappable Design</h3>
+          <p class="text-sm text-white/40 leading-relaxed">No vendor lock-in. AI services, APIs, and providers can be swapped with minimal changes.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-white mb-2">Incremental Automation</h3>
+          <p class="text-sm text-white/40 leading-relaxed">Validate manually first, then automate. Start from the smallest working unit and scale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-20 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-indigo-400 font-medium mb-2">CONTACT</p>
+      <h2 class="text-2xl font-bold mb-4 text-white">Let's Talk</h2>
+      <p class="text-white/40 mb-8">Have a project in mind? Feel free to reach out.</p>
+      <a href="mailto:randomwalk1225@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">
+        randomwalk1225@gmail.com
+      </a>
+    </div>
+  </section>
+
+  <footer class="py-8 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto flex items-center justify-between text-xs text-white/30">
+      <span>&copy; 2026</span>
+      <a href="../kr/" class="hover:text-white/50 transition">&larr; Korean version</a>
+    </div>
+  </footer>
+
+</body>
+</html>
