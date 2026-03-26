@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>reAA — Discharge Measurement Uncertainty Analysis Platform</title>
-  <meta name="description" content="ISO 748 discharge measurement uncertainty analysis, real-time hydrological data, baseflow separation. A web-based hydrology analysis platform.">
-  <meta name="keywords" content="discharge measurement, uncertainty analysis, ISO 748, hydrological data, baseflow analysis, water resources, web application">
-  <meta property="og:title" content="reAA — Discharge Measurement Uncertainty Analysis">
-  <meta property="og:description" content="ISO 748 discharge measurement uncertainty analysis on the web. Real-time hydrological data integration.">
+  <title>HydroLink — Hydrological Survey & Groundwater Dam Site Selection</title>
+  <meta name="description" content="ISO 748 discharge measurement uncertainty analysis, real-time hydrological data, and groundwater dam site selection. Analyze and decide on-site with one platform.">
+  <meta name="keywords" content="HydroLink, discharge measurement, uncertainty analysis, ISO 748, groundwater dam, site selection, hydrological data, baseflow analysis">
+  <meta property="og:title" content="HydroLink — Hydrological Survey & Groundwater Dam Site Selection">
+  <meta property="og:description" content="Analyze and decide on-site. From ISO 748 discharge measurement to optimal dam site selection.">
   <meta property="og:type" content="website">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://randomwalk1225.github.io/iwork/reaa/en/">
@@ -28,17 +28,18 @@
   </script>
   <style>
     body { font-family: 'Pretendard Variable', system-ui, sans-serif; }
-    .feature-card { transition: transform 0.2s ease; }
-    .feature-card:hover { transform: translateY(-2px); }
+    .card { transition: transform 0.2s ease; }
+    .card:hover { transform: translateY(-2px); }
   </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "reAA",
+    "name": "HydroLink",
+    "url": "https://www.hydrolink.app",
     "applicationCategory": "Scientific",
     "operatingSystem": "Web",
-    "description": "ISO 748 discharge measurement uncertainty analysis web application",
+    "description": "Hydrological survey and groundwater dam site selection platform",
     "author": { "@type": "Person", "name": "Binary" }
   }
   </script>
@@ -47,149 +48,261 @@
 
   <nav class="fixed top-0 w-full z-50 bg-slate-925/80 backdrop-blur-md border-b border-white/5">
     <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-      <span class="text-sm font-semibold tracking-wide text-white/90">reAA</span>
+      <a href="https://www.hydrolink.app" target="_blank" class="text-sm font-semibold tracking-wide text-white/90">HydroLink</a>
       <div class="flex items-center gap-4">
-        <a href="#features" class="text-sm text-white/60 hover:text-white/90 transition">Features</a>
-        <a href="#tech" class="text-sm text-white/60 hover:text-white/90 transition">Tech</a>
-        <a href="#contact" class="text-sm text-white/60 hover:text-white/90 transition">Contact</a>
+        <a href="#modules" class="text-sm text-white/60 hover:text-white/90 transition">Modules</a>
+        <a href="#data" class="text-sm text-white/60 hover:text-white/90 transition">Data</a>
+        <a href="#verification" class="text-sm text-white/60 hover:text-white/90 transition">Verification</a>
+        <a href="https://www.hydrolink.app/accounts/login/?next=/" target="_blank" class="text-xs px-3 py-1.5 rounded-full bg-cyan-600 text-white font-medium hover:bg-cyan-500 transition">Login</a>
         <a href="../kr/" class="text-xs px-3 py-1.5 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 transition">KR</a>
       </div>
     </div>
   </nav>
 
-  <section class="pt-32 pb-20 px-6">
+  <section class="pt-32 pb-16 px-6">
     <div class="max-w-5xl mx-auto">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-6">
-        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-        <span class="text-xs text-cyan-400 font-medium">Live</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+        <span class="text-xs text-cyan-400 font-medium">Live · hydrolink.app</span>
       </div>
       <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
-        Discharge measurement<br>uncertainty analysis, on the web
+        Analyze on-site.<br>Decide on-site.
       </h1>
-      <p class="text-lg text-white/50 max-w-2xl leading-relaxed mb-6">
-        ISO 748 uncertainty quantification, real-time hydrological data,<br>
-        baseflow separation, and automated PDF reports.<br>
-        From field measurement to analysis report in one platform.
+      <p class="text-lg text-white/50 max-w-2xl leading-relaxed mb-10">
+        From discharge measurement uncertainty to groundwater dam site selection.<br>
+        Analysis, decision, and reporting in one platform for water resources.
       </p>
-      <p class="text-sm text-white/30 mb-10">Django · PostgreSQL · Chart.js · Google Earth Engine</p>
-      <div class="flex gap-3">
-        <a href="#features" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-medium rounded-lg transition">Explore Features</a>
-        <a href="#contact" class="px-6 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">Get in Touch</a>
+      <div class="flex flex-wrap gap-3 mb-16">
+        <a href="https://www.hydrolink.app/accounts/login/?next=/" target="_blank" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-medium rounded-lg transition">Go to App</a>
+        <a href="https://www.hydrolink.app/groundwater/guide/" target="_blank" class="px-6 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">User Guide</a>
+        <a href="#modules" class="px-6 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">Explore Features</a>
+      </div>
+      <div class="grid grid-cols-3 gap-4 max-w-lg">
+        <div class="text-center">
+          <p class="text-2xl font-bold text-white">10 min</p>
+          <p class="text-xs text-white/40 mt-1">Site analysis time</p>
+        </div>
+        <div class="text-center">
+          <p class="text-2xl font-bold text-white">83%</p>
+          <p class="text-xs text-white/40 mt-1">Match with actual sites</p>
+        </div>
+        <div class="text-center">
+          <p class="text-2xl font-bold text-white">5,740</p>
+          <p class="text-xs text-white/40 mt-1">River segments analyzed</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="features" class="py-20 px-6">
+  <section class="py-20 px-6 border-t border-white/5">
     <div class="max-w-5xl mx-auto">
-      <p class="text-sm text-cyan-400 font-medium mb-2">FEATURES</p>
-      <h2 class="text-2xl font-bold mb-12 text-white">Core Capabilities</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-4">
-            <span class="text-cyan-400 text-lg">&#916;</span>
-          </div>
-          <h3 class="font-semibold text-white mb-2">ISO 748 Uncertainty</h3>
-          <p class="text-sm text-white/40 leading-relaxed">Standard-compliant discharge uncertainty quantification. Velocity-area method with per-point uncertainty calculation.</p>
+      <p class="text-sm text-cyan-400 font-medium mb-2">PROBLEM</p>
+      <h2 class="text-2xl font-bold mb-10 text-white">Why HydroLink</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-red-500/[0.04] border border-red-500/10 rounded-2xl p-6">
+          <h3 class="font-semibold text-red-400/80 mb-4">Traditional Approach</h3>
+          <ul class="space-y-3 text-sm text-white/40">
+            <li class="flex items-start gap-2"><span class="text-red-400/60 mt-0.5">&#10005;</span> Field survey → sampling → lab analysis → report (3-6 months)</li>
+            <li class="flex items-start gap-2"><span class="text-red-400/60 mt-0.5">&#10005;</span> Site selection failure rate over 50%</li>
+            <li class="flex items-start gap-2"><span class="text-red-400/60 mt-0.5">&#10005;</span> Manual Excel uncertainty calculations, error-prone</li>
+            <li class="flex items-start gap-2"><span class="text-red-400/60 mt-0.5">&#10005;</span> Scattered data across agencies and stations</li>
+          </ul>
         </div>
-        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
+        <div class="bg-cyan-500/[0.04] border border-cyan-500/10 rounded-2xl p-6">
+          <h3 class="font-semibold text-cyan-400/80 mb-4">HydroLink</h3>
+          <ul class="space-y-3 text-sm text-white/40">
+            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">&#10003;</span> Map click → instant analysis → on-site decision (10 min)</li>
+            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">&#10003;</span> 71-83% match with K-water actual construction sites</li>
+            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">&#10003;</span> ISO 748 automated uncertainty with report generation</li>
+            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">&#10003;</span> 6 data layers integrated (DEM, geology, hydro, facilities, drought, regulation)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="modules" class="py-20 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-cyan-400 font-medium mb-2">MODULES</p>
+      <h2 class="text-2xl font-bold mb-12 text-white">Two Core Modules</h2>
+
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
             <span class="text-blue-400 text-lg">&#8967;</span>
           </div>
-          <h3 class="font-semibold text-white mb-2">Real-Time Hydro Data</h3>
-          <p class="text-sm text-white/40 leading-relaxed">Live integration with HRFCO API. Water level and discharge monitoring with dam gate operation markers.</p>
-        </div>
-        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
-            <span class="text-emerald-400 text-lg">&#8595;</span>
+          <div>
+            <h3 class="text-lg font-bold text-white">Hydrological Survey</h3>
+            <p class="text-xs text-white/40">Discharge measurement · Uncertainty analysis · Hydro data</p>
           </div>
-          <h3 class="font-semibold text-white mb-2">Baseflow Separation</h3>
-          <p class="text-sm text-white/40 leading-relaxed">Automated direct runoff and baseflow separation with graphical visualization and export.</p>
         </div>
-        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4">
-            <span class="text-violet-400 text-lg">&#9789;</span>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+            <h4 class="font-semibold text-white text-sm mb-2">ISO 748 Uncertainty</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Velocity-area method with per-point uncertainty. International standard compliant.</p>
           </div>
-          <h3 class="font-semibold text-white mb-2">Satellite Integration</h3>
-          <p class="text-sm text-white/40 leading-relaxed">Google Earth Engine for satellite data. Evapotranspiration estimation and watershed analysis.</p>
+          <div class="card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+            <h4 class="font-semibold text-white text-sm mb-2">Real-Time Hydro Data</h4>
+            <p class="text-xs text-white/40 leading-relaxed">HRFCO API integration. Water level, discharge monitoring, dam gate markers.</p>
+          </div>
+          <div class="card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+            <h4 class="font-semibold text-white text-sm mb-2">Baseflow Separation</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Automated direct/baseflow separation with visualization and export.</p>
+          </div>
+          <div class="card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+            <h4 class="font-semibold text-white text-sm mb-2">H-Q Rating Curves</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Stage-discharge relationship analysis and curve generation.</p>
+          </div>
+          <div class="card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+            <h4 class="font-semibold text-white text-sm mb-2">Satellite Imagery</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Google Earth Engine for evapotranspiration and watershed analysis.</p>
+          </div>
+          <div class="card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+            <h4 class="font-semibold text-white text-sm mb-2">PDF Reports</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Auto-generated measurement reports. Excel import/export.</p>
+          </div>
         </div>
-        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
-            <span class="text-orange-400 text-lg">&#9776;</span>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+            <span class="text-emerald-400 text-lg">&#9878;</span>
           </div>
-          <h3 class="font-semibold text-white mb-2">PDF Reports</h3>
-          <p class="text-sm text-white/40 leading-relaxed">Auto-generated measurement reports. Excel import/export for data interoperability.</p>
+          <div>
+            <h3 class="text-lg font-bold text-white">Groundwater Dam Site Selection</h3>
+            <p class="text-xs text-white/40">GIS analysis · 6 data layers · Auto-recommendation</p>
+          </div>
         </div>
-        <div class="feature-card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center mb-4">
-            <span class="text-rose-400 text-lg">&#9749;</span>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+            <h4 class="font-semibold text-white text-sm mb-2">Map-Based Exploration</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Click map or search to select area. Radius recommendation for optimal candidates.</p>
           </div>
-          <h3 class="font-semibold text-white mb-2">Mobile-Ready</h3>
-          <p class="text-sm text-white/40 leading-relaxed">Responsive design for field access. HTMX-powered interactions for fast, app-like experience.</p>
+          <div class="card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+            <h4 class="font-semibold text-white text-sm mb-2">6 Analysis Layers</h4>
+            <p class="text-xs text-white/40 leading-relaxed">DEM terrain, KIGAM geology, HRFCO hydrology, K-water facilities, drought index, regulatory zones.</p>
+          </div>
+          <div class="card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
+            <h4 class="font-semibold text-white text-sm mb-2">On-Site Decision</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Review results on-site, determine suitability instantly, initiate permitting.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="tech" class="py-20 px-6 border-t border-white/5">
+  <section id="data" class="py-20 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-cyan-400 font-medium mb-2">DATA</p>
+      <h2 class="text-2xl font-bold mb-10 text-white">Analysis Data Sources</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center">
+          <p class="text-xs text-white/30 mb-1">Terrain</p>
+          <p class="text-sm font-semibold text-white">DEM Elevation Model</p>
+        </div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center">
+          <p class="text-xs text-white/30 mb-1">Geology</p>
+          <p class="text-sm font-semibold text-white">KIGAM Geological Map</p>
+        </div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center">
+          <p class="text-xs text-white/30 mb-1">Hydrology</p>
+          <p class="text-sm font-semibold text-white">HRFCO Monitoring</p>
+        </div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center">
+          <p class="text-xs text-white/30 mb-1">Facilities</p>
+          <p class="text-sm font-semibold text-white">K-water Infrastructure</p>
+        </div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center">
+          <p class="text-xs text-white/30 mb-1">Disaster</p>
+          <p class="text-sm font-semibold text-white">Drought Vulnerability</p>
+        </div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center">
+          <p class="text-xs text-white/30 mb-1">Regulation</p>
+          <p class="text-sm font-semibold text-white">Regulatory Zone Data</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="verification" class="py-20 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-sm text-cyan-400 font-medium mb-2">VERIFICATION</p>
+      <h2 class="text-2xl font-bold mb-10 text-white">Proven Results</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 text-center">
+          <p class="text-3xl font-bold text-cyan-400 mb-2">71-83%</p>
+          <p class="text-sm text-white/40">Match rate with K-water actual sites</p>
+        </div>
+        <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 text-center">
+          <p class="text-3xl font-bold text-cyan-400 mb-2">30+</p>
+          <p class="text-sm text-white/40">Related SCI publications</p>
+        </div>
+        <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 text-center">
+          <p class="text-3xl font-bold text-cyan-400 mb-2">5,740</p>
+          <p class="text-sm text-white/40">River segments analyzed</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 px-6 border-t border-white/5">
     <div class="max-w-5xl mx-auto">
       <p class="text-sm text-cyan-400 font-medium mb-2">TECHNOLOGY</p>
       <h2 class="text-2xl font-bold mb-10 text-white">Tech Stack</h2>
-      <div class="grid md:grid-cols-2 gap-8">
+      <div class="grid md:grid-cols-4 gap-6">
         <div>
-          <h3 class="text-sm font-semibold text-white/70 mb-4">Backend</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Django 6.0</span>
-            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">PostgreSQL</span>
-            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Python 3.12</span>
+          <h3 class="text-xs font-semibold text-white/50 mb-3">Backend</h3>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-white/50">Django 6.0</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-white/50">PostgreSQL</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-white/50">Python 3.12</span>
           </div>
         </div>
         <div>
-          <h3 class="text-sm font-semibold text-white/70 mb-4">Frontend</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Chart.js</span>
-            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Alpine.js</span>
-            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">HTMX</span>
+          <h3 class="text-xs font-semibold text-white/50 mb-3">Frontend</h3>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-white/50">HTMX</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-white/50">Alpine.js</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-white/50">Chart.js</span>
           </div>
         </div>
         <div>
-          <h3 class="text-sm font-semibold text-white/70 mb-4">Data Science</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">NumPy / SciPy</span>
-            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">GeoPandas</span>
-            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Google Earth Engine</span>
+          <h3 class="text-xs font-semibold text-white/50 mb-3">Analysis</h3>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-white/50">NumPy / SciPy</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-white/50">GeoPandas</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-white/50">Earth Engine</span>
           </div>
         </div>
         <div>
-          <h3 class="text-sm font-semibold text-white/70 mb-4">Infrastructure</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">Railway</span>
-            <span class="text-sm px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/60">OAuth 2.0</span>
+          <h3 class="text-xs font-semibold text-white/50 mb-3">Infra</h3>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-white/50">Railway</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-white/50">OAuth 2.0</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="contact" class="py-20 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-sm text-cyan-400 font-medium mb-2">CONTACT</p>
-      <h2 class="text-2xl font-bold mb-4 text-white">Inquiries</h2>
-      <p class="text-white/40 mb-8">Need a similar analysis system or interested in customization? Let's talk.</p>
-      <div class="flex flex-wrap gap-3">
-        <a href="mailto:randomwalk1225@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">
-          randomwalk1225@gmail.com
-        </a>
-        <a href="https://github.com/randomwalk1225/reAA" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">
-          GitHub
-        </a>
+  <section class="py-20 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-2xl font-bold mb-4 text-white">Get Started</h2>
+      <p class="text-white/40 mb-8">Sign up and access all features for free.</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="https://www.hydrolink.app/accounts/login/?next=/" target="_blank" class="px-8 py-3 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-medium rounded-lg transition">Go to App</a>
+        <a href="https://www.hydrolink.app/groundwater/guide/" target="_blank" class="px-8 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">User Guide</a>
+        <a href="mailto:randomwalk1225@gmail.com" class="px-8 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">Contact</a>
       </div>
     </div>
   </section>
 
   <footer class="py-8 px-6 border-t border-white/5">
     <div class="max-w-5xl mx-auto flex items-center justify-between text-xs text-white/30">
-      <span>&copy; 2026 Binary</span>
+      <span>&copy; 2026 Binary · <a href="https://www.hydrolink.app" target="_blank" class="hover:text-white/50">hydrolink.app</a></span>
       <div class="flex gap-4">
+        <a href="https://github.com/randomwalk1225/reAA" target="_blank" class="hover:text-white/50 transition">GitHub</a>
         <a href="../../dev/en/" class="hover:text-white/50 transition">Portfolio</a>
         <a href="../kr/" class="hover:text-white/50 transition">&larr; Korean</a>
       </div>
