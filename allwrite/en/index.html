@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AllWrite 2.0 — Interactive Geometry & Graphing Tool</title>
-  <meta name="description" content="Interactive geometry construction and graphing tool for math education. Build points, lines, circles, and polygons in real-time with formula sync. Free download.">
-  <meta name="keywords" content="geometry tool, math education software, construction program, graphing tool, interactive math, GeoGebra alternative">
-  <meta property="og:title" content="AllWrite 2.0 — Interactive Geometry & Graphing Tool">
-  <meta property="og:description" content="Real-time geometry construction and graphing for math education. Free download.">
+  <title>AllWrite 2.0 — Interactive Math Notebook for Geometry & Graphing</title>
+  <meta name="description" content="Drag one point and every connected shape transforms in real-time. Geometry construction, function graphs, freehand writing — all on one canvas. Free download.">
+  <meta name="keywords" content="geometry tool, math education software, graphing tool, interactive math, GeoGebra alternative, math notebook, geometry construction">
+  <meta property="og:title" content="AllWrite 2.0 — Interactive Math Notebook">
+  <meta property="og:description" content="Drag one point, every shape follows. Free geometry & graphing tool.">
   <meta property="og:type" content="website">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://randomwalk1225.github.io/iwork/allwrite/en/">
@@ -18,18 +18,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] },
-          colors: { slate: { 925: '#0a0f1a' } }
-        }
-      }
+      theme: { extend: { fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] } } }
     }
   </script>
   <style>
     body { font-family: 'Pretendard Variable', system-ui, sans-serif; font-size: 22px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-    .tool-card { transition: transform 0.2s ease; }
-    .tool-card:hover { transform: translateY(-2px); }
+    .card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .screenshot { border-radius: 12px; border: 1px solid #e5e7eb; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
   </style>
   <script type="application/ld+json">
   {
@@ -38,146 +34,345 @@
     "name": "AllWrite 2.0",
     "applicationCategory": "Education",
     "operatingSystem": "Windows, macOS",
-    "description": "Interactive geometry construction and graphing tool for math education",
+    "description": "Interactive geometry construction, function graphing, and freehand writing tool for math education",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Binary" }
   }
   </script>
 </head>
-<body class="bg-slate-925 text-gray-100 antialiased">
+<body class="bg-gray-50 text-gray-900 antialiased">
 
-  <nav class="fixed top-0 w-full z-50 bg-slate-925/80 backdrop-blur-md border-b border-white/5">
+  <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60">
     <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-      <span class="text-sm font-semibold tracking-wide text-white/90">AllWrite 2.0</span>
+      <span class="text-sm font-bold tracking-wide text-gray-900">AllWrite 2.0</span>
       <div class="flex items-center gap-4">
-        <a href="#tools" class="text-sm text-white/60 hover:text-white/90 transition">Tools</a>
-        <a href="#download" class="text-sm text-white/60 hover:text-white/90 transition">Download</a>
-        <a href="#contact" class="text-sm text-white/60 hover:text-white/90 transition">Contact</a>
-        <a href="../kr/" class="text-sm px-3 py-1.5 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 transition">KR</a>
+        <a href="#features" class="text-base text-gray-600 hover:text-gray-900 transition">Features</a>
+        <a href="#tools" class="text-base text-gray-600 hover:text-gray-900 transition">Tools</a>
+        <a href="#download" class="text-base text-gray-600 hover:text-gray-900 transition">Download</a>
+        <a href="../kr/" class="text-sm px-3 py-1.5 rounded-full border border-gray-300 text-gray-500 hover:text-gray-900 transition">KR</a>
       </div>
     </div>
   </nav>
 
-  <section class="pt-32 pb-20 px-6">
+  <!-- Hero -->
+  <section class="pt-32 pb-16 px-6">
     <div class="max-w-5xl mx-auto">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
-        <span class="text-sm text-emerald-400 font-medium">v2.0 · Free</span>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 mb-6">
+        <span class="text-base text-emerald-700 font-medium">v2.0 · Free · Open Source</span>
       </div>
-      <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6 text-white">
-        Geometry construction<br>built for the classroom
+      <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6 text-gray-900">
+        Drag one point.<br>Every shape follows.
       </h1>
-      <p class="text-xl text-white/50 max-w-2xl leading-relaxed mb-6">
-        Construct points, lines, circles, and polygons in real-time.<br>
-        Drag a point and every connected shape transforms instantly.<br>
-        Formulas and graphs on the same canvas.
+      <p class="text-xl text-gray-600 max-w-2xl leading-relaxed mb-10">
+        Geometry construction, function graphs, and freehand writing — all on one canvas.<br>
+        A tool that lets you <em>see</em> math, not just read about it.
       </p>
-      <p class="text-base text-white/50 mb-10">React · TypeScript · Electron · Canvas</p>
       <div class="flex gap-3">
-        <a href="#download" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg transition">Download</a>
-        <a href="#tools" class="px-6 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">See Features</a>
+        <a href="#download" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-lg transition">Free Download</a>
+        <a href="#features" class="px-6 py-3 border border-gray-300 hover:border-gray-400 text-gray-700 text-sm font-semibold rounded-lg transition">Explore Features</a>
       </div>
     </div>
   </section>
 
-  <section class="py-16 px-6 border-t border-white/5">
+  <!-- Screenshots -->
+  <section class="pb-16 px-6">
     <div class="max-w-5xl mx-auto">
-      <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 md:p-10">
-        <p class="text-base text-emerald-400 font-medium mb-3">CORE</p>
-        <h2 class="text-xl font-bold text-white mb-4">Real-Time Point-Shape Sync</h2>
-        <p class="text-white/40 leading-relaxed max-w-2xl">
-          At the heart of AllWrite is <strong class="text-white/70">perfect 1:1 correspondence between points and shapes</strong>.
-          Drag any point and all connected lines, circles, and polygons transform in real-time.
-          Control position with the center point, size and rotation with the radius point.
-        </p>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <img src="../img/main-screen.png" alt="AllWrite 2.0 graphing" class="screenshot w-full" loading="lazy">
+          <p class="text-base text-gray-600 mt-3 text-center">Equation input → graph + auto intersection detection</p>
+        </div>
+        <div>
+          <img src="../img/geometry.png" alt="AllWrite 2.0 geometry tools" class="screenshot w-full" loading="lazy">
+          <p class="text-base text-gray-600 mt-3 text-center">Geometry tool panel + shape construction & fill</p>
+        </div>
+      </div>
+      <div class="mt-6 max-w-2xl mx-auto">
+        <img src="../img/pages.png" alt="AllWrite 2.0 multi-page" class="screenshot w-full" loading="lazy">
+        <p class="text-base text-gray-600 mt-3 text-center">Multi-page management + polygon selection & side count</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 mt-6">
+        <div>
+          <img src="../img/textbox.png" alt="AllWrite 2.0 textbox" class="screenshot w-full" loading="lazy">
+          <p class="text-base text-gray-600 mt-3 text-center">Text boxes — multiple sizes & colors</p>
+        </div>
+        <div>
+          <img src="../img/pen.png" alt="AllWrite 2.0 pen drawing" class="screenshot w-full" loading="lazy">
+          <p class="text-base text-gray-600 mt-3 text-center">Pen + highlighter freehand writing</p>
+        </div>
+        <div>
+          <img src="../img/capture.png" alt="AllWrite 2.0 capture" class="screenshot w-full" loading="lazy">
+          <p class="text-base text-gray-600 mt-3 text-center">Screen capture & PDF export</p>
+        </div>
+      </div>
+      <div class="mt-6 max-w-2xl mx-auto">
+        <img src="../img/desktop-write.png" alt="AllWrite 2.0 desktop writing" class="screenshot w-full" loading="lazy">
+        <p class="text-base text-gray-600 mt-3 text-center">Write directly on your desktop — transparent canvas mode</p>
       </div>
     </div>
   </section>
 
+  <!-- Core Innovation -->
+  <section id="features" class="py-16 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-base text-emerald-600 font-semibold mb-2">CORE</p>
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Real-Time Point-Shape Synchronization</h2>
+      <p class="text-base text-gray-600 leading-relaxed max-w-3xl mb-8">
+        At the heart of AllWrite is <strong class="text-gray-900">perfect 1:1 correspondence between points and shapes</strong>.
+        Drag a segment's endpoint and the segment follows. Drag a circle's center and the whole circle moves.
+        Create a midpoint — when either parent moves, the midpoint recalculates automatically.
+        Every connected shape updates in real-time, smoothly, simultaneously.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-gray-50 rounded-xl p-5">
+          <h3 class="font-bold text-gray-900 mb-2">Dependency Graph</h3>
+          <p class="text-base text-gray-600">Each shape tracks what it depends on. Change one point and every dependent shape cascades its update.</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-5">
+          <h3 class="font-bold text-gray-900 mb-2">Smooth Animation</h3>
+          <p class="text-base text-gray-600">Transformations are instant but never jerky. All shapes respond with real-time animation while you drag.</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-5">
+          <h3 class="font-bold text-gray-900 mb-2">Constraint Preservation</h3>
+          <p class="text-base text-gray-600">A rhombus stays a rhombus. A right triangle keeps its right angle. Geometric properties are preserved no matter how you drag.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Geometry Tools -->
   <section id="tools" class="py-20 px-6">
     <div class="max-w-5xl mx-auto">
-      <p class="text-base text-emerald-400 font-medium mb-2">TOOLS</p>
-      <h2 class="text-3xl font-bold mb-12 text-white">Geometry Tools</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
-          <span class="text-emerald-400 text-lg mb-3 block">&#8226;</span>
-          <h3 class="font-semibold text-white text-sm mb-2">Points</h3>
-          <p class="text-base text-white/60 leading-relaxed">Fixed, midpoint, division, constrained</p>
+      <p class="text-base text-emerald-600 font-semibold mb-2">GEOMETRY</p>
+      <h2 class="text-3xl font-bold mb-4 text-gray-900">20+ Geometry Tools</h2>
+      <p class="text-base text-gray-600 mb-10">5 point types, 3 line types, 3 circle types, 8+ polygon types. Every shape is controlled by points.</p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <div class="card bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-bold text-gray-900 mb-2">Points (5)</h3>
+          <p class="text-base text-gray-600">Fixed, slider, midpoint, division point (m:n ratio), constrained (on line/circle)</p>
         </div>
-        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
-          <span class="text-blue-400 text-lg mb-3 block">&#9135;</span>
-          <h3 class="font-semibold text-white text-sm mb-2">Lines</h3>
-          <p class="text-base text-white/60 leading-relaxed">Segment, ray, line, real-time transform</p>
+        <div class="card bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-bold text-gray-900 mb-2">Lines (3)</h3>
+          <p class="text-base text-gray-600">Segment, ray, infinite line. Drag endpoints for real-time transform.</p>
         </div>
-        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
-          <span class="text-violet-400 text-lg mb-3 block">&#9675;</span>
-          <h3 class="font-semibold text-white text-sm mb-2">Circles</h3>
-          <p class="text-base text-white/60 leading-relaxed">Center-radius, diameter, three-point</p>
+        <div class="card bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-bold text-gray-900 mb-2">Circles (3)</h3>
+          <p class="text-base text-gray-600">Center-radius, diameter, three-point circle. Drag to resize/reposition.</p>
         </div>
-        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
-          <span class="text-orange-400 text-lg mb-3 block">&#11040;</span>
-          <h3 class="font-semibold text-white text-sm mb-2">Polygons</h3>
-          <p class="text-base text-white/60 leading-relaxed">Regular (3-12), rectangle, parallelogram, rhombus, kite</p>
+        <div class="card bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-bold text-gray-900 mb-2">Polygons (8+)</h3>
+          <p class="text-base text-gray-600">Regular 3-12, rectangle, square, parallelogram, rhombus, kite, right triangle, free polygon</p>
         </div>
       </div>
 
-      <h3 class="text-lg font-bold mt-12 mb-6 text-white">Canvas & Features</h3>
-      <div class="grid md:grid-cols-3 gap-4">
-        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
-          <h3 class="font-semibold text-white text-sm mb-2">Infinite Canvas</h3>
-          <p class="text-base text-white/60 leading-relaxed">Pan/zoom, coordinate plane, grid, axis display</p>
-        </div>
-        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
-          <h3 class="font-semibold text-white text-sm mb-2">Formulas & Graphs</h3>
-          <p class="text-base text-white/60 leading-relaxed">KaTeX formula rendering, function graphs</p>
-        </div>
-        <div class="tool-card bg-white/[0.03] border border-white/[0.06] rounded-xl p-5">
-          <h3 class="font-semibold text-white text-sm mb-2">Freehand Drawing</h3>
-          <p class="text-base text-white/60 leading-relaxed">Pen, eraser, selection (rect/lasso), copy/paste</p>
+      <div class="bg-white border border-gray-200 rounded-2xl p-6">
+        <h3 class="font-bold text-gray-900 mb-4">Special Polygons — geometric properties are always preserved</h3>
+        <div class="grid md:grid-cols-3 gap-4 text-base">
+          <div>
+            <p class="font-semibold text-gray-700 mb-1">Rectangle</p>
+            <p class="text-gray-600">Defined by diagonal endpoints. 90° angles maintained no matter how you drag.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-700 mb-1">Rhombus</p>
+            <p class="text-gray-600">Defined by diagonal. All four sides always equal length.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-700 mb-1">Right Triangle</p>
+            <p class="text-gray-600">Defined by hypotenuse endpoints. The right angle is always preserved.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="download" class="py-20 px-6 border-t border-white/5">
+  <!-- Graphing -->
+  <section class="py-20 px-6 bg-white">
     <div class="max-w-5xl mx-auto">
-      <p class="text-base text-emerald-400 font-medium mb-2">DOWNLOAD</p>
-      <h2 class="text-3xl font-bold mb-10 text-white">Get AllWrite</h2>
-      <div class="grid md:grid-cols-2 gap-6 max-w-2xl">
-        <a href="https://github.com/randomwalk1225/allwrite/releases" target="_blank" class="block bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 hover:bg-white/[0.05] transition">
-          <h3 class="font-semibold text-white mb-2">Windows</h3>
-          <p class="text-base text-white/60">.exe installer</p>
-        </a>
-        <a href="https://github.com/randomwalk1225/allwrite/releases" target="_blank" class="block bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 hover:bg-white/[0.05] transition">
-          <h3 class="font-semibold text-white mb-2">macOS</h3>
-          <p class="text-base text-white/60">.dmg file</p>
-        </a>
+      <p class="text-base text-emerald-600 font-semibold mb-2">GRAPHING</p>
+      <h2 class="text-3xl font-bold mb-4 text-gray-900">Type an equation. See the graph instantly.</h2>
+      <p class="text-base text-gray-600 mb-10">Beautiful LaTeX-rendered formulas via KaTeX, converted to graphs in real-time.</p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="card bg-gray-50 border border-gray-200 rounded-xl p-5">
+          <p class="text-base text-emerald-600 font-medium mb-1">Cartesian</p>
+          <p class="font-bold text-gray-900 mb-1">y = f(x)</p>
+          <p class="text-base text-gray-600">y = x², y = sin(x), etc. Auto discontinuity detection.</p>
+        </div>
+        <div class="card bg-gray-50 border border-gray-200 rounded-xl p-5">
+          <p class="text-base text-emerald-600 font-medium mb-1">Parametric</p>
+          <p class="font-bold text-gray-900 mb-1">x(t), y(t)</p>
+          <p class="text-base text-gray-600">x = cos(t), y = sin(t) and other parametric curves.</p>
+        </div>
+        <div class="card bg-gray-50 border border-gray-200 rounded-xl p-5">
+          <p class="text-base text-emerald-600 font-medium mb-1">Polar</p>
+          <p class="font-bold text-gray-900 mb-1">r(θ)</p>
+          <p class="text-base text-gray-600">Spirals, rose curves. Auto Cartesian conversion.</p>
+        </div>
+        <div class="card bg-gray-50 border border-gray-200 rounded-xl p-5">
+          <p class="text-base text-emerald-600 font-medium mb-1">Implicit</p>
+          <p class="font-bold text-gray-900 mb-1">f(x, y) = 0</p>
+          <p class="text-base text-gray-600">x² + y² = 1 and other implicit curves. Marching Squares algorithm.</p>
+        </div>
+        <div class="card bg-gray-50 border border-gray-200 rounded-xl p-5">
+          <p class="text-base text-emerald-600 font-medium mb-1">Inequalities</p>
+          <p class="font-bold text-gray-900 mb-1">y > f(x)</p>
+          <p class="text-base text-gray-600">Shaded solution regions for visual understanding.</p>
+        </div>
+        <div class="card bg-gray-50 border border-gray-200 rounded-xl p-5">
+          <p class="text-base text-emerald-600 font-medium mb-1">Auto Intersections</p>
+          <p class="font-bold text-gray-900 mb-1">Detected & marked</p>
+          <p class="text-base text-gray-600">Function intersections, x/y-intercepts found and displayed automatically.</p>
+        </div>
       </div>
-      <p class="text-base text-white/50 mt-4">MIT License · Free · Open source on GitHub</p>
     </div>
   </section>
 
-  <section id="contact" class="py-20 px-6 border-t border-white/5">
+  <!-- Drawing & Canvas -->
+  <section class="py-20 px-6">
     <div class="max-w-5xl mx-auto">
-      <p class="text-base text-emerald-400 font-medium mb-2">CONTACT</p>
-      <h2 class="text-3xl font-bold mb-4 text-white">Get in Touch</h2>
-      <p class="text-white/40 mb-8">Feature requests, bug reports, or institutional licensing inquiries welcome.</p>
+      <p class="text-base text-emerald-600 font-semibold mb-2">CANVAS</p>
+      <h2 class="text-3xl font-bold mb-4 text-gray-900">An infinite math notebook</h2>
+      <p class="text-base text-gray-600 mb-10">Geometry, graphs, writing, and text — all in one space. Multi-page project support.</p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="font-bold text-gray-900 mb-4">Writing Tools</h3>
+          <div class="space-y-3">
+            <div class="card bg-white border border-gray-200 rounded-xl p-4">
+              <p class="font-semibold text-gray-900">Pen</p>
+              <p class="text-base text-gray-600">Natural brush strokes. Krita-style stabilizer (4 modes). Custom color & thickness.</p>
+            </div>
+            <div class="card bg-white border border-gray-200 rounded-xl p-4">
+              <p class="font-semibold text-gray-900">Highlighter</p>
+              <p class="text-base text-gray-600">Translucent overlay. Multiply blending when strokes overlap.</p>
+            </div>
+            <div class="card bg-white border border-gray-200 rounded-xl p-4">
+              <p class="font-semibold text-gray-900">Eraser & Text</p>
+              <p class="text-base text-gray-600">Selective deletion, text annotations. Geometry objects stay intact.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-bold text-gray-900 mb-4">Canvas Features</h3>
+          <div class="space-y-3">
+            <div class="card bg-white border border-gray-200 rounded-xl p-4">
+              <p class="font-semibold text-gray-900">Infinite Canvas</p>
+              <p class="text-base text-gray-600">Unlimited space. Space+drag to pan, scroll to zoom. Toggle grid/axes.</p>
+            </div>
+            <div class="card bg-white border border-gray-200 rounded-xl p-4">
+              <p class="font-semibold text-gray-900">Multi-Page</p>
+              <p class="text-base text-gray-600">Ctrl+T for new page. Each page keeps its own equations, shapes, drawings, and view.</p>
+            </div>
+            <div class="card bg-white border border-gray-200 rounded-xl p-4">
+              <p class="font-semibold text-gray-900">Select & Edit</p>
+              <p class="text-base text-gray-600">Click/rectangle/lasso selection. Copy/paste, undo/redo. Paste images from clipboard.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison -->
+  <section class="py-16 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-base text-emerald-600 font-semibold mb-2">COMPARISON</p>
+      <h2 class="text-3xl font-bold mb-8 text-gray-900">Why AllWrite</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-base">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="text-left py-3 pr-4 text-gray-500 font-medium"></th>
+              <th class="text-center py-3 px-4 text-emerald-600 font-bold">AllWrite 2.0</th>
+              <th class="text-center py-3 px-4 text-gray-500 font-medium">GeoGebra</th>
+              <th class="text-center py-3 px-4 text-gray-500 font-medium">Desmos</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-600">
+            <tr class="border-b border-gray-100">
+              <td class="py-3 pr-4 font-medium text-gray-900">Real-time point-shape sync</td>
+              <td class="text-center py-3 px-4 text-emerald-600 font-bold">&#10003;</td>
+              <td class="text-center py-3 px-4">Partial</td>
+              <td class="text-center py-3 px-4">&#10005;</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3 pr-4 font-medium text-gray-900">Freehand writing (pen/highlighter)</td>
+              <td class="text-center py-3 px-4 text-emerald-600 font-bold">&#10003;</td>
+              <td class="text-center py-3 px-4">Limited</td>
+              <td class="text-center py-3 px-4">&#10005;</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3 pr-4 font-medium text-gray-900">Offline desktop app</td>
+              <td class="text-center py-3 px-4 text-emerald-600 font-bold">&#10003;</td>
+              <td class="text-center py-3 px-4">&#10003;</td>
+              <td class="text-center py-3 px-4">&#10005;</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3 pr-4 font-medium text-gray-900">Multi-page projects</td>
+              <td class="text-center py-3 px-4 text-emerald-600 font-bold">&#10003;</td>
+              <td class="text-center py-3 px-4">&#10005;</td>
+              <td class="text-center py-3 px-4">&#10005;</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3 pr-4 font-medium text-gray-900">Brush stabilizer (4 modes)</td>
+              <td class="text-center py-3 px-4 text-emerald-600 font-bold">&#10003;</td>
+              <td class="text-center py-3 px-4">&#10005;</td>
+              <td class="text-center py-3 px-4">&#10005;</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium text-gray-900">Free & open source</td>
+              <td class="text-center py-3 px-4 text-emerald-600 font-bold">MIT</td>
+              <td class="text-center py-3 px-4">Partial</td>
+              <td class="text-center py-3 px-4">Free</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section id="download" class="py-20 px-6">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="text-base text-emerald-600 font-semibold mb-2">DOWNLOAD</p>
+      <h2 class="text-3xl font-bold mb-4 text-gray-900">Get AllWrite — it's free</h2>
+      <p class="text-base text-gray-600 mb-8">Install and start immediately. No account needed. Free forever.</p>
+      <div class="grid md:grid-cols-2 gap-6 max-w-lg mx-auto">
+        <a href="https://github.com/randomwalk1225/allwrite/releases" target="_blank" class="card block bg-white border border-gray-200 rounded-2xl p-6 text-center hover:border-emerald-300 transition">
+          <p class="text-2xl mb-2">&#128187;</p>
+          <h3 class="font-bold text-gray-900 mb-1">Windows</h3>
+          <p class="text-base text-gray-600">.exe installer</p>
+        </a>
+        <a href="https://github.com/randomwalk1225/allwrite/releases" target="_blank" class="card block bg-white border border-gray-200 rounded-2xl p-6 text-center hover:border-emerald-300 transition">
+          <p class="text-2xl mb-2">&#128188;</p>
+          <h3 class="font-bold text-gray-900 mb-1">macOS</h3>
+          <p class="text-base text-gray-600">.dmg (Apple Silicon / Intel)</p>
+        </a>
+      </div>
+      <p class="text-base text-gray-500 mt-6">MIT License · Open Source · <a href="https://github.com/randomwalk1225/allwrite" target="_blank" class="text-emerald-600 hover:underline">View source on GitHub</a></p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="py-16 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-base text-emerald-600 font-semibold mb-2">CONTACT</p>
+      <h2 class="text-3xl font-bold mb-4 text-gray-900">Get in Touch</h2>
+      <p class="text-base text-gray-600 mb-6">Feature requests, bug reports, or institutional licensing inquiries welcome.</p>
       <div class="flex flex-wrap gap-3">
-        <a href="mailto:randomwalk1225@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">
-          randomwalk1225@gmail.com
-        </a>
-        <a href="https://github.com/randomwalk1225/allwrite" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">
-          GitHub
-        </a>
+        <a href="mailto:randomwalk1225@gmail.com" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 border border-gray-200 rounded-lg text-sm text-gray-700 font-medium transition">randomwalk1225@gmail.com</a>
+        <a href="https://github.com/randomwalk1225/allwrite" target="_blank" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 border border-gray-200 rounded-lg text-sm text-gray-700 font-medium transition">GitHub</a>
       </div>
     </div>
   </section>
 
-  <footer class="py-8 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto flex items-center justify-between text-base text-white/50">
+  <footer class="py-8 px-6 border-t border-gray-200">
+    <div class="max-w-5xl mx-auto flex items-center justify-between text-base text-gray-500">
       <span>&copy; 2026 Binary</span>
       <div class="flex gap-4">
-        <a href="../../dev/en/" class="hover:text-white/50 transition">Portfolio</a>
-        <a href="../kr/" class="hover:text-white/50 transition">&larr; Korean</a>
+        <a href="../../dev/en/" class="hover:text-gray-600 transition">Portfolio</a>
+        <a href="../kr/" class="hover:text-gray-600 transition">&larr; Korean</a>
       </div>
     </div>
   </footer>
