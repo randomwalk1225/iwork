@@ -144,10 +144,81 @@
     <div class="max-w-5xl mx-auto">
       <p class="text-sm text-sky-400 font-medium mb-2">CONTACT</p>
       <h2 class="text-2xl font-bold mb-4 text-white">Get Started</h2>
-      <p class="text-white/40 mb-8">Interested in a trial lesson or have questions? Send me an email.<br>I'll reply within 24 hours.</p>
-      <a href="mailto:randomwalk1225@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">
-        randomwalk1225@gmail.com
-      </a>
+      <p class="text-white/40 mb-8">Fill out the form below or message me on KakaoTalk.<br>I'll reply within 24 hours.</p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <h3 class="font-semibold text-white text-base mb-4">Consultation Request</h3>
+          <form action="https://formspree.io/f/randomwalk1225@gmail.com" method="POST" class="space-y-4">
+            <div>
+              <label class="block text-sm text-white/50 mb-1">Name / Student Name</label>
+              <input type="text" name="name" required class="w-full px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white text-sm placeholder-white/30 focus:outline-none focus:border-sky-500/50 transition" placeholder="John Doe">
+            </div>
+            <div>
+              <label class="block text-sm text-white/50 mb-1">Contact (Email or KakaoTalk ID)</label>
+              <input type="text" name="contact" required class="w-full px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white text-sm placeholder-white/30 focus:outline-none focus:border-sky-500/50 transition" placeholder="email@example.com or KakaoTalk ID">
+            </div>
+            <div>
+              <label class="block text-sm text-white/50 mb-1">Subject of Interest</label>
+              <select name="subject" class="w-full px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white text-sm focus:outline-none focus:border-sky-500/50 transition">
+                <option value="SAT Math" class="bg-slate-900">SAT Math</option>
+                <option value="AP Calculus" class="bg-slate-900">AP Calculus AB/BC</option>
+                <option value="AP Statistics" class="bg-slate-900">AP Statistics</option>
+                <option value="IB Mathematics" class="bg-slate-900">IB Mathematics</option>
+                <option value="Other" class="bg-slate-900">Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm text-white/50 mb-1">Location / Time Zone</label>
+              <input type="text" name="timezone" class="w-full px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white text-sm placeholder-white/30 focus:outline-none focus:border-sky-500/50 transition" placeholder="e.g. LA (PST), Singapore (SGT)">
+            </div>
+            <div>
+              <label class="block text-sm text-white/50 mb-1">Message (optional)</label>
+              <textarea name="message" rows="3" class="w-full px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white text-sm placeholder-white/30 focus:outline-none focus:border-sky-500/50 transition resize-none" placeholder="Any questions or details you'd like to share"></textarea>
+            </div>
+            <button type="submit" class="w-full py-3 bg-sky-600 hover:bg-sky-500 text-white text-sm font-medium rounded-lg transition">Request Consultation</button>
+          </form>
+        </div>
+
+        <div class="space-y-4">
+          <a href="https://open.kakao.com/o/randomwalk12" target="_blank" class="block bg-amber-400/10 border border-amber-400/20 rounded-2xl p-6 hover:bg-amber-400/15 transition">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-400/20 flex items-center justify-center">
+                <span class="text-amber-400 text-lg font-bold">K</span>
+              </div>
+              <div>
+                <h3 class="font-semibold text-white">KakaoTalk</h3>
+                <p class="text-sm text-white/40">Fastest way to reach me</p>
+              </div>
+            </div>
+            <p class="text-base text-amber-400 font-medium">ID: randomwalk12</p>
+            <p class="text-sm text-white/40 mt-2">Search for this ID on KakaoTalk and send a message.</p>
+          </a>
+
+          <a href="mailto:randomwalk1225@gmail.com" class="block bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 hover:bg-white/[0.05] transition">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-xl bg-white/[0.06] flex items-center justify-center">
+                <span class="text-white/60 text-lg">@</span>
+              </div>
+              <div>
+                <h3 class="font-semibold text-white">Email</h3>
+                <p class="text-sm text-white/40">For detailed inquiries</p>
+              </div>
+            </div>
+            <p class="text-base text-white/70">randomwalk1225@gmail.com</p>
+          </a>
+
+          <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
+            <h3 class="font-semibold text-white mb-3">Available Time Zones</h3>
+            <div class="space-y-2 text-sm text-white/40">
+              <p>West Coast (PST): 5 PM - 10 PM</p>
+              <p>East Coast (EST): 8 PM - 1 AM</p>
+              <p>Asia (SGT/KST): 9 AM - 2 PM</p>
+            </div>
+            <p class="text-sm text-white/30 mt-3">* Schedule can be adjusted to fit the student</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
