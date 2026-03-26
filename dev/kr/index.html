@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>소프트웨어 개발 포트폴리오 | 교육 + 자동화 전문</title>
-  <meta name="description" content="교육 플랫폼, 콘텐츠 자동화, 웹 애플리케이션 개발. 실제 운영 중인 서비스를 직접 만드는 개발자.">
+  <title>소프트웨어 개발 포트폴리오 | 교육 + 수자원 전문</title>
+  <meta name="description" content="교육 도구, 수자원 분석 플랫폼, 웹 애플리케이션 개발. 실제 운영 중인 서비스를 직접 만드는 개발자.">
   <meta property="og:title" content="소프트웨어 개발 포트폴리오">
-  <meta property="og:description" content="교육 플랫폼, 콘텐츠 자동화, 웹 애플리케이션 개발">
+  <meta property="og:description" content="교육 도구, 수자원 분석 플랫폼, 웹 애플리케이션 개발">
   <meta property="og:type" content="website">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://randomwalk1225.github.io/iwork/dev/kr/">
@@ -17,32 +17,24 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] },
-          colors: {
-            slate: { 925: '#0a0f1a' }
-          }
-        }
-      }
+      theme: { extend: { fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] } } }
     }
   </script>
   <style>
     body { font-family: 'Pretendard Variable', system-ui, sans-serif; font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+    .card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
   </style>
 </head>
-<body class="bg-slate-925 text-gray-100 antialiased">
+<body class="bg-gray-50 text-gray-900 antialiased">
 
-  <!-- Nav -->
-  <nav class="fixed top-0 w-full z-50 bg-slate-925/80 backdrop-blur-md border-b border-white/5">
+  <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60">
     <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-      <span class="text-sm font-semibold tracking-wide text-white/90">DEV PORTFOLIO</span>
+      <span class="text-sm font-bold tracking-wide text-gray-900">DEV PORTFOLIO</span>
       <div class="flex items-center gap-4">
-        <a href="#projects" class="text-sm text-white/60 hover:text-white/90 transition">프로젝트</a>
-        <a href="#contact" class="text-sm text-white/60 hover:text-white/90 transition">연락</a>
-        <a href="../en/" class="text-xs px-3 py-1.5 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 transition">EN</a>
+        <a href="#projects" class="text-sm text-gray-500 hover:text-gray-900 transition">프로젝트</a>
+        <a href="#contact" class="text-sm text-gray-500 hover:text-gray-900 transition">연락</a>
+        <a href="../en/" class="text-xs px-3 py-1.5 rounded-full border border-gray-300 text-gray-500 hover:text-gray-900 hover:border-gray-400 transition">EN</a>
       </div>
     </div>
   </nav>
@@ -50,160 +42,154 @@
   <!-- Hero -->
   <section class="pt-32 pb-20 px-6">
     <div class="max-w-5xl mx-auto">
-      <p class="text-sm text-indigo-400 font-medium mb-4">교육 x 자동화 x 웹 개발</p>
-      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
+      <p class="text-sm text-blue-600 font-semibold mb-4">교육 x 수자원 x 웹 개발</p>
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6 text-gray-900">
         실제 운영하는 서비스를<br>직접 만듭니다
       </h1>
-      <p class="text-lg text-white/50 max-w-2xl leading-relaxed mb-10">
-        학원 관리 시스템, 수학 교육 도구, 콘텐츠 자동화 엔진 등<br>
+      <p class="text-lg text-gray-500 max-w-2xl leading-relaxed mb-10">
+        수학 교육 도구, 수문 분석 플랫폼, 온라인 시험 시스템 등<br>
         현장에서 매일 사용하는 소프트웨어를 설계하고 개발합니다.
       </p>
       <div class="flex gap-3">
-        <a href="#projects" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-lg transition">프로젝트 보기</a>
-        <a href="#contact" class="px-6 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">문의하기</a>
+        <a href="#projects" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition">프로젝트 보기</a>
+        <a href="#contact" class="px-6 py-3 border border-gray-300 hover:border-gray-400 text-gray-700 text-sm font-semibold rounded-lg transition">문의하기</a>
       </div>
     </div>
   </section>
 
   <!-- Projects -->
-  <section id="projects" class="py-20 px-6">
+  <section id="projects" class="py-20 px-6 bg-white">
     <div class="max-w-5xl mx-auto">
-      <p class="text-sm text-indigo-400 font-medium mb-2">PROJECTS</p>
-      <h2 class="text-2xl font-bold mb-12 text-white">만든 것들</h2>
+      <p class="text-sm text-blue-600 font-semibold mb-2">PROJECTS</p>
+      <h2 class="text-2xl font-bold mb-12 text-gray-900">만든 것들</h2>
 
       <div class="grid md:grid-cols-2 gap-6">
 
-        <!-- AllWrite -->
-        <div class="card-hover bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+        <a href="../../allwrite/kr/" class="card block bg-white border border-gray-200 rounded-2xl p-6">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-              <span class="text-emerald-400 text-lg">&#9651;</span>
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+              <span class="text-emerald-600 text-lg font-bold">A</span>
             </div>
             <div>
-              <h3 class="font-semibold text-white">AllWrite 2.0</h3>
-              <p class="text-xs text-white/40">수학 교육 도구</p>
+              <h3 class="font-bold text-gray-900">AllWrite 2.0</h3>
+              <p class="text-sm text-gray-400">필기 & 기하학 도구</p>
             </div>
           </div>
-          <p class="text-sm text-white/50 leading-relaxed mb-4">
-            인터랙티브 기하학 & 그래핑 도구. 점, 선, 원, 다각형을 실시간으로 작도하고
-            수식 입력과 그래프를 동기화. 수학 수업에서 매일 사용 중.
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">
+            인터랙티브 기하학 작도 및 그래핑 도구. 점, 선, 원, 다각형을 실시간으로 작도하고
+            수식과 그래프를 동기화. 수학 수업에서 매일 사용 중.
           </p>
           <div class="flex flex-wrap gap-2">
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">React</span>
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">TypeScript</span>
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Canvas</span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 font-medium">React</span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 font-medium">TypeScript</span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 font-medium">Electron</span>
           </div>
-        </div>
+        </a>
 
-        <!-- MyClass -->
-        <div class="card-hover bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+        <div class="card bg-white border border-gray-200 rounded-2xl p-6">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
-              <span class="text-blue-400 text-lg">&#9635;</span>
+            <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center">
+              <span class="text-orange-600 text-lg font-bold">P</span>
             </div>
             <div>
-              <h3 class="font-semibold text-white">MyClass</h3>
-              <p class="text-xs text-white/40">학원 관리 시스템</p>
+              <h3 class="font-bold text-gray-900">PPT Glyph Fixer</h3>
+              <p class="text-sm text-gray-400">이미지형 PPT 글자 수정</p>
             </div>
           </div>
-          <p class="text-sm text-white/50 leading-relaxed mb-4">
-            출석 관리, 회비 청구, 매출 통계, 안내문 생성까지.
-            선불/후불/횟수제 다양한 결제 방식을 지원하는 학원 전용 관리 시스템.
-          </p>
-          <div class="flex flex-wrap gap-2">
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Django</span>
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Python</span>
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">PostgreSQL</span>
-          </div>
-        </div>
-
-        <!-- Content Engine -->
-        <div class="card-hover bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
-              <span class="text-purple-400 text-lg">&#9881;</span>
-            </div>
-            <div>
-              <h3 class="font-semibold text-white">Content Engine</h3>
-              <p class="text-xs text-white/40">콘텐츠 자동화</p>
-            </div>
-          </div>
-          <p class="text-sm text-white/50 leading-relaxed mb-4">
-            AI 기반 콘텐츠 생성부터 멀티플랫폼 배포까지 자동화.
-            영상 배경, 오디오, 썸네일, SEO 메타데이터를 파이프라인으로 처리.
-          </p>
-          <div class="flex flex-wrap gap-2">
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Django</span>
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Celery</span>
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">FFmpeg</span>
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">AI</span>
-          </div>
-        </div>
-
-        <!-- PPT Glyph Fixer -->
-        <div class="card-hover bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center">
-              <span class="text-orange-400 text-lg">&#9998;</span>
-            </div>
-            <div>
-              <h3 class="font-semibold text-white">PPT Glyph Fixer</h3>
-              <p class="text-xs text-white/40">문서 도구</p>
-            </div>
-          </div>
-          <p class="text-sm text-white/50 leading-relaxed mb-4">
-            NotebookLM이 생성한 PPT의 깨진 글리프를 자동 수정하는 웹 기반 슬라이드 에디터.
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">
+            이미지로 구성된 PPT 슬라이드의 깨진 글리프를 자동 수정하는 웹 기반 에디터.
             브라우저에서 바로 수정하고 다운로드.
           </p>
           <div class="flex flex-wrap gap-2">
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">JavaScript</span>
-            <span class="text-xs px-2 py-1 rounded-full bg-white/[0.06] text-white/50">Web</span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 font-medium">JavaScript</span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 font-medium">Web</span>
           </div>
         </div>
+
+        <a href="https://www.hydrolink.app" target="_blank" class="card block bg-white border border-gray-200 rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-cyan-50 flex items-center justify-center">
+              <span class="text-cyan-600 text-lg font-bold">H</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-900">HydroLink</h3>
+              <p class="text-sm text-gray-400">수문분석 웹사이트</p>
+            </div>
+            <span class="ml-auto text-xs px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-600 font-medium">운영 중</span>
+          </div>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">
+            ISO 748 유량측정 불확도 분석, 실시간 수문 데이터 연동,
+            지하수저류댐 적지선정까지. 현장에서 바로 분석하는 수자원 플랫폼.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 font-medium">Django</span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 font-medium">PostgreSQL</span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 font-medium">GIS</span>
+          </div>
+        </a>
+
+        <a href="../../pyquiz/kr/" class="card block bg-white border border-gray-200 rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
+              <span class="text-amber-600 text-lg font-bold">Q</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-900">PyQuiz</h3>
+              <p class="text-sm text-gray-400">온라인 문제은행</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">
+            객관식, 주관식, 서술형, 수학 문제를 지원하는 온라인 시험 플랫폼.
+            시간제한 시험, 자동 채점, 성적 관리까지.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 font-medium">Ruby on Rails</span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 font-medium">Hotwire</span>
+          </div>
+        </a>
 
       </div>
     </div>
   </section>
 
   <!-- Approach -->
-  <section class="py-20 px-6 border-t border-white/5">
+  <section class="py-20 px-6">
     <div class="max-w-5xl mx-auto">
-      <p class="text-sm text-indigo-400 font-medium mb-2">APPROACH</p>
-      <h2 class="text-2xl font-bold mb-10 text-white">개발 방식</h2>
+      <p class="text-sm text-blue-600 font-semibold mb-2">APPROACH</p>
+      <h2 class="text-2xl font-bold mb-10 text-gray-900">개발 방식</h2>
       <div class="grid md:grid-cols-3 gap-8">
         <div>
-          <h3 class="font-semibold text-white mb-2">현장 중심</h3>
-          <p class="text-sm text-white/40 leading-relaxed">직접 운영하는 사업에서 나온 문제를 해결합니다. 상상이 아닌 실제 필요에서 출발.</p>
+          <h3 class="font-bold text-gray-900 mb-2">현장 중심</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">직접 운영하는 사업에서 나온 문제를 해결합니다. 상상이 아닌 실제 필요에서 출발.</p>
         </div>
         <div>
-          <h3 class="font-semibold text-white mb-2">교체 가능한 설계</h3>
-          <p class="text-sm text-white/40 leading-relaxed">특정 기술에 종속되지 않는 구조. AI 서비스, API가 바뀌어도 1줄 수정으로 교체.</p>
+          <h3 class="font-bold text-gray-900 mb-2">교체 가능한 설계</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">특정 기술에 종속되지 않는 구조. AI 서비스, API가 바뀌어도 1줄 수정으로 교체.</p>
         </div>
         <div>
-          <h3 class="font-semibold text-white mb-2">점진적 자동화</h3>
-          <p class="text-sm text-white/40 leading-relaxed">수동으로 1건 검증 후 자동화. 작동하는 최소 단위부터 확장.</p>
+          <h3 class="font-bold text-gray-900 mb-2">점진적 자동화</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">수동으로 1건 검증 후 자동화. 작동하는 최소 단위부터 확장.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="py-20 px-6 border-t border-white/5">
+  <section id="contact" class="py-20 px-6 bg-white">
     <div class="max-w-5xl mx-auto">
-      <p class="text-sm text-indigo-400 font-medium mb-2">CONTACT</p>
-      <h2 class="text-2xl font-bold mb-4 text-white">프로젝트 문의</h2>
-      <p class="text-white/40 mb-8">개발이 필요한 프로젝트가 있으시면 편하게 연락주세요.</p>
-      <a href="mailto:randomwalk1225@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">
+      <p class="text-sm text-blue-600 font-semibold mb-2">CONTACT</p>
+      <h2 class="text-2xl font-bold mb-4 text-gray-900">프로젝트 문의</h2>
+      <p class="text-gray-500 mb-8">개발이 필요한 프로젝트가 있으시면 편하게 연락주세요.</p>
+      <a href="mailto:randomwalk1225@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 border border-gray-200 rounded-lg text-sm text-gray-700 font-medium transition">
         randomwalk1225@gmail.com
       </a>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="py-8 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto flex items-center justify-between text-sm text-white/30">
+  <footer class="py-8 px-6 border-t border-gray-200">
+    <div class="max-w-5xl mx-auto flex items-center justify-between text-sm text-gray-400">
       <span>&copy; 2026</span>
-      <a href="../en/" class="hover:text-white/50 transition">English version &rarr;</a>
+      <a href="../en/" class="hover:text-gray-600 transition">English version &rarr;</a>
     </div>
   </footer>
 
