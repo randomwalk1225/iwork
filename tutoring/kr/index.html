@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>해외 온라인 수학 과외 | SAT AP IB 수학 전문</title>
-  <meta name="description" content="강남 학원 출신 강사의 해외 온라인 수학 과외. SAT, AP, IB 수학 전문. 미국, 캐나다, 싱가포르, 중국 등 6개국 학생 지도 중.">
-  <meta name="keywords" content="해외 온라인 수학 과외, SAT 수학 과외, AP 수학 과외, IB 수학 과외, 해외 한인 학생 수학, 온라인 수학 강사">
-  <meta property="og:title" content="해외 온라인 수학 과외 | SAT AP IB 전문">
-  <meta property="og:description" content="강남 학원 출신 강사의 해외 온라인 수학 과외. 6개국 학생 지도 중.">
+  <title>해외 한인 학생 온라인 수학 과외 | SAT·AP·IB 1:1 전문</title>
+  <meta name="description" content="한국어로 개념 설명, 영어 시험 완벽 대비. SAT, AP Calculus, AP Statistics, IB Math 1:1 맞춤 온라인 수업. 미국·캐나다·싱가포르 등 6개국 학생 지도 중. 무료 진단테스트.">
+  <meta name="keywords" content="해외 온라인 수학 과외, SAT 수학 과외, AP 수학 과외, IB 수학 과외, 해외 한인 학생 수학, 유학생 수학 과외, 한국어 수학 수업, Digital SAT 수학, AP Calculus 과외, 1:1 맞춤 수학">
+  <meta property="og:title" content="해외 한인 학생 온라인 수학 과외 | SAT·AP·IB 1:1">
+  <meta property="og:description" content="한국어로 개념, 영어로 시험. 무료 진단테스트로 시작하세요.">
   <meta property="og:type" content="website">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://randomwalk1225.github.io/iwork/tutoring/kr/">
@@ -18,221 +18,286 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] },
-          colors: { slate: { 925: '#0a0f1a' } }
-        }
-      }
+      theme: { extend: { fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] } } }
     }
   </script>
   <style>
     body { font-family: 'Pretendard Variable', system-ui, sans-serif; font-size: 22px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    .card { transition: all 0.2s ease; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
   </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
-    "name": "해외 온라인 수학 과외",
-    "description": "강남 학원 출신 강사의 해외 온라인 수학 과외. SAT, AP, IB 수학 전문.",
+    "name": "해외 한인 학생 온라인 수학 과외",
+    "description": "SAT, AP, IB 수학 1:1 온라인 과외. 한국어 설명 + 영어 시험 대비.",
     "areaServed": ["US", "CA", "SG", "CN", "MY", "KR"],
     "teaches": ["SAT Math", "AP Calculus", "AP Statistics", "IB Mathematics"],
     "availableLanguage": ["Korean", "English"]
   }
   </script>
 </head>
-<body class="bg-slate-925 text-gray-100 antialiased">
+<body class="bg-white text-gray-900 antialiased">
 
-  <nav class="fixed top-0 w-full z-50 bg-slate-925/80 backdrop-blur-md border-b border-white/5">
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60">
     <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-      <span class="text-sm font-semibold tracking-wide text-white/90">MATH TUTORING</span>
+      <span class="text-sm font-bold tracking-wide text-gray-900">MATH TUTORING</span>
       <div class="flex items-center gap-4">
-        <a href="#subjects" class="text-sm text-white/60 hover:text-white/90 transition">과목</a>
-        <a href="#pricing" class="text-sm text-white/60 hover:text-white/90 transition">수업료</a>
-        <a href="#contact" class="text-sm text-white/60 hover:text-white/90 transition">문의</a>
-        <a href="../en/" class="text-sm px-3 py-1.5 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 transition">EN</a>
+        <a href="#subjects" class="text-base text-gray-500 hover:text-gray-900 transition">과목</a>
+        <a href="#why" class="text-base text-gray-500 hover:text-gray-900 transition">특징</a>
+        <a href="#contact" class="text-base text-gray-500 hover:text-gray-900 transition">상담</a>
+        <a href="../en/" class="text-sm px-3 py-1.5 rounded-full border border-gray-300 text-gray-500 hover:text-gray-900 transition">EN</a>
       </div>
     </div>
   </nav>
 
   <!-- Hero -->
-  <section class="pt-32 pb-20 px-6">
+  <section class="pt-32 pb-16 px-6">
     <div class="max-w-5xl mx-auto">
-      <p class="text-base text-sky-400 font-medium mb-4">해외 거주 한인 학생 대상</p>
-      <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6 text-white">
-        강남 학원 품질의<br>온라인 수학 수업
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-50 border border-sky-200 mb-6">
+        <span class="w-2 h-2 rounded-full bg-sky-500"></span>
+        <span class="text-base text-sky-700 font-medium">미국 · 캐나다 · 싱가포르 · 중국 · 말레이시아</span>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6 text-gray-900">
+        한국어로 개념 설명,<br>영어 시험 완벽 대비
       </h1>
-      <p class="text-xl text-white/50 max-w-2xl leading-relaxed mb-4">
-        SAT, AP Calculus, AP Statistics, IB Mathematics<br>
-        미국, 캐나다, 싱가포르, 중국, 말레이시아 등 6개국 학생 지도 중
+      <p class="text-xl text-gray-600 max-w-2xl leading-relaxed mb-6">
+        SAT · AP Calculus · AP Statistics · IB Mathematics<br>
+        현지 커리큘럼을 아는 한국인 강사와 1:1 맞춤 수업.
       </p>
-      <div class="flex items-center gap-4 mb-10">
-        <div class="flex items-center gap-2 text-base text-white/60">
-          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          현재 수강 가능
+      <div class="flex flex-wrap items-center gap-4 mb-10">
+        <div class="flex items-center gap-2 text-base text-gray-500">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          수강생 모집 중
+        </div>
+        <span class="text-gray-300">|</span>
+        <span class="text-base text-gray-500">6개국 학생 지도 중</span>
+        <span class="text-gray-300">|</span>
+        <span class="text-base text-sky-600 font-medium">무료 진단테스트</span>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="#contact" class="px-7 py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg transition">무료 진단테스트 신청</a>
+        <a href="#subjects" class="px-7 py-3.5 border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold rounded-lg transition">과목 살펴보기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points → Solution -->
+  <section class="py-16 px-6 bg-gray-50">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold mb-10 text-gray-900">이런 고민이 있으신가요?</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white border border-gray-200 rounded-2xl p-6">
+          <p class="text-lg font-bold text-gray-900 mb-3">영어로 수학 배우니 이해가 느려요</p>
+          <p class="text-base text-gray-600">개념은 한국어로 정확히 잡고, 시험은 영어로 대비합니다. 이중 언어 수업이라 이해 속도가 다릅니다.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-2xl p-6">
+          <p class="text-lg font-bold text-gray-900 mb-3">SAT/AP/IB를 아는 한국인 선생님이 없어요</p>
+          <p class="text-base text-gray-600">SAT, AP Calculus, AP Statistics, IB Math를 실제로 가르쳐온 경험 기반 수업. 문제 유형부터 FRQ 서술까지.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-2xl p-6">
+          <p class="text-lg font-bold text-gray-900 mb-3">시차 때문에 수업 시간을 못 맞춰요</p>
+          <p class="text-base text-gray-600">PST, EST, SGT, CST 모든 시간대에 맞춰 수업합니다. 학생 스케줄이 우선입니다.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-2xl p-6">
+          <p class="text-lg font-bold text-gray-900 mb-3">현지 Kumon/학원이 너무 피상적이에요</p>
+          <p class="text-base text-gray-600">1:1 맞춤 수업으로 깊이 있게. 학생의 약점을 정확히 진단하고 그 부분만 집중 훈련합니다.</p>
         </div>
       </div>
-      <a href="#contact" class="px-6 py-3 bg-sky-600 hover:bg-sky-500 text-white text-sm font-medium rounded-lg transition">상담 신청</a>
+    </div>
+  </section>
+
+  <!-- Free Benefits -->
+  <section class="py-16 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold mb-4 text-gray-900">시작하기 전에, 무료로 드립니다</h2>
+      <p class="text-base text-gray-500 mb-10">수업 결정은 직접 체험한 후에. 부담 없이 시작하세요.</p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card bg-sky-50 border border-sky-200 rounded-2xl p-6 text-center">
+          <p class="text-3xl mb-3">&#128221;</p>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">무료 진단테스트</h3>
+          <p class="text-base text-gray-600">현재 실력과 약점을 정확히 파악. 맞춤 학습 계획을 세워드립니다.</p>
+        </div>
+        <div class="card bg-sky-50 border border-sky-200 rounded-2xl p-6 text-center">
+          <p class="text-3xl mb-3">&#127891;</p>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">무료 시범 수업</h3>
+          <p class="text-base text-gray-600">실제 수업 방식을 체험. 수업료는 시강 후에 결정하시면 됩니다.</p>
+        </div>
+        <div class="card bg-sky-50 border border-sky-200 rounded-2xl p-6 text-center">
+          <p class="text-3xl mb-3">&#128218;</p>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">온라인 문제은행 무료</h3>
+          <p class="text-base text-gray-600">수강생은 PyQuiz 온라인 문제은행을 무료 이용. 자동 채점, 성적 관리까지.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Subjects -->
-  <section id="subjects" class="py-20 px-6">
+  <section id="subjects" class="py-16 px-6 bg-gray-50">
     <div class="max-w-5xl mx-auto">
-      <p class="text-base text-sky-400 font-medium mb-2">SUBJECTS</p>
-      <h2 class="text-3xl font-bold mb-10 text-white">수업 과목</h2>
+      <p class="text-base text-sky-600 font-semibold mb-2">SUBJECTS</p>
+      <h2 class="text-3xl font-bold mb-10 text-gray-900">수업 과목</h2>
       <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white mb-3">SAT Math</h3>
-          <p class="text-base text-white/60 leading-relaxed">Digital SAT 완전 대응. 문제 유형별 전략과 실전 연습. 점수대별 맞춤 커리큘럼.</p>
+        <div class="bg-white border border-gray-200 rounded-2xl p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-1">SAT Math</h3>
+          <p class="text-base text-sky-600 mb-3">Digital SAT 완전 대응</p>
+          <p class="text-base text-gray-600">점수대별 맞춤 전략. 어디서 점수를 잃는지 찾아내고, 그 유형만 집중 훈련합니다.</p>
         </div>
-        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white mb-3">AP Calculus AB/BC</h3>
-          <p class="text-base text-white/60 leading-relaxed">개념 이해부터 FRQ 서술 연습까지. AB/BC 모두 지도 가능.</p>
+        <div class="bg-white border border-gray-200 rounded-2xl p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-1">AP Calculus AB/BC</h3>
+          <p class="text-base text-sky-600 mb-3">개념 → FRQ 완전 정복</p>
+          <p class="text-base text-gray-600">암기가 아닌 진짜 이해. FRQ에서 만점받는 서술법까지. AB/BC 모두 대응.</p>
         </div>
-        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white mb-3">AP Statistics</h3>
-          <p class="text-base text-white/60 leading-relaxed">통계적 사고력 중심. 실험 설계, 추론, 모델링 전 범위.</p>
+        <div class="bg-white border border-gray-200 rounded-2xl p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-1">AP Statistics</h3>
+          <p class="text-base text-sky-600 mb-3">통계적 사고력 훈련</p>
+          <p class="text-base text-gray-600">절차를 외우면 시험에서 떨어집니다. 실험 설계, 추론, 해석을 제대로 가르칩니다.</p>
         </div>
-        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white mb-3">IB Mathematics</h3>
-          <p class="text-base text-white/60 leading-relaxed">SL/HL 모두 대응. IA 지도 포함.</p>
+        <div class="bg-white border border-gray-200 rounded-2xl p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-1">IB Mathematics</h3>
+          <p class="text-base text-sky-600 mb-3">SL / HL + IA 지도</p>
+          <p class="text-base text-gray-600">SL, HL 전 범위. 대부분 과외 선생이 안 해주는 Internal Assessment(IA)까지 지도.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Why -->
-  <section class="py-20 px-6 border-t border-white/5">
+  <section id="why" class="py-16 px-6">
     <div class="max-w-5xl mx-auto">
-      <p class="text-base text-sky-400 font-medium mb-2">WHY</p>
-      <h2 class="text-3xl font-bold mb-10 text-white">왜 이 수업인가</h2>
+      <p class="text-base text-sky-600 font-semibold mb-2">WHY</p>
+      <h2 class="text-3xl font-bold mb-10 text-gray-900">왜 이 수업이 다른가</h2>
       <div class="grid md:grid-cols-3 gap-8">
         <div>
-          <h3 class="font-semibold text-white mb-2">강남 학원 경력</h3>
-          <p class="text-base text-white/60 leading-relaxed">서울 강남 소재 학원에서 직접 학생을 가르치며 쌓은 노하우. 현재도 대면 수업 병행.</p>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">한국어 + 영어 이중 수업</h3>
+          <p class="text-base text-gray-600">개념은 한국어로 정확히, 문제 풀이와 시험 대비는 영어로. 두 언어의 장점을 모두 활용합니다.</p>
         </div>
         <div>
-          <h3 class="font-semibold text-white mb-2">자체 교육 도구</h3>
-          <p class="text-base text-white/60 leading-relaxed">직접 개발한 인터랙티브 기하학 도구(AllWrite)로 시각적이고 직관적인 수업 진행.</p>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">직접 개발한 수업 도구</h3>
+          <p class="text-base text-gray-600">인터랙티브 기하학 도구 <a href="../../allwrite/kr/" class="text-sky-600 underline underline-offset-2">AllWrite</a>로 수업. 점 드래그하면 도형이 변하는 걸 보면서 이해합니다.</p>
         </div>
         <div>
-          <h3 class="font-semibold text-white mb-2">시간대 유연</h3>
-          <p class="text-base text-white/60 leading-relaxed">북미(PST/EST), 아시아(SGT/CST) 시간대 모두 수업 가능. 학생 일정에 맞춤.</p>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">중개 수수료 없음</h3>
+          <p class="text-base text-gray-600">플랫폼 중개 없이 강사와 직접 소통. 수수료가 빠지지 않으니 수업 품질에 집중할 수 있습니다.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Pricing -->
-  <section id="pricing" class="py-20 px-6 border-t border-white/5">
+  <!-- How it works -->
+  <section class="py-16 px-6 bg-gray-50">
     <div class="max-w-5xl mx-auto">
-      <p class="text-base text-sky-400 font-medium mb-2">PRICING</p>
-      <h2 class="text-3xl font-bold mb-10 text-white">수업료</h2>
-      <div class="grid md:grid-cols-2 gap-6 max-w-2xl">
-        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white mb-2">개인 수업</h3>
-          <p class="text-3xl font-bold text-white mb-1">80,000원<span class="text-sm font-normal text-white/40"> / 시간</span></p>
-          <p class="text-base text-white/60">1:1 맞춤 수업</p>
+      <h2 class="text-3xl font-bold mb-10 text-gray-900">수업 시작까지 3단계</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-sky-100 text-sky-600 font-bold text-xl flex items-center justify-center mx-auto mb-4">1</div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">상담 신청</h3>
+          <p class="text-base text-gray-600">카카오톡 또는 이메일로 연락. 학생 상황과 목표를 간단히 알려주세요.</p>
         </div>
-        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white mb-2">그룹 수업</h3>
-          <p class="text-3xl font-bold text-white mb-1">40,000원<span class="text-sm font-normal text-white/40"> / 인 / 시간</span></p>
-          <p class="text-base text-white/60">최대 4명 소그룹</p>
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-sky-100 text-sky-600 font-bold text-xl flex items-center justify-center mx-auto mb-4">2</div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">무료 진단 + 시강</h3>
+          <p class="text-base text-gray-600">레벨테스트로 실력 진단. 시범 수업으로 수업 방식을 직접 체험.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-sky-100 text-sky-600 font-bold text-xl flex items-center justify-center mx-auto mb-4">3</div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">맞춤 수업 시작</h3>
+          <p class="text-base text-gray-600">시강 후 수업 결정. 학생 시간대에 맞춰 정기 수업을 시작합니다.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="py-20 px-6 border-t border-white/5">
+  <section id="contact" class="py-20 px-6">
     <div class="max-w-5xl mx-auto">
-      <p class="text-base text-sky-400 font-medium mb-2">CONTACT</p>
-      <h2 class="text-3xl font-bold mb-4 text-white">상담 신청</h2>
-      <p class="text-white/40 mb-8">아래 폼을 작성하시거나, 카카오톡으로 편하게 연락주세요.<br>24시간 내 답변드립니다.</p>
+      <p class="text-base text-sky-600 font-semibold mb-2">CONTACT</p>
+      <h2 class="text-3xl font-bold mb-4 text-gray-900">무료 진단테스트 신청</h2>
+      <p class="text-base text-gray-600 mb-8">아래 폼을 작성하시거나, 카카오톡으로 편하게 연락주세요. 24시간 내 답변.</p>
 
       <div class="grid md:grid-cols-2 gap-8">
-        <!-- 상담 신청 폼 -->
-        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-4">상담 신청서</h3>
+        <!-- Form -->
+        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+          <h3 class="font-bold text-gray-900 mb-4">상담 신청서</h3>
           <form action="https://formspree.io/f/randomwalk1225@gmail.com" method="POST" class="space-y-4">
             <div>
-              <label class="block text-base text-white/60 mb-1">이름 / 학생 이름</label>
-              <input type="text" name="name" required class="w-full px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white text-sm placeholder-white/30 focus:outline-none focus:border-sky-500/50 transition" placeholder="홍길동">
+              <label class="block text-base text-gray-600 mb-1">이름 / 학생 이름</label>
+              <input type="text" name="name" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-sky-500 transition" placeholder="홍길동">
             </div>
             <div>
-              <label class="block text-base text-white/60 mb-1">연락처 (이메일 또는 카카오톡 ID)</label>
-              <input type="text" name="contact" required class="w-full px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white text-sm placeholder-white/30 focus:outline-none focus:border-sky-500/50 transition" placeholder="example@email.com 또는 카카오톡 ID">
+              <label class="block text-base text-gray-600 mb-1">연락처 (이메일 또는 카카오톡 ID)</label>
+              <input type="text" name="contact" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-sky-500 transition" placeholder="이메일 또는 카카오톡 ID">
             </div>
             <div>
-              <label class="block text-base text-white/60 mb-1">관심 과목</label>
-              <select name="subject" class="w-full px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white text-sm focus:outline-none focus:border-sky-500/50 transition">
-                <option value="SAT Math" class="bg-slate-900">SAT Math</option>
-                <option value="AP Calculus" class="bg-slate-900">AP Calculus AB/BC</option>
-                <option value="AP Statistics" class="bg-slate-900">AP Statistics</option>
-                <option value="IB Mathematics" class="bg-slate-900">IB Mathematics</option>
-                <option value="기타" class="bg-slate-900">기타</option>
+              <label class="block text-base text-gray-600 mb-1">관심 과목</label>
+              <select name="subject" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-sky-500 transition">
+                <option value="SAT Math">SAT Math</option>
+                <option value="AP Calculus">AP Calculus AB/BC</option>
+                <option value="AP Statistics">AP Statistics</option>
+                <option value="IB Mathematics">IB Mathematics</option>
+                <option value="기타">기타</option>
               </select>
             </div>
             <div>
-              <label class="block text-base text-white/60 mb-1">거주 지역 / 시간대</label>
-              <input type="text" name="timezone" class="w-full px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white text-sm placeholder-white/30 focus:outline-none focus:border-sky-500/50 transition" placeholder="예: LA (PST), 싱가포르 (SGT)">
+              <label class="block text-base text-gray-600 mb-1">거주 국가 / 시간대</label>
+              <input type="text" name="timezone" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-sky-500 transition" placeholder="예: 미국 LA (PST)">
             </div>
             <div>
-              <label class="block text-base text-white/60 mb-1">문의 내용 (선택)</label>
-              <textarea name="message" rows="3" class="w-full px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white text-sm placeholder-white/30 focus:outline-none focus:border-sky-500/50 transition resize-none" placeholder="궁금한 점이 있으시면 자유롭게 작성해주세요"></textarea>
+              <label class="block text-base text-gray-600 mb-1">문의 내용 (선택)</label>
+              <textarea name="message" rows="3" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-sky-500 transition resize-none" placeholder="궁금한 점을 자유롭게 작성해주세요"></textarea>
             </div>
-            <button type="submit" class="w-full py-3 bg-sky-600 hover:bg-sky-500 text-white text-sm font-medium rounded-lg transition">상담 신청하기</button>
+            <button type="submit" class="w-full py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg transition">무료 진단테스트 신청</button>
           </form>
         </div>
 
-        <!-- 연락 방법 -->
+        <!-- Contact methods -->
         <div class="space-y-4">
-          <a href="https://open.kakao.com/o/randomwalk12" target="_blank" class="block bg-amber-400/10 border border-amber-400/20 rounded-2xl p-6 hover:bg-amber-400/15 transition">
+          <a href="https://open.kakao.com/o/randomwalk12" target="_blank" class="card block bg-amber-50 border border-amber-200 rounded-2xl p-6">
             <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 rounded-xl bg-amber-400/20 flex items-center justify-center">
-                <span class="text-amber-400 text-lg font-bold">K</span>
+              <div class="w-10 h-10 rounded-xl bg-amber-200 flex items-center justify-center">
+                <span class="text-amber-700 text-lg font-bold">K</span>
               </div>
               <div>
-                <h3 class="font-semibold text-white">카카오톡</h3>
-                <p class="text-base text-white/60">가장 빠른 연락 방법</p>
+                <h3 class="font-bold text-gray-900">카카오톡</h3>
+                <p class="text-base text-gray-500">가장 빠른 연락 방법</p>
               </div>
             </div>
-            <p class="text-base text-amber-400 font-medium">ID: randomwalk12</p>
-            <p class="text-base text-white/60 mt-2">카카오톡에서 ID 검색 후 메시지를 보내주세요.</p>
+            <p class="text-lg text-amber-700 font-bold">ID: randomwalk12</p>
           </a>
 
-          <a href="mailto:randomwalk1225@gmail.com" class="block bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 hover:bg-white/[0.05] transition">
+          <a href="mailto:randomwalk1225@gmail.com" class="card block bg-white border border-gray-200 rounded-2xl p-6">
             <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 rounded-xl bg-white/[0.06] flex items-center justify-center">
-                <span class="text-white/60 text-lg">@</span>
+              <div class="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center">
+                <span class="text-gray-600 text-lg">@</span>
               </div>
               <div>
-                <h3 class="font-semibold text-white">이메일</h3>
-                <p class="text-base text-white/60">상세한 문의</p>
+                <h3 class="font-bold text-gray-900">이메일</h3>
+                <p class="text-base text-gray-500">상세 문의</p>
               </div>
             </div>
-            <p class="text-base text-white/70">randomwalk1225@gmail.com</p>
+            <p class="text-base text-gray-700">randomwalk1225@gmail.com</p>
           </a>
 
-          <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-            <h3 class="font-semibold text-white mb-3">수업 가능 시간대</h3>
-            <div class="space-y-2 text-base text-white/60">
-              <p>북미 (PST): 오후 5시 ~ 오후 10시</p>
-              <p>북미 (EST): 오후 8시 ~ 새벽 1시</p>
-              <p>아시아 (SGT/KST): 오전 9시 ~ 오후 2시</p>
+          <div class="bg-white border border-gray-200 rounded-2xl p-6">
+            <h3 class="font-bold text-gray-900 mb-3">수업 가능 시간대</h3>
+            <div class="space-y-2 text-base text-gray-600">
+              <p><span class="font-medium text-gray-900">미국 서부 (PST):</span> 오후 5시 ~ 오후 10시</p>
+              <p><span class="font-medium text-gray-900">미국 동부 (EST):</span> 오후 8시 ~ 새벽 1시</p>
+              <p><span class="font-medium text-gray-900">아시아 (SGT/KST):</span> 오전 9시 ~ 오후 2시</p>
             </div>
-            <p class="text-base text-white/50 mt-3">* 학생 일정에 맞춰 조정 가능합니다</p>
+            <p class="text-sm text-gray-400 mt-3">* 학생 일정에 맞춰 조정 가능</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <footer class="py-8 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto flex items-center justify-between text-base text-white/50">
+  <footer class="py-8 px-6 border-t border-gray-200">
+    <div class="max-w-5xl mx-auto flex items-center justify-between text-base text-gray-400">
       <span>&copy; 2026</span>
-      <a href="../en/" class="hover:text-white/50 transition">English version &rarr;</a>
+      <a href="../en/" class="hover:text-gray-600 transition">English version &rarr;</a>
     </div>
   </footer>
 
