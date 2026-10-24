@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HydroLink 지하수저류댐 적지선정</title>
+<meta name="description" content="하천망에서 후보 지점을 뽑고 지질, 정수장 거리, 규제구역, 가뭄 이력, 기저유출을 겹쳐 따져 지하수저류댐 적지의 순위를 매기는 방법과 화면을 소개합니다.">
+<!-- 차용: ~/.claude/skills/landing-page — 히어로(결과+대상)·방법·근거·자주 묻는 질문·마지막 행동 순서, 행동 하나(이용 문의), 위험 낮추는 문장. 디자인 토큰·상단바·층 그림은 같은 폴더 계열의 유량 측정 랜딩(reaa/baseflow)에서 가져옴 -->
+<link rel="icon" href="img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+<link rel="apple-touch-icon" href="img/hydrolink-icon-128.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&display=swap">
+<style>
+:root {
+  --paper: #F4F8F9; --surface: #FFFFFF; --ink: #0D1B22; --ink2: #41535C; --line: #D3DFE3;
+  --water: #0B5C70; --flow: #D9482B; --btn: #0D1B22; --btn-ink: #FFFFFF; --veil: rgba(244,248,249,.82);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0A1318; --surface: #111D24; --ink: #E8F0F2; --ink2: #A5B7BE; --line: #223540;
+    --water: #5CC1D1; --flow: #FF7A59; --btn: #E8F0F2; --btn-ink: #0A1318; --veil: rgba(10,19,24,.8);
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0A1318; --surface: #111D24; --ink: #E8F0F2; --ink2: #A5B7BE; --line: #223540;
+  --water: #5CC1D1; --flow: #FF7A59; --btn: #E8F0F2; --btn-ink: #0A1318; --veil: rgba(10,19,24,.8);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 400 18px/1.75 "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  word-break: keep-all; overflow-wrap: break-word; -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--btn); color: var(--btn-ink); padding: 8px 14px; z-index: 50; }
+.skip:focus { left: 8px; top: 8px; }
+:focus-visible { outline: 2px solid var(--water); outline-offset: 3px; border-radius: 4px; }
+.wrap { width: min(1120px, 100% - 48px); margin-inline: auto; }
+
+/* 상단 */
+.top { position: fixed; inset: 0 0 auto 0; z-index: 30; background: var(--veil); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 18px; letter-spacing: -.01em; }
+.menu { display: flex; align-items: center; gap: 4px; }
+.menu a { text-decoration: none; font-size: 15px; padding: 8px 12px; color: var(--ink2); border-radius: 8px; }
+.menu a:hover { color: var(--ink); }
+.menu .go { background: var(--btn); color: var(--btn-ink); margin-left: 6px; font-weight: 600; }
+@media (max-width: 720px) { .menu a:not(.go) { display: none; } }
+
+/* 첫 화면 */
+.hero { padding: 128px 0 72px; }
+.hero h1 { font: 700 clamp(32px, 4.8vw, 58px)/1.3 "Noto Serif KR", serif; letter-spacing: -.025em; margin: 0 0 20px; max-width: 18em; }
+.lead { margin: 0 0 28px; color: var(--ink2); max-width: 36em; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; background: var(--btn); color: var(--btn-ink); border-radius: 10px; text-decoration: none; font-weight: 600; }
+.btn:hover { opacity: .88; } .btn:active { transform: scale(.98); }
+.link { text-decoration: none; font-weight: 600; border-bottom: 2px solid var(--water); padding-bottom: 2px; }
+.win { margin-top: 56px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.win .bar { display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 14px; background: color-mix(in srgb, var(--ink) 4%, var(--surface)); border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink2); }
+.win .bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.win .bar span { margin-left: 8px; }
+.cap { margin: 12px 0 0; font-size: 15px; color: var(--ink2); }
+
+/* 구역 공통 */
+section { padding: clamp(72px, 10vw, 128px) 0; }
+section + section, .hero + section { border-top: 1px solid var(--line); }
+h2 { font: 700 clamp(28px, 3.4vw, 42px)/1.3 "Noto Serif KR", serif; letter-spacing: -.02em; margin: 0 0 14px; }
+h3 { font-size: 19px; line-height: 1.45; margin: 0 0 8px; letter-spacing: -.01em; }
+.sub { margin: 0; color: var(--ink2); max-width: 36em; }
+p { margin: 0 0 14px; }
+.head { margin-bottom: 44px; }
+
+/* 기준을 층으로 쌓은 그림 */
+.stackwrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 64px); align-items: center; }
+.stack { --gap: 34; height: 460px; perspective: 1500px; position: relative; }
+.stack-in { position: absolute; inset: 0; transform-style: preserve-3d; }
+.pl { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: min(400px, 72%); aspect-ratio: 1.55; border-radius: 10px; border: 1.5px solid var(--ink);
+  background-color: var(--surface); transform: rotateX(60deg) rotateZ(-38deg) translateZ(calc((var(--i) - 2.5) * var(--gap) * 1px)); transition: opacity .25s, border-color .25s; }
+.pl5 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 65' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%231b8fb0' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M0 12 C25 14 35 30 52 34 S85 50 100 56'/%3E%3Cpath d='M30 0 C32 14 40 24 52 34'/%3E%3Cpath d='M70 0 C66 14 72 36 84 50'/%3E%3C/g%3E%3C/svg%3E"); background-size: 100% 100%; }
+.pl4 { background-image: radial-gradient(circle at 50% 50%, #b99f75 0 1.6px, transparent 2.4px); background-size: 16px 16px; background-color: #efe6d4; }
+.pl3 { background-image: radial-gradient(circle at 68% 42%, var(--flow) 0 6px, transparent 7px), radial-gradient(circle at 68% 42%, transparent 0 40px, rgba(27, 143, 176, .65) 41px 43px, transparent 44px); }
+.pl2 { background-image: repeating-linear-gradient(135deg, rgba(217, 72, 43, .38) 0 2px, transparent 2px 10px); }
+.pl1 { background-image: linear-gradient(120deg, rgba(255, 214, 120, .75), rgba(240, 140, 70, .8) 72%); }
+.pl0 { background-image: repeating-linear-gradient(0deg, rgba(27, 143, 176, .42) 0 7px, rgba(27, 143, 176, .16) 7px 14px); }
+.stack[data-on] .pl { opacity: .22; }
+.stack[data-on] .pl.on { opacity: 1; border-color: var(--flow); }
+.stack-list { list-style: none; margin: 0; padding: 0; }
+.stack-list li { padding: 14px 8px; border-top: 1px solid var(--line); border-radius: 6px; }
+.stack-list li:last-child { border-bottom: 1px solid var(--line); }
+.stack-list b { display: block; font-size: 18px; }
+.stack-list span { color: var(--ink2); font-size: 16px; line-height: 1.55; }
+.stack-list li.on b { color: var(--water); }
+.stack-list li.on { background: color-mix(in srgb, var(--water) 8%, transparent); }
+@media (max-width: 860px) { .stackwrap { grid-template-columns: minmax(0, 1fr); } .stack { height: 340px; --gap: 28; } .pl { width: min(300px, 78%); } }
+
+/* 탐색 방법, 겹쳐 보는 자료 */
+.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 48px; }
+.three > div { border-top: 1px solid var(--line); padding: 22px 0 8px; }
+.three p { color: var(--ink2); margin: 0; }
+@media (max-width: 800px) { .three { grid-template-columns: 1fr; } }
+.layers { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; max-width: 880px; }
+.layers li { padding: 14px 0; border-top: 1px solid var(--line); }
+.layers b { display: block; font-size: 18px; }
+.layers span { color: var(--ink2); font-size: 16px; }
+@media (max-width: 720px) { .layers { grid-template-columns: 1fr; } }
+.patent { margin: 0; color: var(--ink2); }
+.patent b { color: var(--ink); }
+
+/* 질문 */
+.faq { max-width: 800px; border-bottom: 1px solid var(--line); }
+details { border-top: 1px solid var(--line); }
+summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 68px; font-weight: 600; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 26px; font-weight: 300; line-height: 1; color: var(--ink2); }
+details[open] summary::after { content: "\2212"; }
+.ans { padding: 0 0 22px; color: var(--ink2); max-width: 40em; }
+.last .sub { margin-bottom: 18px; }
+.who { font-size: 20px; }
+footer { padding: 40px 0 56px; border-top: 1px solid var(--line); color: var(--ink2); font-size: 15px; }
+footer p { margin: 0 0 6px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/hydrolink-icon.svg" width="32" height="32" alt="">HydroLink</a>
+    <nav class="menu" aria-label="구역 이동">
+      <a href="#method">고르는 방법</a>
+      <a href="#screen">사용 화면</a>
+      <a href="#faq">자주 묻는 질문</a>
+      <a href="../baseflow/">유량 측정</a>
+      <a class="go" href="#contact">문의</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div id="top"></div>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>지하수저류댐 적지, 여러 기준을 겹쳐 따져 순위를 매깁니다</h1>
+    <p class="lead">하천망에서 후보 지점을 뽑고, 지질과 정수장까지의 거리, 규제구역, 가뭄 이력, 기저유출을 한 지도 위에서 함께 비교합니다.</p>
+    <div class="row">
+      <a class="btn" href="#contact">이용 문의</a>
+      <a class="link" href="#method">고르는 방법 보기</a>
+    </div>
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i><span>지하수저류댐 적지 선정</span></div>
+      <img src="img/siting-map.png" width="1900" height="645" alt="지하수저류댐 적지 선정 화면. 한반도 지도 위에 하천망이 그려져 있고, 오른쪽 위 레이어 목록에서 하천망, 지질도, 정수장, 댐, 가뭄, 규제구역 같은 자료를 켜고 끌 수 있습니다.">
+    </div>
+    <p class="cap">운영 중인 서비스 화면입니다. 하천망 레이어를 켠 모습이며, 분석 결과 화면은 아닙니다.</p>
+  </div>
+</div>
+
+<section id="method">
+  <div class="wrap">
+    <div class="head">
+      <h2>적지를 고르는 방법</h2>
+      <p class="sub">하천망에서 후보 지점을 뽑고, 아래 기준들을 함께 비교해 순위를 매기는 방법입니다. 항목을 가리키거나 누르면 그림에서 그 기준이 강조됩니다.</p>
+    </div>
+    <div class="stackwrap">
+      <div class="stack" id="stack" aria-hidden="true">
+        <div class="stack-in">
+          <div class="pl pl5" data-k="1" style="--i:5"></div>
+          <div class="pl pl4" data-k="2" style="--i:4"></div>
+          <div class="pl pl3" data-k="3" style="--i:3"></div>
+          <div class="pl pl2" data-k="4" style="--i:2"></div>
+          <div class="pl pl1" data-k="5" style="--i:1"></div>
+          <div class="pl pl0" data-k="6" style="--i:0"></div>
+        </div>
+      </div>
+      <ol class="stack-list">
+        <li tabindex="0" data-k="1"><b>하천망</b><span>유역면적이 일정 이상인 하천에서 후보 지점을 뽑습니다.</span></li>
+        <li tabindex="0" data-k="2"><b>충적층</b><span>지질도에서 충적층인지 확인합니다.</span></li>
+        <li tabindex="0" data-k="3"><b>정수장까지의 거리</b><span>물을 쓸 곳과 가까울수록 유리합니다.</span></li>
+        <li tabindex="0" data-k="4"><b>규제구역</b><span>개발이 제한된 구역은 따로 걸러냅니다.</span></li>
+        <li tabindex="0" data-k="5"><b>가뭄 이력</b><span>가뭄이 잦았던 곳을 반영합니다.</span></li>
+        <li tabindex="0" data-k="6"><b>기저유출</b><span>평소 하천에 흐르는 지하수 성분의 크기입니다.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="screen">
+  <div class="wrap">
+    <div class="head">
+      <h2>지도에서 후보지를 찾는 세 가지 방법</h2>
+      <p class="sub">분석 화면 위쪽의 세 버튼으로 찾는 방식을 고릅니다.</p>
+    </div>
+    <div class="three">
+      <div><h3>지점 분석</h3><p>지도에서 누른 한 지점을 분석 대상으로 삼습니다.</p></div>
+      <div><h3>영역 그리기</h3><p>지도 위에 그린 영역 안을 분석 대상으로 삼습니다.</p></div>
+      <div><h3>반경 추천</h3><p>기준 지점에서 반경을 정하면 그 안에서 후보 지점을 찾습니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="layers">
+  <div class="wrap">
+    <div class="head">
+      <h2>지도에 겹쳐 볼 수 있는 자료</h2>
+      <p class="sub">레이어 목록에서 켜고 끄며 후보지 주변을 직접 확인할 수 있습니다.</p>
+    </div>
+    <ul class="layers">
+      <li><b>하천망</b><span>본류와 지류를 굵기로 구분해 표시합니다.</span></li>
+      <li><b>지질도</b><span>충적층 같은 암상을 확인합니다.</span></li>
+      <li><b>정수장·취수장</b><span>물을 쓰는 곳의 위치입니다.</span></li>
+      <li><b>댐·저수지</b><span>이미 있는 수자원 시설입니다.</span></li>
+      <li><b>국가지하수관측망</b><span>지하수위를 재는 지점입니다.</span></li>
+      <li><b>가뭄</b><span>가뭄이 잦았던 곳을 보여 줍니다.</span></li>
+      <li><b>수위관측소</b><span>하천 수위를 재는 지점입니다.</span></li>
+      <li><b>문화재·상수원보호·개발제한</b><span>개발이 어려운 구역을 따로 표시합니다.</span></li>
+    </ul>
+    <p class="patent" style="margin-top:44px"><b>특허 출원</b> (출원번호 10-2026-0080613)</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="head"><h2>자주 묻는 질문</h2></div>
+    <div class="faq">
+      <details><summary>누가 쓸 수 있나요?</summary><div class="ans">지금은 관리자가 승인한 계정만 쓸 수 있습니다. 소속과 하려는 일을 알려 주시면 이용 방법을 안내해 드립니다.</div></details>
+      <details><summary>화면에 나오는 자료는 어디서 오나요?</summary><div class="ans">배경지도는 VWorld, 지질도는 한국지질자원연구원 자료를 씁니다. 이 기관들과 제휴하거나 인증을 받은 것은 아닙니다.</div></details>
+      <details><summary>특허는 어떤 상태인가요?</summary><div class="ans">특허를 출원했습니다(출원번호 10-2026-0080613).</div></details>
+      <details><summary>하천 유량 측정도 할 수 있나요?</summary><div class="ans">네, 같은 서비스에서 유량 측정과 불확실도 계산을 할 수 있습니다. <a class="link" href="../baseflow/">유량 측정 소개 보기</a></div></details>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="last">
+  <div class="wrap">
+    <h2>이용을 원하시면 문의해 주세요</h2>
+    <p class="sub">소속과 하려는 일(적지 검토, 유량 측정 등)을 알려 주시면 이용 방법을 안내해 드립니다.</p>
+    <p class="who"><a class="link" href="mailto:iworkonlabs@gmail.com?subject=HydroLink%20%EC%A0%81%EC%A7%80%EC%84%A0%EC%A0%95%20%EB%AC%B8%EC%9D%98">iworkonlabs@gmail.com</a></p>
+    <p class="sub" style="margin-top:14px">이미 승인된 계정이 있으면 <a class="link" href="https://www.hydrolink.app/accounts/login/">로그인</a>해서 바로 쓸 수 있습니다.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>아이워크온랩스</p>
+    <p>www.hydrolink.app</p>
+    <p>이용한 공공 자료의 출처: VWorld(배경지도), 한국지질자원연구원(지질도). 이 기관들과 제휴하거나 인증을 받은 것은 아닙니다.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var st = document.getElementById('stack');
+  var items = document.querySelectorAll('.stack-list li');
+  function onLayer(k) {
+    document.querySelectorAll('.pl, .stack-list li').forEach(function (e) { e.classList.toggle('on', k !== null && e.getAttribute('data-k') === k); });
+    if (k === null) st.removeAttribute('data-on'); else st.setAttribute('data-on', '1');
+  }
+  items.forEach(function (li) {
+    var k = li.getAttribute('data-k');
+    li.addEventListener('mouseenter', function () { onLayer(k); });
+    li.addEventListener('focus', function () { onLayer(k); });
+    li.addEventListener('mouseleave', function () { onLayer(null); });
+    li.addEventListener('blur', function () { onLayer(null); });
+  });
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && st) {
+    var gap = 8, dir = 1, vis = false;
+    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; }, { threshold: 0.3 }).observe(st);
+    (function tick() {
+      if (vis) { gap += dir * 0.18; if (gap >= 34) dir = -1; if (gap <= 8) dir = 1; st.style.setProperty('--gap', gap); }
+      requestAnimationFrame(tick);
+    })();
+  }
+})();
+</script>
+</body>
+</html>
