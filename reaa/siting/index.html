@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HydroLink 지하수저류댐 적지선정</title>
-<meta name="description" content="하천망에서 후보 지점을 뽑고 지질, 정수장 거리, 규제구역, 가뭄 이력, 기저유출을 겹쳐 따져 지하수저류댐 적지의 순위를 매기는 방법과 화면을 소개합니다.">
+<meta name="description" content="하천망에서 후보 지점을 뽑고 지질, 정수장까지의 거리, 기저유출을 함께 따져 지하수저류댐 적지의 순위를 매기는 방법과 화면을 소개합니다.">
 <!-- 차용: ~/.claude/skills/landing-page — 히어로(결과+대상)·방법·근거·자주 묻는 질문·마지막 행동 순서, 행동 하나(이용 문의), 위험 낮추는 문장. 디자인 토큰·상단바·층 그림은 같은 폴더 계열의 유량 측정 랜딩(reaa/baseflow)에서 가져옴 -->
 <link rel="icon" href="img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -66,7 +66,7 @@ a { color: inherit; }
 .win .bar { display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 14px; background: color-mix(in srgb, var(--ink) 4%, var(--surface)); border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink2); }
 .win .bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
 .win .bar span { margin-left: 8px; }
-.hero .win, .three + .win { margin-top: 56px; }
+.hero .win { margin-top: 56px; }
 .cap { margin: 12px 0 0; font-size: 15px; color: var(--ink2); }
 
 /* 구역 공통 */
@@ -78,39 +78,34 @@ h3 { font-size: 19px; line-height: 1.45; margin: 0 0 8px; letter-spacing: -.01em
 p { margin: 0 0 14px; }
 .head { margin-bottom: 44px; }
 
-/* 기준을 층으로 쌓은 그림 */
+/* 기준별 화면: 실제 지도 화면을 하나씩 보여 준다 */
 .stackwrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 64px); align-items: center; }
-.stack { --gap: 34; height: 460px; perspective: 1500px; position: relative; }
-.stack-in { position: absolute; inset: 0; transform-style: preserve-3d; }
-.pl { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: min(400px, 72%); aspect-ratio: 1.55; border-radius: 10px; border: 1.5px solid var(--ink);
-  background-color: var(--surface); transform: rotateX(60deg) rotateZ(-38deg) translateZ(calc((var(--i) - 2.5) * var(--gap) * 1px)); transition: opacity .25s, border-color .25s; }
-.pl5 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 65' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%231b8fb0' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M0 12 C25 14 35 30 52 34 S85 50 100 56'/%3E%3Cpath d='M30 0 C32 14 40 24 52 34'/%3E%3Cpath d='M70 0 C66 14 72 36 84 50'/%3E%3C/g%3E%3C/svg%3E"); background-size: 100% 100%; }
-.pl4 { background-image: radial-gradient(circle at 50% 50%, #b99f75 0 1.6px, transparent 2.4px); background-size: 16px 16px; background-color: #efe6d4; }
-.pl3 { background-image: radial-gradient(circle at 68% 42%, var(--flow) 0 6px, transparent 7px), radial-gradient(circle at 68% 42%, transparent 0 40px, rgba(27, 143, 176, .65) 41px 43px, transparent 44px); }
-.pl2 { background-image: repeating-linear-gradient(135deg, rgba(217, 72, 43, .38) 0 2px, transparent 2px 10px); }
-.pl1 { background-image: linear-gradient(120deg, rgba(255, 214, 120, .75), rgba(240, 140, 70, .8) 72%); }
-.pl0 { background-image: repeating-linear-gradient(0deg, rgba(27, 143, 176, .42) 0 7px, rgba(27, 143, 176, .16) 7px 14px); }
-.stack[data-on] .pl { opacity: .22; }
-.stack[data-on] .pl.on { opacity: 1; border-color: var(--flow); }
+.viewer { position: relative; aspect-ratio: 800 / 470; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); }
+.vf { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity .45s; }
+.vf.on { opacity: 1; }
+.vf img, .vf svg { width: 100%; height: 100%; display: block; object-fit: cover; }
+.vf figcaption { position: absolute; left: 12px; bottom: 12px; right: 12px; display: inline-block; width: max-content; max-width: calc(100% - 24px); padding: 6px 12px; border-radius: 8px; background: var(--veil); color: var(--ink); font-size: 15px; line-height: 1.5; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.pill { position: absolute; padding: 4px 10px; border-radius: 999px; background: var(--btn); color: var(--btn-ink); font-size: 14px; font-weight: 600; line-height: 1.4; }
 .stack-list { list-style: none; margin: 0; padding: 0; }
-.stack-list li { padding: 14px 8px; border-top: 1px solid var(--line); border-radius: 6px; }
+.stack-list li { padding: 14px 8px; border-top: 1px solid var(--line); border-radius: 6px; cursor: pointer; }
 .stack-list li:last-child { border-bottom: 1px solid var(--line); }
 .stack-list b { display: block; font-size: 18px; }
 .stack-list span { color: var(--ink2); font-size: 16px; line-height: 1.55; }
 .stack-list li.on b { color: var(--water); }
 .stack-list li.on { background: color-mix(in srgb, var(--water) 8%, transparent); }
-@media (max-width: 860px) { .stackwrap { grid-template-columns: minmax(0, 1fr); } .stack { height: 340px; --gap: 28; } .pl { width: min(300px, 78%); } }
+@media (max-width: 860px) { .stackwrap { grid-template-columns: minmax(0, 1fr); } }
 
 /* 탐색 방법, 겹쳐 보는 자료 */
-.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 48px; }
-.three > div { border-top: 1px solid var(--line); padding: 22px 0 8px; }
+.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 32px; }
+.three figure { margin: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.three img { width: 100%; height: auto; aspect-ratio: 1052 / 688; object-fit: cover; }
+.three h3 { margin-top: 16px; }
 .three p { color: var(--ink2); margin: 0; }
 @media (max-width: 800px) { .three { grid-template-columns: 1fr; } }
-.layers { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; max-width: 880px; }
-.layers li { padding: 14px 0; border-top: 1px solid var(--line); }
-.layers b { display: block; font-size: 18px; }
-.layers span { color: var(--ink2); font-size: 16px; }
-@media (max-width: 720px) { .layers { grid-template-columns: 1fr; } }
+.layers { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 28px 24px; }
+.layers img { width: 100%; height: auto; aspect-ratio: 800 / 470; object-fit: cover; border: 1px solid var(--line); border-radius: 10px; }
+.layers b { display: block; font-size: 18px; margin-top: 10px; }
+.layers span { color: var(--ink2); font-size: 15px; line-height: 1.55; display: block; }
 .patent { margin: 0; color: var(--ink2); }
 .patent b { color: var(--ink); }
 
@@ -151,14 +146,14 @@ footer p { margin: 0 0 6px; }
 <div class="hero">
   <div class="wrap">
     <h1>지하수저류댐 적지, 여러 기준을 겹쳐 따져 순위를 매깁니다</h1>
-    <p class="lead">하천망에서 후보 지점을 뽑고, 지질과 정수장까지의 거리, 규제구역, 가뭄 이력, 기저유출을 한 지도 위에서 함께 비교합니다.</p>
+    <p class="lead">하천망에서 후보 지점을 뽑고, 지질과 정수장까지의 거리, 기저유출을 한 지도 위에서 함께 비교합니다.</p>
     <div class="row">
       <a class="btn" href="#contact">이용 문의</a>
       <a class="link" href="#method">고르는 방법 보기</a>
     </div>
     <div class="win">
       <div class="bar"><i></i><i></i><i></i><span>지하수저류댐 적지 선정</span></div>
-      <img src="img/siting-map.png" width="1900" height="645" alt="지하수저류댐 적지 선정 화면. 한반도 지도 위에 하천망이 그려져 있고, 오른쪽 위 레이어 목록에서 하천망, 지질도, 정수장, 댐, 가뭄, 규제구역 같은 자료를 켜고 끌 수 있습니다.">
+      <img src="img/siting-map.png" width="1900" height="645" alt="지하수저류댐 적지 선정 화면. 한반도 지도 위에 하천망이 그려져 있고, 오른쪽 위 레이어 목록에서 하천망, 지질도, 정수장, 댐 같은 자료를 켜고 끌 수 있습니다.">
     </div>
     <p class="cap">운영 중인 서비스 화면입니다. 하천망 레이어를 켠 모습이며, 분석 결과 화면은 아닙니다.</p>
   </div>
@@ -168,26 +163,20 @@ footer p { margin: 0 0 6px; }
   <div class="wrap">
     <div class="head">
       <h2>적지를 고르는 방법</h2>
-      <p class="sub">하천망에서 후보 지점을 뽑고, 아래 기준들을 함께 비교해 순위를 매기는 방법입니다. 항목을 가리키거나 누르면 그림에서 그 기준이 강조됩니다.</p>
+      <p class="sub">하천망에서 후보 지점을 뽑고, 아래 기준들을 함께 비교해 순위를 매기는 방법입니다. 항목을 가리키거나 누르면 그 기준의 화면이 나옵니다.</p>
     </div>
     <div class="stackwrap">
-      <div class="stack" id="stack" aria-hidden="true">
-        <div class="stack-in">
-          <div class="pl pl5" data-k="1" style="--i:5"></div>
-          <div class="pl pl4" data-k="2" style="--i:4"></div>
-          <div class="pl pl3" data-k="3" style="--i:3"></div>
-          <div class="pl pl2" data-k="4" style="--i:2"></div>
-          <div class="pl pl1" data-k="5" style="--i:1"></div>
-          <div class="pl pl0" data-k="6" style="--i:0"></div>
-        </div>
+      <div class="viewer" id="viewer">
+        <figure class="vf on" data-k="1"><img src="img/layer-rivers.jpg" width="800" height="470" alt="충남 부여 일대 지도에 하천망을 켠 모습. 본류는 굵은 파란 선, 지류는 가는 선으로 보입니다."><figcaption>하천망: 굵을수록 본류입니다</figcaption></figure>
+        <figure class="vf" data-k="2"><img src="img/layer-geology.jpg" width="800" height="470" alt="같은 지역의 지질도. 연한 노란색 부분에 Qa(충적층) 표시가 있고 분홍색 부분은 화강암 등 다른 암석입니다."><span class="pill" style="left:12px;top:12px">노란 부분 Qa = 충적층</span><figcaption>지질도: 기호가 Qa인 곳이 충적층입니다</figcaption></figure>
+        <figure class="vf" data-k="3"><img src="img/layer-plant.jpg" width="800" height="470" alt="분석 지점(파란 점)과 가까운 정수장·취수장(물방울 표시)을 점선으로 이은 지도."><svg viewBox="0 0 800 470" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0" aria-hidden="true"><line x1="402" y1="268" x2="265" y2="329" stroke="#D9482B" stroke-width="3" stroke-dasharray="8 6"/><circle cx="402" cy="268" r="16" fill="none" stroke="#D9482B" stroke-width="3"/><circle cx="265" cy="329" r="20" fill="none" stroke="#D9482B" stroke-width="3"/></svg><figcaption>분석 지점에서 정수장·취수장까지의 거리를 봅니다</figcaption></figure>
+        <figure class="vf" data-k="4"><svg viewBox="0 0 800 470" role="img" aria-label="기저유출 모식도. 비가 온 뒤 유량이 솟았다 줄어드는 곡선 아래에, 평소 흐르는 지하수 성분이 낮고 완만한 영역으로 칠해져 있습니다."><rect width="800" height="470" fill="var(--surface)"/><path d="M70 40V400H740" fill="none" stroke="var(--ink2)" stroke-width="2"/><path d="M70 330 C160 330 200 320 250 120 C285 40 300 150 340 215 C380 270 460 300 740 316 L740 400 L70 400 Z" fill="color-mix(in srgb, var(--water) 18%, transparent)"/><path d="M70 330 C160 330 200 320 250 120 C285 40 300 150 340 215 C380 270 460 300 740 316" fill="none" stroke="var(--water)" stroke-width="4"/><path d="M70 345 C250 345 330 335 440 330 C560 325 660 322 740 320 L740 400 L70 400 Z" fill="color-mix(in srgb, var(--flow) 26%, transparent)"/><path d="M70 345 C250 345 330 335 440 330 C560 325 660 322 740 320" fill="none" stroke="var(--flow)" stroke-width="4"/><text x="300" y="80" font-size="20" fill="var(--ink)" font-family="Pretendard Variable, sans-serif">비가 온 뒤 늘어난 유량</text><text x="360" y="385" font-size="20" font-weight="700" fill="var(--ink)" font-family="Pretendard Variable, sans-serif">기저유출: 평소에도 흐르는 지하수 성분</text><text x="70" y="430" font-size="16" fill="var(--ink2)" font-family="Pretendard Variable, sans-serif">시간 →</text><text x="12" y="30" font-size="16" fill="var(--ink2)" font-family="Pretendard Variable, sans-serif">유량</text></svg><figcaption>모식도입니다. 실제 측정값이 아닙니다</figcaption></figure>
       </div>
       <ol class="stack-list">
-        <li tabindex="0" data-k="1"><b>하천망</b><span>유역면적이 일정 이상인 하천에서 후보 지점을 뽑습니다.</span></li>
-        <li tabindex="0" data-k="2"><b>충적층</b><span>지질도에서 충적층인지 확인합니다.</span></li>
-        <li tabindex="0" data-k="3"><b>정수장까지의 거리</b><span>물을 쓸 곳과 가까울수록 유리합니다.</span></li>
-        <li tabindex="0" data-k="4"><b>규제구역</b><span>개발이 제한된 구역은 따로 걸러냅니다.</span></li>
-        <li tabindex="0" data-k="5"><b>가뭄 이력</b><span>가뭄이 잦았던 곳을 반영합니다.</span></li>
-        <li tabindex="0" data-k="6"><b>기저유출</b><span>평소 하천에 흐르는 지하수 성분의 크기입니다.</span></li>
+        <li tabindex="0" class="on" data-k="1"><b>하천망</b><span>유역면적이 일정 이상인 하천에서 후보 지점을 뽑습니다.</span></li>
+        <li tabindex="0" data-k="2"><b>충적층</b><span>지질도에서 충적층(Qa)인지 확인합니다.</span></li>
+        <li tabindex="0" data-k="3"><b>정수장까지의 거리</b><span>분석 지점에서 가까운 정수장·취수장까지의 거리를 봅니다.</span></li>
+        <li tabindex="0" data-k="4"><b>기저유출</b><span>평소 하천에 흐르는 지하수 성분의 크기입니다.</span></li>
       </ol>
     </div>
   </div>
@@ -200,22 +189,17 @@ footer p { margin: 0 0 6px; }
       <p class="sub">분석 화면 위쪽의 세 버튼으로 찾는 방식을 고릅니다.</p>
     </div>
     <div class="three">
-      <div><h3>지점 분석</h3><p>지도에서 누른 한 지점을 분석 대상으로 삼습니다.</p></div>
-      <div><h3>영역 그리기</h3><p>지도 위에 그린 영역 안을 분석 대상으로 삼습니다.</p></div>
-      <div><h3>반경 추천</h3><p>기준 지점에서 반경을 정하면 그 안에서 후보 지점을 찾습니다.</p></div>
+      <div><figure><img src="img/mode-point.jpg" width="1052" height="680" loading="lazy" alt="지점 분석 버튼이 선택된 화면. 지도에 한 지점을 찍으면 좌표가 말풍선으로 나옵니다."></figure><h3>지점 분석</h3><p>지도에서 누른 한 지점을 분석 대상으로 삼습니다.</p></div>
+      <div><figure><img src="img/mode-area.jpg" width="1052" height="688" loading="lazy" alt="영역 그리기 버튼이 선택된 화면. 지도 위에 꼭짓점을 찍어 점선으로 영역을 그리는 중입니다."></figure><h3>영역 그리기</h3><p>지도 위에 꼭짓점을 찍어 그린 영역 안을 분석 대상으로 삼습니다.</p></div>
+      <div><figure><img src="img/mode-radius.jpg" width="1052" height="688" loading="lazy" alt="반경 추천 버튼이 선택된 화면. 기준 지점을 중심으로 반경 3km 원이 그려져 있습니다."></figure><h3>반경 추천</h3><p>기준 지점에서 반경을 정하면 그 안에서 후보 지점을 찾습니다.</p></div>
     </div>
-    <div class="win">
-      <div class="bar"><i></i><i></i><i></i><span>지하수저류댐 적지 선정</span></div>
-      <img src="img/siting-modes.png" width="1052" height="680" loading="lazy" alt="분석 화면 위쪽의 지점 분석, 영역 그리기, 반경 추천 세 버튼과 충남 부여 일대 지도. 지점 분석으로 지도에 한 지점을 찍은 모습입니다.">
-    </div>
-    <p class="cap">위쪽 세 버튼으로 방식을 고릅니다. 지도에 지점을 찍은 모습입니다.</p>
   </div>
 </section>
 
 <section id="result">
   <div class="wrap">
     <div class="head">
-      <h2>분석 결과는 이렇게 나옵니다</h2>
+      <h2>분석 결과</h2>
       <p class="sub">후보 지점이 점수 순서로 나열되고, 지점마다 등급과 유역면적, 가까운 시설까지의 거리를 볼 수 있습니다.</p>
     </div>
     <div class="win">
@@ -234,19 +218,17 @@ footer p { margin: 0 0 6px; }
     </div>
     <div class="win">
       <div class="bar"><i></i><i></i><i></i><span>지하수저류댐 적지 선정</span></div>
-      <img src="img/siting-layers.png" width="1412" height="617" loading="lazy" alt="충남 부여 일대 지도에 하천망, 수위관측소, 정수장, 댐 레이어를 켠 모습. 하천은 굵기별 파란 선, 수위관측소는 네모 표시로 보입니다.">
+      <img src="img/siting-layers.jpg" width="1412" height="617" loading="lazy" alt="레이어 목록에서 하천망과 정수장·취수장을 켠 화면. 지도에는 굵기별 파란 하천선과 정수장 표시가 보이고, 오른쪽 위 레이어 단추에 켠 개수 2가 표시됩니다.">
     </div>
-    <p class="cap" style="margin-bottom:44px">하천망, 수위관측소, 정수장·취수장, 댐·저수지 레이어를 켠 모습입니다.</p>
+    <p class="cap" style="margin-bottom:48px">레이어 목록에서 하천망과 정수장·취수장을 켠 모습입니다. 켠 자료가 지도에 겹쳐 보입니다.</p>
     <ul class="layers">
-      <li><b>하천망</b><span>본류와 지류를 굵기로 구분해 표시합니다.</span></li>
-      <li><b>지질도</b><span>충적층 같은 암상을 확인합니다.</span></li>
-      <li><b>정수장·취수장</b><span>물을 쓰는 곳의 위치입니다.</span></li>
-      <li><b>댐·저수지</b><span>이미 있는 수자원 시설입니다.</span></li>
-      <li><b>국가지하수관측망</b><span>지하수위를 재는 지점입니다.</span></li>
-      <li><b>가뭄</b><span>가뭄이 잦았던 곳을 보여 줍니다.</span></li>
-      <li><b>수위관측소</b><span>하천 수위를 재는 지점입니다.</span></li>
-      <li><b>문화재·상수원보호·개발제한</b><span>개발이 어려운 구역을 따로 표시합니다.</span></li>
+      <li><img src="img/layer-rivers.jpg" width="800" height="470" loading="lazy" alt="하천망 레이어를 켠 지도"><b>하천망</b><span>본류와 지류를 굵기로 구분해 표시합니다.</span></li>
+      <li><img src="img/layer-geology.jpg" width="800" height="470" loading="lazy" alt="지질도 레이어를 켠 지도. Qa 표시가 보입니다."><b>지질도</b><span>암상을 색과 기호로 표시합니다. Qa가 충적층입니다.</span></li>
+      <li><img src="img/layer-plant.jpg" width="800" height="470" loading="lazy" alt="정수장·취수장 레이어를 켠 지도"><b>정수장·취수장</b><span>물을 쓰는 곳의 위치입니다.</span></li>
+      <li><img src="img/layer-dam.jpg" width="800" height="470" loading="lazy" alt="댐·저수지 레이어를 켠 지도"><b>댐·저수지</b><span>이미 있는 수자원 시설입니다.</span></li>
+      <li><img src="img/layer-heritage.jpg" width="800" height="470" loading="lazy" alt="문화재 레이어를 켠 지도. 문화재가 점으로 보입니다."><b>문화재</b><span>문화재 위치를 점으로 표시합니다.</span></li>
     </ul>
+    <p class="cap" style="margin-top:28px">이 밖에 국가지하수관측망(지하수위를 재는 지점)과 수위관측소(하천 수위를 재는 지점)도 켜고 끌 수 있습니다.</p>
     <p class="patent" style="margin-top:44px"><b>특허 출원</b> (출원번호 10-2026-0080613)</p>
   </div>
 </section>
@@ -283,27 +265,25 @@ footer p { margin: 0 0 6px; }
 
 <script>
 (function () {
-  var st = document.getElementById('stack');
   var items = document.querySelectorAll('.stack-list li');
-  function onLayer(k) {
-    document.querySelectorAll('.pl, .stack-list li').forEach(function (e) { e.classList.toggle('on', k !== null && e.getAttribute('data-k') === k); });
-    if (k === null) st.removeAttribute('data-on'); else st.setAttribute('data-on', '1');
+  var figs = document.querySelectorAll('#viewer .vf');
+  var cur = 0, timer = null, vis = false, held = false, rel = null;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(i) {
+    cur = i;
+    figs.forEach(function (f, j) { f.classList.toggle('on', j === i); });
+    items.forEach(function (li, j) { li.classList.toggle('on', j === i); });
   }
-  items.forEach(function (li) {
-    var k = li.getAttribute('data-k');
-    li.addEventListener('mouseenter', function () { onLayer(k); });
-    li.addEventListener('focus', function () { onLayer(k); });
-    li.addEventListener('mouseleave', function () { onLayer(null); });
-    li.addEventListener('blur', function () { onLayer(null); });
+  function tick() { if (vis && !held && !reduce) show((cur + 1) % figs.length); }
+  timer = setInterval(tick, 3800);
+  new IntersectionObserver(function (es) { vis = es[0].isIntersecting; }, { threshold: 0.3 }).observe(document.getElementById('viewer'));
+  items.forEach(function (li, j) {
+    li.addEventListener('mouseenter', function () { held = true; show(j); });
+    li.addEventListener('mouseleave', function () { held = false; });
+    li.addEventListener('focus', function () { held = true; show(j); });
+    li.addEventListener('blur', function () { held = false; });
+    li.addEventListener('click', function () { show(j); held = true; clearTimeout(rel); rel = setTimeout(function () { held = false; }, 9000); });
   });
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && st) {
-    var gap = 8, dir = 1, vis = false;
-    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; }, { threshold: 0.3 }).observe(st);
-    (function tick() {
-      if (vis) { gap += dir * 0.18; if (gap >= 34) dir = -1; if (gap <= 8) dir = 1; st.style.setProperty('--gap', gap); }
-      requestAnimationFrame(tick);
-    })();
-  }
 })();
 </script>
 </body>
