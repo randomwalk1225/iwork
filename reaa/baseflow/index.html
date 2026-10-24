@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HydroLink 하천 유량 측정</title>
+<meta name="description" content="측선별 거리와 수심, 유속계 회전수를 넣으면 유량과 불확실도를 계산하고, 계산에 쓴 값을 기록에 함께 남기는 하천 유량 측정 서비스입니다.">
+<!-- 차용:
+  ~/.claude/skills/gsap — 타임라인으로 계산 과정을 단계별로 저절로 반복 재생(스크롤과 무관)
+  ~/.claude/skills/masked-reveal — 제목 단어가 마스크 뒤에서 올라오는 등장
+  three.js r186 공식 예제 webgl_shaders_ocean(Water·Sky 애드온), webgl_geometry_terrain(ImprovedNoise) — 계곡과 물
+  MathJax 3 tex-svg — 모든 수식
+-->
+<link rel="icon" href="img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+<link rel="apple-touch-icon" href="img/hydrolink-icon-128.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&display=swap">
+<script>
+document.documentElement.classList.add('js');
+if (/[?&]nogl\b/.test(location.search)) document.documentElement.classList.add('no-gl');
+setTimeout(function () { var c = document.documentElement.classList; if (!c.contains('gl-ok') && !document.hidden) c.add('no-gl'); }, 8000);
+</script>
+<style>
+:root {
+  --paper: #F4F8F9; --surface: #FFFFFF; --ink: #0D1B22; --ink2: #41535C; --line: #D3DFE3;
+  --water: #0B5C70; --flow: #D9482B; --btn: #0D1B22; --btn-ink: #FFFFFF; --veil: rgba(244,248,249,.82);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0A1318; --surface: #111D24; --ink: #E8F0F2; --ink2: #A5B7BE; --line: #223540;
+    --water: #5CC1D1; --flow: #FF7A59; --btn: #E8F0F2; --btn-ink: #0A1318; --veil: rgba(10,19,24,.8);
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0A1318; --surface: #111D24; --ink: #E8F0F2; --ink2: #A5B7BE; --line: #223540;
+  --water: #5CC1D1; --flow: #FF7A59; --btn: #E8F0F2; --btn-ink: #0A1318; --veil: rgba(10,19,24,.8);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 400 18px/1.75 "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  word-break: keep-all; overflow-wrap: break-word; -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--btn); color: var(--btn-ink); padding: 8px 14px; z-index: 50; }
+.skip:focus { left: 8px; top: 8px; }
+:focus-visible { outline: 2px solid var(--water); outline-offset: 3px; border-radius: 4px; }
+.wrap { width: min(1120px, 100% - 48px); margin-inline: auto; }
+.serif { font-family: "Noto Serif KR", "Nanum Myeongjo", serif; }
+
+/* 상단 */
+.top { position: fixed; inset: 0 0 auto 0; z-index: 30; background: var(--veil); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 18px; letter-spacing: -.01em; }
+.menu { display: flex; align-items: center; gap: 4px; }
+.menu a { text-decoration: none; font-size: 15px; padding: 8px 12px; color: var(--ink2); border-radius: 8px; }
+.menu a:hover { color: var(--ink); }
+.menu .go { background: var(--btn); color: var(--btn-ink); margin-left: 6px; font-weight: 600; }
+@media (max-width: 720px) { .menu a:not(.go) { display: none; } }
+
+/* 첫 화면: 3D 계곡 */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; background: #CFE2E8; }
+:root:not([data-theme="light"]) .hero { background: #0D1A22; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .hero { background: #CFE2E8; } }
+#scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-copy {
+  position: relative; z-index: 2; width: min(660px, 100% - 32px); margin: 0 0 clamp(24px, 7vh, 72px) max(16px, calc((100vw - 1120px) / 2));
+  background: var(--veil); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line); border-radius: 16px; padding: clamp(22px, 3vw, 36px);
+}
+.hero h1 { font: 700 clamp(32px, 4.6vw, 56px)/1.3 "Noto Serif KR", serif; letter-spacing: -.025em; margin: 0 0 18px; }
+.lead { margin: 0 0 24px; color: var(--ink2); font-size: 18px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; background: var(--btn); color: var(--btn-ink); border-radius: 10px; text-decoration: none; font-weight: 600; }
+.btn:hover { opacity: .88; } .btn:active { transform: scale(.98); }
+.link { text-decoration: none; font-weight: 600; border-bottom: 2px solid var(--water); padding-bottom: 2px; }
+.note { margin: 22px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.65; color: var(--ink2); }
+.note b { color: var(--ink); }
+.cap3d { position: absolute; right: 18px; bottom: 12px; z-index: 2; margin: 0; font-size: 14px; color: var(--ink2); background: var(--veil); padding: 2px 10px; border-radius: 6px; }
+@media (max-width: 720px) { .cap3d { display: none; } }
+.fallback { display: none; }
+.no-gl .hero { display: block; min-height: 0; background: var(--paper); padding: 104px 0 56px; }
+.no-gl #scene, .no-gl .cap3d { display: none; }
+.no-gl .hero-copy { margin: 0 auto 40px; width: min(1120px, 100% - 48px); background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border: 0; padding: 0; }
+.no-gl .fallback { display: block; }
+.fallback .cap { margin: 12px 0 0; font-size: 15px; color: var(--ink2); }
+
+/* 구역 공통 */
+section { padding: clamp(72px, 10vw, 128px) 0; }
+section + section { border-top: 1px solid var(--line); }
+h2 { font: 700 clamp(28px, 3.4vw, 42px)/1.3 "Noto Serif KR", serif; letter-spacing: -.02em; margin: 0 0 14px; }
+h3 { font-size: 19px; line-height: 1.45; margin: 0 0 8px; letter-spacing: -.01em; }
+.sub { margin: 0; color: var(--ink2); max-width: 36em; }
+p { margin: 0 0 14px; }
+sub, sup { font-size: max(14px, .8em); line-height: 0; }
+.head { margin-bottom: 44px; }
+
+/* 계산 과정 이야기 */
+.story { padding-block: 0; border-top: 1px solid var(--line); }
+.story-pin { padding: 56px 0 40px; }
+.story-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
+.fig { margin: 0; align-self: start; }
+.fig svg { width: 100%; height: auto; display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.fig figcaption { margin-top: 10px; font-size: 15px; color: var(--ink2); line-height: 1.6; }
+.xs-bed { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+.xs-water { fill: url(#xs-wg); }
+.xs-sed { fill: url(#xs-sg); }
+.xs-rip { fill: none; stroke: #fff; stroke-width: 1.4; opacity: .7; }
+.xs-surf { stroke: var(--water); stroke-width: 1.5; stroke-dasharray: 6 5; }
+.xs-line { stroke: var(--ink2); stroke-width: 1; opacity: .55; }
+.xs-dot { fill: var(--flow); }
+.xs-strip { fill: var(--flow); }
+.xs-txt { font: 600 16px "Pretendard Variable", sans-serif; fill: var(--ink2); }
+.xs-q { font: 700 30px "Pretendard Variable", sans-serif; fill: var(--ink); font-variant-numeric: tabular-nums; }
+@media (max-width: 720px) { .xs-txt { display: none; } }
+.panels { display: block; min-width: 0; }
+.panel { min-width: 0; margin-bottom: 36px; }
+.story.is-anim .panels { display: grid; }
+.story.is-anim .panel { grid-area: 1 / 1; margin-bottom: 0; }
+.story-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.story:not(.is-anim) .story-tabs { display: none; }
+.story-tab, .story-ctl { min-height: 44px; padding: 0 18px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink2); font: 600 15px/1 inherit; font-family: inherit; cursor: pointer; }
+.story-tab:hover, .story-ctl:hover { color: var(--ink); border-color: var(--ink2); }
+.story-tab.on { background: var(--btn); color: var(--btn-ink); border-color: var(--btn); }
+.story-ctl { margin-left: auto; }
+.panel .no { display: inline-block; font-weight: 700; color: var(--water); margin-bottom: 6px; font-size: 15px; letter-spacing: .02em; }
+.panel h3 { font: 700 26px/1.35 "Noto Serif KR", serif; margin-bottom: 12px; }
+.panel p { color: var(--ink2); }
+.eq { margin: 18px 0 14px; padding: 6px 0; overflow-x: auto; font-size: 20px; }
+.eq mjx-container { margin: .6em 0 !important; }
+.readout { margin: 0; font-size: 16px; color: var(--ink2); font-variant-numeric: tabular-nums; }
+.readout b { color: var(--ink); }
+.bars { margin: 14px 0 0; display: grid; gap: 10px; }
+.bar { display: grid; grid-template-columns: 7.5em 1fr 3.6em; align-items: center; gap: 12px; font-size: 15px; font-variant-numeric: tabular-nums; }
+.bar i { display: block; height: 10px; border-radius: 5px; background: var(--water); transform-origin: left center; }
+.bar span:last-child { text-align: right; color: var(--ink); font-weight: 600; }
+@media (max-width: 560px) { .eq { font-size: 16px; } }
+@media (min-width: 960px) {
+  .story-pin { padding: 24px 0 20px; }
+  .story .head { margin-bottom: 22px; }
+  .story h2 { font-size: 32px; margin-bottom: 8px; }
+  .panel h3 { font-size: 22px; margin-bottom: 8px; }
+  .panel p { margin-bottom: 8px; font-size: 17px; line-height: 1.65; }
+  .eq { margin: 8px 0 6px; padding: 0; font-size: 17px; }
+  .eq mjx-container { margin: .25em 0 !important; }
+  .bars { gap: 6px; margin-top: 8px; }
+  .readout { font-size: 15px; }
+}
+@media (max-width: 959px) {
+  .story-pin { padding: 72px 0; }
+  .story-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+}
+
+/* 화면 */
+.shot { margin: 0 0 56px; }
+.win { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.win .bar { display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 14px; background: color-mix(in srgb, var(--ink) 4%, var(--surface)); border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink2); }
+.win .bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.win .bar span { margin-left: 8px; }
+.shot p.cap { margin: 12px 0 0; font-size: 15px; color: var(--ink2); }
+.figs { max-width: 920px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 20px; }
+.two > div { border-top: 1px solid var(--line); padding-top: 22px; }
+.two p { color: var(--ink2); }
+@media (max-width: 800px) { .two { grid-template-columns: 1fr; gap: 24px; } }
+
+/* 기록 / 적지 */
+.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.sticky { position: sticky; top: 96px; }
+.rows { list-style: none; margin: 0; padding: 0; }
+.rows li { padding: 24px 0; border-top: 1px solid var(--line); }
+.rows li:first-child { padding-top: 0; border-top: 0; }
+.rows p { color: var(--ink2); margin: 0; }
+.calib { margin: 16px 0 0; display: grid; gap: 16px; }
+.calib div { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; font-size: 16px; color: var(--ink2); }
+.calib time { font-variant-numeric: tabular-nums; min-width: 7em; }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; } .sticky { position: static; } }
+.tools { display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; }
+.tools > div { border-top: 1px solid var(--line); padding: 22px 0 18px; }
+.tools p { color: var(--ink2); margin: 0; }
+@media (max-width: 720px) { .tools { grid-template-columns: 1fr; } }
+.patent { margin: 0; color: var(--ink2); }
+.patent b { color: var(--ink); }
+
+/* 질문 */
+.faq { max-width: 800px; border-bottom: 1px solid var(--line); }
+details { border-top: 1px solid var(--line); }
+summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 68px; font-weight: 600; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 26px; font-weight: 300; line-height: 1; color: var(--ink2); transition: transform .25s; }
+details[open] summary::after { content: "\2212"; }
+.ans { padding: 0 0 22px; color: var(--ink2); max-width: 40em; }
+
+.last .sub { margin-bottom: 18px; }
+.who { font-size: 20px; }
+footer { padding: 40px 0 56px; border-top: 1px solid var(--line); color: var(--ink2); font-size: 15px; }
+footer p { margin: 0 0 6px; }
+
+
+/* 도구 */
+.tool { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 72px); align-items: center; padding: 48px 0; border-top: 1px solid var(--line); }
+.tool.rev .tool-text { order: 2; }
+.tool-slim { grid-template-columns: minmax(0, 1fr); padding-bottom: 0; }
+.tool-slim .tool-text { max-width: 40em; }
+.tool-text h3 { font: 700 26px/1.35 "Noto Serif KR", serif; margin-bottom: 12px; }
+.tool-text p { color: var(--ink2); }
+.tool-text .eq { margin: 14px 0 10px; padding: 0; font-size: 17px; }
+.chartbox { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 10px; }
+.chart-h { position: relative; height: 300px; }
+.slider { display: grid; grid-template-columns: auto minmax(0, 1fr) 3.2em; gap: 14px; align-items: center; margin: 10px 0 6px; font-size: 16px; }
+.slider input { width: 100%; accent-color: var(--water); height: 28px; }
+.slider output { font-variant-numeric: tabular-nums; font-weight: 700; text-align: right; }
+.sat-cap, .rec-cap { margin: 10px 0 0; font-size: 15px; color: var(--ink2); }
+.rec-cap { margin-bottom: 30px; }
+.tl { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px; position: relative; padding-top: 26px; }
+.tl::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; border-top: 2px solid var(--line); }
+.tl-n { position: relative; }
+.tl-n::before { content: ""; position: absolute; left: 0; top: -26px; width: 14px; height: 14px; border-radius: 50%; background: var(--line); border: 2px solid var(--paper); }
+.tl-n.now::before { background: var(--water); }
+.tl-n time { display: block; font-size: 15px; color: var(--ink2); font-variant-numeric: tabular-nums; }
+.tl-n span { display: block; font-size: 16px; margin: 4px 0; }
+.tl-n em { font-style: normal; font-size: 14px; color: var(--ink2); }
+@media (max-width: 860px) { .tool { grid-template-columns: minmax(0, 1fr); } .tool.rev .tool-text { order: 0; } .tl { grid-template-columns: 1fr; gap: 28px; } .tl::before { display: none; } .tl-n::before { display: none; } }
+
+/* 적지선정: 겹쳐 따지는 기준을 층으로 쌓은 그림 */
+.stackwrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 64px); align-items: center; margin-bottom: 36px; }
+.stack { --gap: 34; height: 460px; perspective: 1500px; position: relative; }
+.stack-in { position: absolute; inset: 0; transform-style: preserve-3d; }
+.pl { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: min(400px, 72%); aspect-ratio: 1.55; border-radius: 10px; border: 1.5px solid var(--ink);
+  background-color: var(--surface); transform: rotateX(60deg) rotateZ(-38deg) translateZ(calc((var(--i) - 2.5) * var(--gap) * 1px)); transition: opacity .25s, border-color .25s; }
+.pl5 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 65' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%231b8fb0' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M0 12 C25 14 35 30 52 34 S85 44 100 58'/%3E%3Cpath d='M18 0 C22 14 30 22 40 28'/%3E%3Cpath d='M70 0 C66 16 60 26 54 34'/%3E%3Cpath d='M0 48 C20 44 34 40 48 36'/%3E%3C/g%3E%3C/svg%3E"); background-size: 100% 100%; }
+.pl4 { background-image: radial-gradient(circle at 50% 50%, #b99f75 0 1.6px, transparent 2.4px); background-size: 16px 16px; background-color: #efe6d4; }
+.pl3 { background-image: radial-gradient(circle at 68% 42%, var(--flow) 0 6px, transparent 7px), radial-gradient(circle at 68% 42%, transparent 0 40px, rgba(27, 143, 176, .65) 41px 43px, transparent 44px); }
+.pl2 { background-image: repeating-linear-gradient(135deg, rgba(217, 72, 43, .38) 0 2px, transparent 2px 10px); }
+.pl1 { background-image: linear-gradient(120deg, rgba(255, 214, 120, .75), rgba(240, 140, 70, .8) 72%); }
+.pl0 { background-image: repeating-linear-gradient(0deg, rgba(27, 143, 176, .42) 0 7px, rgba(27, 143, 176, .16) 7px 14px); }
+.stack[data-on] .pl { opacity: .22; }
+.stack[data-on] .pl.on { opacity: 1; border-color: var(--flow); }
+.stack-list { list-style: none; margin: 0; padding: 0; }
+.stack-list li { padding: 14px 8px; border-top: 1px solid var(--line); border-radius: 6px; }
+.stack-list li:last-child { border-bottom: 1px solid var(--line); }
+.stack-list b { display: block; font-size: 18px; }
+.stack-list span { color: var(--ink2); font-size: 16px; line-height: 1.55; }
+.stack-list li.on b { color: var(--water); }
+.stack-list li.on { background: color-mix(in srgb, var(--water) 8%, transparent); }
+@media (max-width: 860px) { .stackwrap { grid-template-columns: minmax(0, 1fr); } .stack { height: 340px; --gap: 28; } .pl { width: min(300px, 78%); } }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/hydrolink-icon.svg" width="32" height="32" alt="">HydroLink</a>
+    <nav class="menu" aria-label="구역 이동">
+      <a href="#order">유량 계산 과정</a>
+      <a href="#screens">사용 화면</a>
+      <a href="#records">데이터 보관</a>
+      <a href="#faq">자주 묻는 질문</a>
+      <a class="go" href="#contact">문의</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div id="top"></div>
+
+<div class="hero">
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="hero-copy">
+    <h1 data-masked-reveal>하천 유량 측정, 입력부터 불확실도 계산까지</h1>
+    <p class="lead">측선별 거리와 수심, 유속계 회전수를 입력하거나 장비 원본 CSV를 올리면 유량과 ISO&nbsp;748 불확실도가 나옵니다. 어느 유속계의 어떤 검정값으로 계산했는지도 기록에 남습니다.</p>
+    <div class="row">
+      <a class="btn" href="#contact">이용 문의</a>
+      <a class="link" href="#order">유량 계산 과정 보기</a>
+    </div>
+    <p class="note"><b>장비 원본 CSV 6건으로 시험했습니다.</b> 단면적은 6건 모두 장비가 낸 값과 같았습니다(차이 0.005&nbsp;m² 이하).</p>
+  </div>
+  <p class="cap3d">배경은 컴퓨터로 만든 가상의 계곡입니다.</p>
+  <div class="fallback wrap">
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i><span>측정 데이터 입력</span></div>
+      <img src="img/product-input-wide.png" width="2400" height="1280" alt="측정 데이터 입력 화면. 측선별 거리와 수심, 회전수를 넣으면 유속이 계산되고, 오른쪽에 단면도와 예상 유량이 표시됩니다.">
+    </div>
+    <p class="cap">지어낸 시험 자료(시험천)를 실제 서비스에 넣고 찍은 화면입니다. 실제 하천의 측정값이 아닙니다.</p>
+  </div>
+</div>
+
+<section id="order" class="story">
+  <div class="story-pin">
+    <div class="wrap">
+      <div class="head">
+        <h2>측정 결과로 유량이 계산되는 과정</h2>
+        <p class="sub">현장에서 잰 값이 유량과 불확실도가 되는 과정입니다. 아래 단면이 계산을 한 단계씩 저절로 보여 줍니다. 단계 이름을 누르면 그 단계부터 다시 볼 수 있습니다.</p>
+        <div class="story-tabs" role="group" aria-label="계산 단계">
+          <button type="button" class="story-tab on" aria-pressed="true">1 유속</button>
+          <button type="button" class="story-tab" aria-pressed="false">2 유량</button>
+          <button type="button" class="story-tab" aria-pressed="false">3 불확실도</button>
+          <button type="button" class="story-ctl" id="story-ctl" aria-pressed="false">일시정지</button>
+        </div>
+      </div>
+      <div class="story-grid">
+        <figure class="fig">
+          <svg id="xs" viewBox="0 0 760 340" role="img" aria-label="하천 횡단면. 측선 21개에서 수심과 유속을 재고, 측선마다 맡은 폭만큼 유량을 더해 전체 유량을 구하는 과정을 그린 그림."></svg>
+          <figcaption>지어낸 시험 자료(시험천)로 계산한 예시이고, 단면의 폭은 22&nbsp;m, 측선은 21개, 최대 수심은 0.95&nbsp;m입니다.</figcaption>
+        </figure>
+        <div class="panels">
+          <article class="panel" id="p1">
+            <span class="no">1단계 · 유속</span>
+            <h3>회전수에서 유속을 구합니다</h3>
+            <p>유속계가 돈 횟수 N을 잰 시간 T로 나누고, 유속계마다 정해진 검정식에 넣습니다.</p>
+            <div class="eq">\[ V = a\,\frac{N}{T} + b \]</div>
+            <p class="readout" id="r1"></p>
+          </article>
+          <article class="panel" id="p2">
+            <span class="no">2단계 · 유량</span>
+            <h3>측선마다 더해 유량을 냅니다</h3>
+            <p>측선의 평균 유속에 수심과 그 측선이 맡은 폭을 곱해 모두 더합니다. 평균 유속은 수면에서 0.2와 0.8 깊이 두 점의 평균입니다(중앙단면법).</p>
+            <div class="eq">\[ Q = \sum_{i=1}^{n} \bar v_i\, d_i\, w_i \]\[ \bar v_i = \frac{v_{0.2}+v_{0.8}}{2} \]</div>
+            <p class="readout" id="r2"></p>
+          </article>
+          <article class="panel" id="p3">
+            <span class="no">3단계 · 불확실도</span>
+            <h3>네 가지 오차를 합칩니다</h3>
+            <p>ISO&nbsp;748 방식입니다. 측점(X<sub>e</sub>), 측점 수(X<sub>p</sub>), 검정(X<sub>c</sub>), 측선 수(X<sub>m</sub>)를 합쳐 랜덤 불확실도를 구하고, 계통 불확실도와 합성합니다.</p>
+            <div class="eq">\[ X_{1Q}=\sqrt{X_m^2+\frac{X_e^2+X_p^2+X_c^2}{n}} \]
+              \[ X_Q=\sqrt{X_{1Q}^2+X_{2Q}^2} \]\[ U = 2X_Q \]</div>
+            <div class="bars" id="bars"></div>
+            <p class="readout" id="r3" style="margin-top:14px"></p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="head">
+      <h2>사용 화면</h2>
+      <p class="sub">아래 화면은 모두 지어낸 시험 자료(시험천)를 실제 서비스에 넣고 찍은 것입니다. 실제 하천의 측정값이 아닙니다.</p>
+    </div>
+    <div class="figs">
+      <div class="shot">
+        <div class="win">
+          <div class="bar"><i></i><i></i><i></i><span>측정 데이터 입력</span></div>
+          <img src="img/product-input-wide.png" width="2400" height="1280" alt="측정 데이터 입력 화면. 측선별 거리와 수심, 회전수를 넣으면 유속이 계산되고, 오른쪽에 물처럼 그려진 단면도와 예상 유량이 표시됩니다." loading="lazy">
+        </div>
+        <h3 style="margin-top:20px">입력하는 동안 유량이 바로 보입니다</h3>
+        <p class="cap" style="font-size:18px">거리, 수심, 회전수를 넣으면 유속이 계산되고 단면도와 예상 유량이 옆에 나옵니다. 엑셀에서 복사한 표를 붙여 넣어도 됩니다.</p>
+      </div>
+      <div class="shot">
+        <div class="win">
+          <div class="bar"><i></i><i></i><i></i><span>계산 결과</span></div>
+          <img src="img/res-cards.png" width="2280" height="808" alt="계산 결과 화면. 유량 12.402 세제곱미터 매초, 확장불확실도 4.5퍼센트, 단면적 13.69 제곱미터, 평균유속 0.906 미터 매초." loading="lazy">
+        </div>
+        <h3 style="margin-top:20px">유량, 단면적, 평균유속이 한 화면에 나옵니다</h3>
+        <p class="cap" style="font-size:18px">계산 결과는 엑셀과 PDF로 내려받을 수 있습니다. 한 건씩 받거나, 여러 건을 분석결과표 한 파일로 받습니다.</p>
+      </div>
+      <div class="shot">
+        <div class="win">
+          <div class="bar"><i></i><i></i><i></i><span>불확실도 구성요소</span></div>
+          <img src="img/product-uncertainty.png" width="2192" height="516" alt="불확실도 구성요소. 측점, 측점 수, 검정, 측선 수의 값과 합성불확실도 2.25퍼센트, 확장불확실도 4.5퍼센트, 등급 E." loading="lazy">
+        </div>
+        <h3 style="margin-top:20px">불확실도를 요소별로 나누어 보여 줍니다</h3>
+        <p class="cap" style="font-size:18px">측점, 측점 수, 검정, 측선 수가 각각 얼마씩 차지하는지 따로 볼 수 있습니다. 합성불확실도와 확장불확실도(k=2), 등급(E·G·F·P)도 함께 나옵니다.</p>
+      </div>
+    <div class="shot">
+        <div class="win">
+          <div class="bar"><i></i><i></i><i></i><span>유속계 관리</span></div>
+          <img src="img/use-meters.png" width="800" height="480" alt="유속계 관리 화면. 유속계마다 검정식, 유효 범위, 검정일이 정리되어 있습니다." loading="lazy" style="max-width:min(100%,620px)">
+        </div>
+        <h3 style="margin-top:20px">유속계별 검정식을 관리합니다</h3>
+        <p class="cap" style="font-size:18px">검정식, 유효 범위, 검정일이 유속계마다 정리됩니다. 새로 검정하면 값이 버전별로 쌓입니다.</p>
+      </div>
+    </div>
+    <div class="two">
+      <div>
+        <h3>장비 원본 CSV를 그대로 올립니다</h3>
+        <p>FlowTracker2가 내보낸 파일을 손대지 않고 올리면 됩니다. 장비가 계산해 둔 유량, 단면적, 불확실도도 같이 보관하므로 앱의 계산값과 비교해 볼 수 있습니다.</p>
+        <p>읽는 항목은 측정 시각, 공번, 위치, 측선별 거리·수심·유속이고, 장비가 낸 유량과 단면적도 함께 보관합니다.</p>
+      </div>
+      <div>
+        <h3>엑셀 분석결과표</h3>
+        <p>날짜와 위치별로 모아 한 번에 내려받습니다.</p>
+        <p>표에는 수면폭, 단면적, 윤변, 동수반경, 평균유속, 평균유량, 불확실도, 등급이 들어 있습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="records">
+  <div class="wrap split">
+    <div class="sticky">
+      <h2>회원 전용 데이터 보관</h2>
+      <p class="sub">회원가입하면 입력한 값이 남고, 계산에 쓴 값도 함께 보관됩니다.</p>
+    </div>
+    <div>
+      <div class="win rec-win">
+        <div class="bar"><i></i><i></i><i></i><span>측정 기록의 측정 정보</span></div>
+        <img src="img/rec-info.png" width="1240" height="492" alt="측정 기록의 측정 정보. 입력자, 사용한 유속계 2100-8797과 검정값 a=1.0218, b=0.0146, 검정일 2025-06-02가 함께 저장되어 있습니다." loading="lazy">
+      </div>
+      <p class="cap rec-cap">시험 자료로 만든 기록입니다. 입력자 이름은 가렸습니다.</p>
+      <ul class="rows">
+        <li><h3>검정값 버전별 보관·조회</h3><p>유속계 검정값은 지우지 않고 버전별로 보관하며, 언제든 조회할 수 있습니다.</p>
+          <div class="tl" aria-label="검정값 이력">
+            <div class="tl-n"><time>2019-04-10</time><span>\(V = 1.0243\,\dfrac{N}{T} + 0.0162\)</span><em>이전 버전</em></div>
+            <div class="tl-n now"><time>2025-06-02</time><span>\(V = 1.0218\,\dfrac{N}{T} + 0.0146\)</span><em>현재 버전</em></div>
+          </div>
+        </li>
+        <li><h3>장비와 앱의 값 비교</h3><p>장비 원본을 올리면 장비 값과 앱 값을 한 화면에서 비교할 수 있습니다.</p></li>
+        <li><h3>회원 전용 보관</h3><p>회원가입하면 입력한 값이 남습니다.</p></li>
+        <li><h3>데이터 갱신 기록</h3><p>저장한 측정은 갱신 시각과 함께 히스토리 목록으로 볼 수 있습니다.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="wrap">
+    <div class="head">
+      <h2>측정과 함께 쓰는 도구</h2>
+      <p class="sub">아래 그래프는 지어낸 예시 자료로 그린 것입니다. 기저유출 그래프는 앱과 같은 식으로 계산하므로 슬라이더를 움직여 볼 수 있습니다.</p>
+    </div>
+
+    <div class="tool">
+      <div class="tool-text">
+        <h3>기저유출 분석</h3>
+        <p>일 유량 자료에서 기저유출을 분리합니다. Eckhardt 필터를 쓰고, 결과는 PDF로 받을 수 있습니다.</p>
+        <div class="eq">\[ b_i = \frac{(1-\beta)\,\alpha\, b_{i-1} + (1-\alpha)\,\beta\, y_i}{1-\alpha\beta} \]</div>
+        <p class="readout" style="margin-top:0">b<sub>i</sub>: i일의 기저유출, y<sub>i</sub>: i일의 유량, α: 필터 계수, β: 최대 기저유출지수</p>
+        <label class="slider" for="bf-range"><span>β = BFI<sub>max</sub></span><input id="bf-range" type="range" min="0.5" max="0.95" step="0.01" value="0.80"><output id="bf-val">0.80</output></label>
+        <p class="readout" id="bf-read"></p>
+      </div>
+      <div class="chartbox"><div class="chart-h"><canvas id="bf-chart" role="img" aria-label="45일 유량 자료를 기저유출과 직접유출로 나눈 누적 면적 그래프"></canvas></div></div>
+    </div>
+
+    <div class="tool rev">
+      <div class="tool-text">
+        <h3>수위-유량 곡선</h3>
+        <p>수위와 유량의 관계를 회귀식으로 구합니다. 수위와 유량의 시계열 자료를 올려 변화를 볼 수도 있습니다.</p>
+        <div class="eq">\[ Q = a\,(h-h_0)^{b} \]</div>
+        <p class="readout">예: a = 14, h<sub>0</sub> = 0.15 m, b = 1.8</p>
+      </div>
+      <div class="chartbox"><div class="chart-h"><canvas id="hq-chart" role="img" aria-label="수위 대 유량 점들과 이를 지나는 곡선 Q = a (h - h0)^b"></canvas></div></div>
+    </div>
+
+    <div class="tool">
+      <div class="tool-text">
+        <h3>위성 영상</h3>
+        <p>날씨를 확인할 수 있는 위성영상을 제공합니다.</p>
+      </div>
+      <div>
+        <div class="win">
+          <div class="bar"><i></i><i></i><i></i><span>실시간 위성영상 (적외)</span></div>
+          <img src="img/tool-satellite.jpg" width="2041" height="1088" alt="한반도와 동아시아의 적외 위성 영상. 구름이 온도에 따라 색으로 구분되어 있습니다." loading="lazy">
+        </div>
+        <p class="cap sat-cap">앱 화면에서 찍은 실제 영상입니다. 출처: NASA GIBS, Esri.</p>
+      </div>
+    </div>
+
+    <div class="tool rev">
+      <div class="tool-text">
+        <h3>실시간 수문 자료</h3>
+        <p>수위, 강수량, 댐 방류 정보, 증발산량을 실시간으로 갱신해 보여 줍니다.</p>
+      </div>
+      <div>
+        <div class="win">
+          <div class="bar"><i></i><i></i><i></i><span>실시간 수문자료</span></div>
+          <img src="img/tool-hydro.png" width="1185" height="612" alt="실시간 수문자료 화면. 팔당댐, 잠수교, 한강대교의 수위와 유량, 서울 대곡교의 강수량이 카드로 표시됩니다." loading="lazy">
+        </div>
+        <p class="cap sat-cap">앱 화면에서 찍은 실제 화면입니다(2026-10-24 20:45). 출처: 한강홍수통제소.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="site">
+  <div class="wrap">
+    <div class="head">
+      <h2>지하수저류댐 적지를 고르는 방법</h2>
+      <p class="sub">하천망에서 후보 지점을 뽑고, 아래 기준들을 함께 비교해 순위를 매기는 방법입니다. 아래 항목을 가리키거나 누르면 그림에서 그 기준이 강조됩니다.</p>
+    </div>
+    <div class="stackwrap">
+      <div class="stack" id="stack" aria-hidden="true">
+        <div class="stack-in">
+          <div class="pl pl5" data-k="1" style="--i:5"></div>
+          <div class="pl pl4" data-k="2" style="--i:4"></div>
+          <div class="pl pl3" data-k="3" style="--i:3"></div>
+          <div class="pl pl2" data-k="4" style="--i:2"></div>
+          <div class="pl pl1" data-k="5" style="--i:1"></div>
+          <div class="pl pl0" data-k="6" style="--i:0"></div>
+        </div>
+      </div>
+      <ol class="stack-list">
+        <li tabindex="0" data-k="1"><b>하천망</b><span>유역면적이 일정 이상인 하천에서 후보 지점을 뽑습니다.</span></li>
+        <li tabindex="0" data-k="2"><b>충적층</b><span>지질도에서 충적층인지 확인합니다.</span></li>
+        <li tabindex="0" data-k="3"><b>정수장까지의 거리</b><span>물을 쓸 곳과 가까울수록 유리합니다.</span></li>
+        <li tabindex="0" data-k="4"><b>규제구역</b><span>개발이 제한된 구역은 따로 걸러냅니다.</span></li>
+        <li tabindex="0" data-k="5"><b>가뭄 이력</b><span>가뭄이 잦았던 곳을 반영합니다.</span></li>
+        <li tabindex="0" data-k="6"><b>기저유출</b><span>평소 하천에 흐르는 지하수 성분의 크기입니다.</span></li>
+      </ol>
+    </div>
+    <p class="patent"><b>특허 출원</b> (출원번호 10-2026-0080613)</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="head"><h2>자주 묻는 질문</h2></div>
+    <div class="faq">
+      <details><summary>누가 쓸 수 있나요?</summary><div class="ans">지금은 관리자가 승인한 계정만 쓸 수 있습니다. 소속과 하려는 일을 알려 주시면 이용 방법을 안내해 드립니다. 문의는 iworkonlabs@gmail.com 으로 보내 주세요.</div></details>
+      <details><summary>어떤 장비 파일을 올릴 수 있나요?</summary><div class="ans">FlowTracker2가 내보낸 원본 CSV를 고치지 않고 올릴 수 있습니다. 거리, 수심, 회전수, 시간을 적은 간단한 CSV도 읽고, 한글 엑셀에서 저장한 CSV(CP949)도 됩니다. 엑셀에서 복사한 표를 붙여 넣어도 됩니다.</div></details>
+      <details><summary>앱이 계산한 유량은 장비가 낸 유량과 같나요?</summary><div class="ans">시험한 FlowTracker2 원본 CSV 6건에서 앱 유량과 장비가 낸 유량의 차이는 1% 이하였습니다. 역류(음수 유속) 구간은 장비와 같이 유량에 합산합니다. 두 값은 한 화면에서 나란히 볼 수 있고, 단면적은 6건 모두 같았습니다.</div></details>
+      <details><summary>유속계 검정값이 바뀌면 이전 기록은 어떻게 되나요?</summary><div class="ans">이전 기록에는 그때 쓴 유속계 번호, 검정값, 검정일이 같이 저장되어 있어서 바뀌지 않습니다. 유속계 화면에는 검정할 때마다 값이 이력으로 쌓입니다.</div></details>
+      <details><summary>휴대폰으로도 입력할 수 있나요?</summary><div class="ans">네, 휴대폰 화면 폭에 맞춰 쓸 수 있습니다.</div></details>
+      <details><summary>여러 명이 나누어 조사하면 어떻게 하나요?</summary><div class="ans">각자 계정으로 입력하고 같은 조로 묶으면, 조원의 기록을 서로 볼 수 있습니다. 기록마다 입력한 사람이 표시되고, 수정과 삭제는 입력한 사람만 할 수 있습니다.</div></details>
+      <details><summary>특허는 어떤 상태인가요?</summary><div class="ans">특허를 출원했습니다(출원번호 10-2026-0080613).</div></details>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="last">
+  <div class="wrap">
+    <h2>이용을 원하시면 문의해 주세요</h2>
+    <p class="sub">소속과 하려는 일(유량 측정, 적지 검토 등)을 알려 주시면 이용 방법을 안내해 드립니다.</p>
+    <p class="who"><a class="link" href="mailto:iworkonlabs@gmail.com?subject=HydroLink%20%EC%9D%B4%EC%9A%A9%20%EB%AC%B8%EC%9D%98">iworkonlabs@gmail.com</a></p>
+    <p class="sub" style="margin-top:14px">이미 승인된 계정이 있으면 <a class="link" href="https://www.hydrolink.app/accounts/login/">로그인</a>해서 바로 쓸 수 있습니다.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>아이워크온랩스</p>
+    <p>www.hydrolink.app</p>
+    <p>이용한 공공 자료의 출처: 한강홍수통제소, 한국지질자원연구원, NASA GIBS. 이 기관들과 제휴하거나 인증을 받은 것은 아닙니다.</p>
+  </div>
+</footer>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { enableMenu: false }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.0/examples/jsm/"
+} }
+</script>
+
+
+<!-- 도구의 그래프: Chart.js. 기저유출은 앱(measurement/views.py run_baseflow_analysis)과 같은 Eckhardt 재귀식 -->
+<script>
+(function () {
+  if (!window.Chart) return;
+  var cv = function (n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
+  var N = 45, y = [];
+  for (var d = 0; d < N; d++) {                                   // 지어낸 45일 유량: 천천히 줄어드는 평수량 + 비 세 번
+    var v = 0.9 + 2.2 * Math.exp(-d / 60);
+    [[8, 18], [22, 11], [35, 24]].forEach(function (e) { if (d >= e[0]) v += e[1] * Math.pow(0.72, d - e[0]); });
+    y.push(+v.toFixed(2));
+  }
+  function eck(q, a, bm) {
+    var b = [q[0] * bm];
+    for (var i = 1; i < q.length; i++) { var x = ((1 - bm) * a * b[i - 1] + (1 - a) * bm * q[i]) / (1 - a * bm); b.push(Math.min(x, q[i])); }
+    return b;
+  }
+  window.__hl = { y: y, eck: eck };
+  var ALPHA = 0.98, labels = y.map(function (_, i) { return i + 1; });
+  var rng = document.getElementById('bf-range'), out = document.getElementById('bf-val'), read = document.getElementById('bf-read');
+  var bf, hq;
+  function axis(title) { return { title: { display: true, text: title, color: cv('--ink2'), font: { size: 14 } }, ticks: { color: cv('--ink2'), font: { size: 13 } }, grid: { color: cv('--line') } }; }
+  function bfData(bm) {
+    var b = eck(y, ALPHA, bm), sb = 0, sy = 0;
+    b.forEach(function (x, i) { sb += x; sy += y[i]; });
+    return { b: b, direct: y.map(function (q, i) { return +(q - b[i]).toFixed(3); }), bfi: sb / sy };
+  }
+  function drawBf() {
+    var el = document.getElementById('bf-chart'); if (!el) return;
+    var old = Chart.getChart(el); if (old) old.destroy();
+    var r = bfData(parseFloat(rng.value));
+    bf = new Chart(el, { type: 'line',
+      data: { labels: labels, datasets: [
+        { label: '기저유출', data: r.b, fill: 'origin', borderColor: cv('--water'), backgroundColor: 'rgba(27,143,176,.45)', pointRadius: 0, borderWidth: 1.5, tension: .25 },
+        { label: '직접유출', data: r.direct, fill: '-1', borderColor: cv('--flow'), backgroundColor: 'rgba(217,72,43,.35)', pointRadius: 0, borderWidth: 1.5, tension: .25 } ] },
+      options: { responsive: true, maintainAspectRatio: false, animation: false, interaction: { mode: 'index', intersect: false },
+        plugins: { legend: { labels: { color: cv('--ink'), font: { size: 14 }, boxWidth: 14 } } },
+        scales: { x: Object.assign(axis('일'), { ticks: { color: cv('--ink2'), font: { size: 13 }, maxTicksLimit: 9 } }), y: Object.assign(axis('유량 (m³/s)'), { stacked: true, beginAtZero: true }) } } });
+    read.innerHTML = '기저유출지수 <b>BFI = ' + r.bfi.toFixed(2) + '</b> (기저유출 합계 ÷ 전체 유량 합계, α = ' + ALPHA + ')';
+  }
+  function updBf() {
+    var bm = parseFloat(rng.value); out.textContent = bm.toFixed(2);
+    var r = bfData(bm); bf.data.datasets[0].data = r.b; bf.data.datasets[1].data = r.direct; bf.update('none');
+    read.innerHTML = '기저유출지수 <b>BFI = ' + r.bfi.toFixed(2) + '</b> (기저유출 합계 ÷ 전체 유량 합계, α = ' + ALPHA + ')';
+  }
+  function drawHq() {
+    var el = document.getElementById('hq-chart'); if (!el) return;
+    var old = Chart.getChart(el); if (old) old.destroy();
+    var a = 14, h0 = 0.15, b = 1.8, pts = [], curve = [];
+    for (var i = 0; i < 14; i++) { var h = 0.35 + i * 0.16; pts.push({ x: +h.toFixed(2), y: +(a * Math.pow(h - h0, b) * (1 + 0.07 * Math.sin(i * 2.7 + 1))).toFixed(2) }); }
+    for (var k = 0; k <= 60; k++) { var hh = 0.3 + k * 0.0375; curve.push({ x: +hh.toFixed(3), y: +(a * Math.pow(hh - h0, b)).toFixed(3) }); }
+    hq = new Chart(el, { type: 'scatter',
+      data: { datasets: [
+        { label: '측정점', data: pts, backgroundColor: cv('--flow'), pointRadius: 5, pointHoverRadius: 7 },
+        { label: '회귀 곡선', data: curve, type: 'line', borderColor: cv('--water'), borderWidth: 2.5, pointRadius: 0, fill: false, tension: 0 } ] },
+      options: { responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: { legend: { labels: { color: cv('--ink'), font: { size: 14 }, boxWidth: 14 } } },
+        scales: { x: Object.assign(axis('수위 h (m)'), { type: 'linear', min: 0.2 }), y: Object.assign(axis('유량 Q (m³/s)'), { beginAtZero: true }) } } });
+  }
+  function all() { drawBf(); drawHq(); }
+  if (rng) rng.addEventListener('input', updBf);
+  all();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', all);
+})();
+</script>
+
+<!-- 계산 과정: 단면 그림, 숫자, 자동 반복 재생 (masked-reveal · gsap 타임라인) -->
+<script>
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  gsap.ticker.lagSmoothing(0);   // 프레임이 늘어져도 재생은 실제 시계를 따른다(스크롤·프레임 속도와 무관하게 자기 속도로 흐른다)
+
+  /* 제목 등장 (masked-reveal 스킬) */
+  function esc(v) { return v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  document.querySelectorAll('[data-masked-reveal]').forEach(function (el) {
+    var text = el.textContent.trim();
+    el.setAttribute('aria-label', text);
+    el.innerHTML = text.split(/(\s+)/).map(function (p) {
+      return p.trim() ? '<span style="display:inline-block;overflow:hidden;vertical-align:top" aria-hidden="true"><span class="w" style="display:inline-block">' + esc(p) + '</span></span>' : p;
+    }).join('');
+    if (!reduce) gsap.from(el.querySelectorAll('.w'), { yPercent: 110, duration: .85, ease: 'power3.out', stagger: .04, delay: .15 });
+  });
+
+  /* 예시 자료: 시험천 측선 21개 (입력 화면 캡처와 같은 값) */
+  var D  = [.16,.3,.43,.55,.65,.74,.81,.87,.92,.94,.95,.94,.92,.87,.81,.74,.65,.55,.43,.3,.16];
+  var N2 = [17,23,29,35,41,46,51,55,58,59,60,59,58,55,51,46,41,35,29,23,17];
+  var N8 = [14,19,24,29,33,38,42,45,47,48,49,48,47,45,42,38,33,29,24,19,14];
+  var T = 50, A = 1.0218, B = 0.0146, WID = 1;
+  function V(n) { return A * n / T + B; }
+  var vbar = D.map(function (_, i) { return (V(N2[i]) + V(N8[i])) / 2; });
+  var q = D.map(function (d, i) { return vbar[i] * d * WID; });
+  var Q = q.reduce(function (s, x) { return s + x; }, 0);
+  var qmax = Math.max.apply(null, q);
+  var m = D.length, Xe = 2.0, Xp = 7.0, Xc = 1.0, Xm = 1.0, X2Q = 1.22;
+  var X1Q = Math.sqrt(Xm * Xm + (Xe * Xe + Xp * Xp + Xc * Xc) / m);
+  var XQ = Math.sqrt(X1Q * X1Q + X2Q * X2Q), U = 2 * XQ;
+
+  /* 단면 그림 */
+  var X0 = 40, PX = 680 / 22, Y0 = 64, PY = 190, NS = 'http://www.w3.org/2000/svg';
+  var xs = document.getElementById('xs'), html = '';
+  var bed = [[0, 0]].concat(D.map(function (d, i) { return [i + 1, d]; })).concat([[22, 0]]);
+  var bedPts = bed.map(function (p) { return (X0 + p[0] * PX).toFixed(1) + ',' + (Y0 + p[1] * PY).toFixed(1); });
+  var Yb = Y0 + .95 * PY + 30;
+  html += '<defs>'
+    + '<linearGradient id="xs-wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:#8fd3e6;stop-opacity:.55"/><stop offset=".55" style="stop-color:#2a8fb0;stop-opacity:.78"/><stop offset="1" style="stop-color:#0a5878;stop-opacity:.92"/></linearGradient>'
+    + '<linearGradient id="xs-sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9b18a"/><stop offset="1" stop-color="#8a6a47"/></linearGradient>'
+    + '</defs>';
+  html += '<path class="xs-sed" d="M' + bedPts.join(' L') + ' L' + (X0 + 680) + ',' + Yb + ' L' + X0 + ',' + Yb + ' Z"/>';
+  html += '<path class="xs-water" id="xs-water" d="M' + bedPts.join(' L') + ' Z"/>';
+  html += '<clipPath id="xs-clip"><path d="M' + bedPts.join(' L') + ' Z"/></clipPath>';
+  var rip = '';
+  [0, 1].forEach(function (k) {
+    var d = '';
+    for (var px = X0; px <= X0 + 680; px += 4) { var yy = Y0 + 3 + k * 5 + Math.sin(px * .06 + k * 2) * (1.6 - k * .4); d += (px === X0 ? 'M' : 'L') + px + ',' + yy.toFixed(1) + ' '; }
+    rip += '<path class="xs-rip" style="opacity:' + (0.75 - k * 0.3) + '" d="' + d + '"/>';
+  });
+  html += '<g clip-path="url(#xs-clip)">' + rip + '</g>';
+  html += '<g id="xs-strips" clip-path="url(#xs-clip)">' + q.map(function (v, i) {
+    var x = X0 + (i + 1 - WID / 2) * PX;
+    return '<rect class="xs-strip" x="' + x.toFixed(1) + '" y="' + Y0 + '" width="' + (WID * PX - 1).toFixed(1) + '" height="' + (D[i] * PY).toFixed(1) + '" data-h="' + (D[i] * PY).toFixed(1) + '" data-o="' + (0.18 + 0.5 * v / qmax).toFixed(2) + '" opacity="' + (0.18 + 0.5 * v / qmax).toFixed(2) + '"/>';
+  }).join('') + '</g>';
+  html += '<line class="xs-surf" x1="' + X0 + '" x2="' + (X0 + 680) + '" y1="' + Y0 + '" y2="' + Y0 + '"/>';
+  html += '<g id="xs-lines">' + D.map(function (d, i) {
+    var x = X0 + (i + 1) * PX;
+    return '<line class="xs-line" x1="' + x.toFixed(1) + '" x2="' + x.toFixed(1) + '" y1="' + Y0 + '" y2="' + (Y0 + d * PY).toFixed(1) + '" data-y="' + (Y0 + d * PY).toFixed(1) + '"/>';
+  }).join('') + '</g>';
+  html += '<g id="xs-dots">' + D.map(function (d, i) {
+    var x = (X0 + (i + 1) * PX).toFixed(1), r2 = 2 + V(N2[i]) * 4.2, r8 = 2 + V(N8[i]) * 4.2;
+    return '<circle class="xs-dot" cx="' + x + '" cy="' + (Y0 + .2 * d * PY).toFixed(1) + '" r="' + r2.toFixed(1) + '"/><circle class="xs-dot" cx="' + x + '" cy="' + (Y0 + .8 * d * PY).toFixed(1) + '" r="' + r8.toFixed(1) + '"/>';
+  }).join('') + '</g>';
+  html += '<path class="xs-bed" id="xs-bed" d="M' + bedPts.join(' L') + '"/>';
+  html += '<text class="xs-txt" x="' + X0 + '" y="' + (Y0 - 14) + '">수면</text>';
+  html += '<text class="xs-txt" x="' + (X0 + 680) + '" y="' + (Y0 - 14) + '" text-anchor="end">폭 22 m</text>';
+  html += '<text class="xs-txt" x="' + (X0 + 11 * PX) + '" y="' + (Y0 + .95 * PY + 20) + '" text-anchor="middle">하상</text>';
+  html += '<text class="xs-q" id="xs-q" x="' + X0 + '" y="316">Q = ' + Q.toFixed(2) + ' m³/s</text>';
+  xs.innerHTML = html;
+
+  /* 숫자 */
+  var n0 = 11 - 1; // 가장 깊은 측선(11번)
+  document.getElementById('r1').innerHTML = '예: a = ' + A + ', b = ' + B + ', N = ' + N2[n0] + ', T = ' + T + ' s → <b>V = ' + V(N2[n0]).toFixed(3) + ' m/s</b>';
+  var r2 = document.getElementById('r2');
+  r2.innerHTML = '측선 ' + m + '개를 더하면 <b>Q = <span id="q-live">' + Q.toFixed(2) + '</span> m³/s</b>';
+  var bars = [['측점 Xe', Xe], ['측점 수 Xp', Xp], ['검정 Xc', Xc], ['측선 수 Xm', Xm]];
+  document.getElementById('bars').innerHTML = bars.map(function (b) {
+    return '<div class="bar"><span>' + b[0] + '</span><i style="width:' + (b[1] / 7 * 100).toFixed(0) + '%"></i><span>' + b[1].toFixed(1) + '%</span></div>';
+  }).join('');
+  document.getElementById('r3').innerHTML = 'X<sub>1Q</sub> = ' + X1Q.toFixed(2) + '%, X<sub>2Q</sub> = ' + X2Q.toFixed(2) + '%, X<sub>Q</sub> = ' + XQ.toFixed(2) + '% → <b>확장불확실도 ±' + U.toFixed(1) + '%</b> (k = 2, n = ' + m + ')';
+
+  /* 계산 과정: 스크롤과 상관없이 저절로 반복 재생한다. 단계 이름을 누르면 그 단계부터 다시 보고, 화면 밖에서는 멈춘다.
+     '동작 줄이기'를 켠 사람에게는 움직이지 않고 끝 상태를 보여 준다. */
+  var story = document.getElementById('order'), tabs = document.querySelectorAll('.story-tab'), ctl = document.getElementById('story-ctl');
+  function setTab(n) { tabs.forEach(function (t, i) { t.classList.toggle('on', i + 1 === n); t.setAttribute('aria-pressed', i + 1 === n ? 'true' : 'false'); }); }
+  if (!reduce) {
+    story.classList.add('is-anim');
+    var bedEl = document.getElementById('xs-bed'), len = bedEl.getTotalLength();
+    gsap.set(bedEl, { strokeDasharray: len, strokeDashoffset: len });
+    gsap.set('#xs-water', { opacity: 0 });
+    gsap.set('.xs-sed', { opacity: 0 });
+    gsap.set('#xs-lines line', { attr: { y2: Y0 } });
+    gsap.set('#xs-dots circle', { scale: 0, transformOrigin: '50% 50%' });
+    gsap.set('#xs-strips rect', { attr: { height: 0 }, opacity: 0 });
+    gsap.set('#xs-q', { opacity: 0 });
+    gsap.set(['#p2', '#p3'], { autoAlpha: 0 });
+    gsap.set('#p1', { autoAlpha: 1 });
+    gsap.set('#bars i', { scaleX: 0, transformOrigin: 'left center' });
+    var counter = { v: 0 }, qLive = document.getElementById('q-live'), qSvg = document.getElementById('xs-q');
+    var tl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 0.2, defaults: { ease: 'power2.inOut' },
+      onUpdate: function () { var t = tl.time(); setTab(t < 4.8 ? 1 : (t < 8.3 ? 2 : 3)); } });
+    tl.fromTo(['#xs', '#p1'], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0)          // 처음에 부드럽게 나타난다
+      .to(bedEl, { strokeDashoffset: 0, duration: 1.6 }, 0)
+      .to('#xs-water', { opacity: 1, duration: 1.2 }, 0.6)
+      .to('.xs-sed', { opacity: 1, duration: 1.2 }, 0.6)
+      .to('#xs-lines line', { attr: { y2: function (i, el) { return el.getAttribute('data-y'); } }, duration: 1, stagger: .05 }, 1.8)
+      .to('#xs-dots circle', { scale: 1, duration: .5, stagger: .02, ease: 'back.out(2)' }, 2.6)
+      .to('#p1', { autoAlpha: 0, duration: .35 }, 4.6)
+      .to('#p2', { autoAlpha: 1, duration: .35 }, 4.98)
+      .to('#xs-strips rect', { attr: { height: function (i, el) { return el.getAttribute('data-h'); } }, opacity: function (i, el) { return el.getAttribute('data-o'); }, duration: .9, stagger: .06 }, 5)
+      .to('#xs-q', { opacity: 1, duration: .4 }, 5.2)
+      .to(counter, { v: Q, duration: 2.4, ease: 'none', onUpdate: function () { var t = counter.v.toFixed(2); qLive.textContent = t; qSvg.textContent = 'Q = ' + t + ' m³/s'; } }, 5.2)
+      .to('#p2', { autoAlpha: 0, duration: .35 }, 8)
+      .to('#p3', { autoAlpha: 1, duration: .35 }, 8.38)
+      .to('#bars i', { scaleX: 1, duration: .8, stagger: .15 }, 8.5)
+      .to(['#xs', '#p3'], { autoAlpha: 0, duration: 0.5, ease: 'power1.in' }, 12);   // 끝 상태를 잠시 보여 준 뒤 부드럽게 사라진다
+    tl.addLabel('s1', 0).addLabel('s2', 5.4).addLabel('s3', 8.9);
+    var userPaused = false, inView = false;
+    function sync() { if (inView && !userPaused) tl.play(); else tl.pause(); }
+    new IntersectionObserver(function (es) { inView = es[0].isIntersecting; sync(); }, { threshold: 0.3 }).observe(story);
+    tabs.forEach(function (t, i) { t.addEventListener('click', function () { userPaused = false; ctl.textContent = '일시정지'; ctl.setAttribute('aria-pressed', 'false'); tl.play(['s1', 's2', 's3'][i]); }); });
+    ctl.addEventListener('click', function () { userPaused = !userPaused; ctl.textContent = userPaused ? '재생' : '일시정지'; ctl.setAttribute('aria-pressed', userPaused ? 'true' : 'false'); sync(); });
+    window.__story = tl;
+  }
+
+  /* 적지선정 층 그림: 층 사이가 저절로 벌어졌다 모인다 (화면 밖에서는 멈춘다) */
+  var st = document.getElementById('stack');
+  if (st && !reduce) {
+    gsap.set(st, { '--gap': 8 });
+    var stT = gsap.to(st, { '--gap': 34, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1, repeatDelay: 0.8, paused: true });
+    new IntersectionObserver(function (es) { if (es[0].isIntersecting) stT.play(); else stT.pause(); }, { threshold: 0.3 }).observe(st);
+  }
+  var items = document.querySelectorAll('.stack-list li');
+  function onLayer(k) { document.querySelectorAll('.pl, .stack-list li').forEach(function (e) { e.classList.toggle('on', k !== null && e.getAttribute('data-k') === k); }); if (k === null) st.removeAttribute('data-on'); else st.setAttribute('data-on', '1'); }
+  items.forEach(function (li) { var k = li.getAttribute('data-k');
+    li.addEventListener('mouseenter', function () { onLayer(k); }); li.addEventListener('focus', function () { onLayer(k); });
+    li.addEventListener('mouseleave', function () { onLayer(null); }); li.addEventListener('blur', function () { onLayer(null); }); });
+})();
+</script>
+
+<!-- 첫 화면의 3D 계곡: three.js r186 공식 예제(webgl_shaders_ocean · webgl_geometry_terrain)의 Water, Sky, ImprovedNoise -->
+<script type="module">
+import * as THREE from 'three';
+import { Water } from 'three/addons/objects/Water.js';
+import { Sky } from 'three/addons/objects/Sky.js';
+import { ImprovedNoise } from 'three/addons/math/ImprovedNoise.js';
+
+const canvas = document.getElementById('scene');
+const hero = canvas.parentElement;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const theme = document.documentElement.getAttribute('data-theme');
+const dark = theme === 'dark' || (theme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+
+let renderer;
+try { renderer = /[?&]nogl\b/.test(location.search) ? null : new THREE.WebGLRenderer({ canvas, antialias: true }); } catch (e) { renderer = null; }
+if (!renderer) document.documentElement.classList.add('no-gl');
+if (renderer) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 720 ? 1.25 : 1.75));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = dark ? 0.7 : 0.55;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(dark ? 0x0d1a22 : 0xcfe2e8, 0.0021);
+  const camera = new THREE.PerspectiveCamera(52, 1, 1, 6000);
+
+  /* 하늘과 해 (공식 예제와 같은 구성) */
+  const sky = new Sky(); sky.scale.setScalar(5000); scene.add(sky);
+  const su = sky.material.uniforms;
+  su.turbidity.value = 6; su.rayleigh.value = dark ? 0.6 : 1.4; su.mieCoefficient.value = 0.005; su.mieDirectionalG.value = 0.8;
+  su.cloudCoverage.value = 0.45; su.cloudDensity.value = 0.5; su.cloudElevation.value = 0.5;
+  const sun = new THREE.Vector3();
+  sun.setFromSphericalCoords(1, THREE.MathUtils.degToRad(90 - (dark ? 9 : 26)), THREE.MathUtils.degToRad(325));
+  su.sunPosition.value.copy(sun);
+
+  /* 계곡: ImprovedNoise 높이장에 강 길을 판다 */
+  const SIZE = 1400, SEG = 200, riverX = z => 34 * Math.sin(z * 0.009) + 14 * Math.sin(z * 0.023 + 1.3);
+  const sm = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  const perlin = new ImprovedNoise();
+  const fbm = (x, z) => { let s = 0, a = 1, f = 1; for (let o = 0; o < 4; o++) { s += a * perlin.noise(x * f, 3.7, z * f); a *= 0.5; f *= 2; } return s; };
+  const geo = new THREE.PlaneGeometry(SIZE, SIZE, SEG, SEG); geo.rotateX(-Math.PI / 2);
+  const pos = geo.attributes.position, col = new Float32Array(pos.count * 3);
+  const cSand = new THREE.Color(0xc9bd9a), cGrass = new THREE.Color(0x7f9c68), cRock = new THREE.Color(0x9b9d94), c = new THREE.Color();
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i), z = pos.getZ(i), d = Math.abs(x - riverX(z));
+    const n = fbm(x * 0.0035, z * 0.0035);
+    const h = -4 + sm(8, 46, d) * 9 + sm(60, 560, d) * (55 + 90 * n) + 2.2 * fbm(x * 0.03, z * 0.03) * sm(20, 120, d);
+    pos.setY(i, h);
+    c.copy(cSand).lerp(cGrass, sm(-0.5, 2.2, h)).lerp(cRock, sm(34, 80, h));
+    col.set([c.r, c.g, c.b], i * 3);
+  }
+  geo.setAttribute('color', new THREE.BufferAttribute(col, 3)); geo.computeVertexNormals();
+  scene.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, metalness: 0 })));
+
+  /* 물: 공식 Water 애드온 */
+  const normals = new THREE.TextureLoader().load('https://cdn.jsdelivr.net/gh/mrdoob/three.js@r186/examples/textures/waternormals.jpg', t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; });
+  const water = new Water(new THREE.PlaneGeometry(SIZE, SIZE), {
+    textureWidth: 512, textureHeight: 512, waterNormals: normals, sunDirection: sun.clone().normalize(), sunColor: 0xffffff,
+    waterColor: dark ? 0x0a3a47 : 0x0b6a80, distortionScale: 1.6, size: 2.2, fog: true
+  });
+  water.rotation.x = -Math.PI / 2; scene.add(water);
+
+  /* 빛 */
+  scene.add(new THREE.HemisphereLight(dark ? 0x6a8fa0 : 0xcfe6f0, dark ? 0x1a2a20 : 0x7a8a60, dark ? 1.1 : 1.1));
+  const dl = new THREE.DirectionalLight(0xffffff, dark ? 0.6 : 2.2); dl.position.copy(sun).multiplyScalar(500); scene.add(dl);
+
+  function resize() {
+    const w = hero.clientWidth, h = hero.clientHeight;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(hero); resize();
+
+  let px = 0, py = 0, tx = 0, ty = 0, visible = true, t0 = performance.now();
+  addEventListener('pointermove', e => { tx = e.clientX / innerWidth - 0.5; ty = e.clientY / innerHeight - 0.5; }, { passive: true });
+  // 첫 화면이 15% 이상 보일 때만 그린다(아랫부분 몇 px 가 걸쳐 있다고 전체를 그리면 느린 기기에서 페이지 전체가 느려진다)
+  new IntersectionObserver(es => { visible = es[0].intersectionRatio > 0.15; }, { threshold: [0, 0.15, 0.3] }).observe(hero);
+
+  // 프레임이 느리면 해상도를 한 단계씩 낮춘다(최소 0.5배)
+  let lastNow = 0, slow = 0, pr = renderer.getPixelRatio();
+  function adapt(now) {
+    if (lastNow) {
+      const dt = now - lastNow;
+      slow = dt > 45 ? slow + 1 : Math.max(0, slow - 1);
+      if (slow > 12 && pr > 0.5) { pr = Math.max(0.5, pr - 0.25); renderer.setPixelRatio(pr); resize(); slow = 0; }
+    }
+    lastNow = now;
+  }
+  function frame(now) {
+    if (!reduce) adapt(now);
+    const t = reduce ? 4 : (now - t0) / 1000;
+    px += (tx - px) * 0.04; py += (ty - py) * 0.04;
+    const z = 520 + 150 * Math.sin(t * 0.045);
+    const side = innerWidth > 900 ? 46 : 0;
+    camera.position.set(riverX(z) - side + px * 22, 30 + 3 * Math.sin(t * 0.09) - py * 6, z);
+    camera.lookAt(riverX(z - 260) - side * 0.2 + px * 10, -2, z - 260);
+    water.material.uniforms.time.value = t * 0.5;
+    renderer.render(scene, camera);
+    document.documentElement.classList.add('gl-ok');
+  }
+  if (reduce) frame(performance.now());
+  else renderer.setAnimationLoop(now => { if (visible && !document.hidden) frame(now); else lastNow = 0; });
+}
+</script>
+</body>
+</html>

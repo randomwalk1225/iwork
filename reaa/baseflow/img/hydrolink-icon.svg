@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="dropGrad1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#1E3A5F"/>
+    </linearGradient>
+    <linearGradient id="bgGrad1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F0FDFA"/>
+      <stop offset="100%" stop-color="#ECFEFF"/>
+    </linearGradient>
+    <clipPath id="dropClip1">
+      <path d="M256 72 C256 72, 148 200, 148 296 C148 356, 196 416, 256 416 C316 416, 364 356, 364 296 C364 200, 256 72, 256 72Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="16" y="16" width="480" height="480" rx="96" ry="96" fill="url(#bgGrad1)"/>
+
+  <!-- Main water droplet -->
+  <path d="M256 72 C256 72, 148 200, 148 296 C148 356, 196 416, 256 416 C316 416, 364 356, 364 296 C364 200, 256 72, 256 72Z"
+        fill="url(#dropGrad1)" opacity="0.95"/>
+
+  <!-- Mountain/terrain silhouette inside droplet (bottom) -->
+  <g clip-path="url(#dropClip1)">
+    <path d="M148 360 L190 310 L220 340 L250 290 L280 330 L310 300 L340 320 L364 360 L364 420 L148 420Z"
+          fill="#0F2942" opacity="0.5"/>
+    <path d="M148 375 L185 340 L215 360 L245 320 L275 350 L305 330 L335 345 L364 375 L364 420 L148 420Z"
+          fill="#0F2942" opacity="0.3"/>
+  </g>
+
+  <!-- Data connection nodes -->
+  <!-- Node 1 - top -->
+  <circle cx="256" cy="170" r="8" fill="#FFFFFF" opacity="0.9"/>
+  <!-- Node 2 - mid left -->
+  <circle cx="210" cy="260" r="6" fill="#FFFFFF" opacity="0.7"/>
+  <!-- Node 3 - mid right -->
+  <circle cx="302" cy="240" r="6" fill="#FFFFFF" opacity="0.7"/>
+  <!-- Node 4 - center -->
+  <circle cx="256" cy="310" r="7" fill="#FFFFFF" opacity="0.8"/>
+
+  <!-- Connection lines -->
+  <line x1="256" y1="170" x2="210" y2="260" stroke="#FFFFFF" stroke-width="1.5" opacity="0.4"/>
+  <line x1="256" y1="170" x2="302" y2="240" stroke="#FFFFFF" stroke-width="1.5" opacity="0.4"/>
+  <line x1="210" y1="260" x2="256" y2="310" stroke="#FFFFFF" stroke-width="1.5" opacity="0.4"/>
+  <line x1="302" y1="240" x2="256" y2="310" stroke="#FFFFFF" stroke-width="1.5" opacity="0.4"/>
+  <line x1="210" y1="260" x2="302" y2="240" stroke="#FFFFFF" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Subtle highlight on droplet -->
+  <ellipse cx="230" cy="200" rx="30" ry="50" fill="#FFFFFF" opacity="0.08" transform="rotate(-15 230 200)"/>
+</svg>
