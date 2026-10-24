@@ -61,10 +61,12 @@ a { color: inherit; }
 .btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; background: var(--btn); color: var(--btn-ink); border-radius: 10px; text-decoration: none; font-weight: 600; }
 .btn:hover { opacity: .88; } .btn:active { transform: scale(.98); }
 .link { text-decoration: none; font-weight: 600; border-bottom: 2px solid var(--water); padding-bottom: 2px; }
-.win { margin-top: 56px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.win { margin-top: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.win img { width: 100%; height: auto; }
 .win .bar { display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 14px; background: color-mix(in srgb, var(--ink) 4%, var(--surface)); border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink2); }
 .win .bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
 .win .bar span { margin-left: 8px; }
+.hero .win, .three + .win { margin-top: 56px; }
 .cap { margin: 12px 0 0; font-size: 15px; color: var(--ink2); }
 
 /* 구역 공통 */
@@ -202,6 +204,25 @@ footer p { margin: 0 0 6px; }
       <div><h3>영역 그리기</h3><p>지도 위에 그린 영역 안을 분석 대상으로 삼습니다.</p></div>
       <div><h3>반경 추천</h3><p>기준 지점에서 반경을 정하면 그 안에서 후보 지점을 찾습니다.</p></div>
     </div>
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i><span>지하수저류댐 적지 선정</span></div>
+      <img src="img/siting-modes.png" width="1052" height="680" loading="lazy" alt="분석 화면 위쪽의 지점 분석, 영역 그리기, 반경 추천 세 버튼과 충남 부여 일대 지도. 지점 분석으로 지도에 한 지점을 찍은 모습입니다.">
+    </div>
+    <p class="cap">위쪽 세 버튼으로 방식을 고릅니다. 지도에 지점을 찍은 모습입니다.</p>
+  </div>
+</section>
+
+<section id="result">
+  <div class="wrap">
+    <div class="head">
+      <h2>분석 결과는 이렇게 나옵니다</h2>
+      <p class="sub">후보 지점이 점수 순서로 나열되고, 지점마다 등급과 유역면적, 가까운 시설까지의 거리를 볼 수 있습니다.</p>
+    </div>
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i><span>반경 추천 결과</span></div>
+      <img src="img/siting-result.png" width="1444" height="890" loading="lazy" alt="반경 추천 결과 화면. 지도에 반경 5km 원과 번호가 붙은 후보 지점 10개가 있고, 오른쪽 목록에 지점별 점수, 등급, 유역면적, 가까운 시설이 나옵니다.">
+    </div>
+    <p class="cap">분석 결과 화면의 예시입니다(충남 부여 일대). 이전 버전에서 찍은 화면이라 지금 화면과 다를 수 있습니다.</p>
   </div>
 </section>
 
@@ -211,6 +232,11 @@ footer p { margin: 0 0 6px; }
       <h2>지도에 겹쳐 볼 수 있는 자료</h2>
       <p class="sub">레이어 목록에서 켜고 끄며 후보지 주변을 직접 확인할 수 있습니다.</p>
     </div>
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i><span>지하수저류댐 적지 선정</span></div>
+      <img src="img/siting-layers.png" width="1412" height="617" loading="lazy" alt="충남 부여 일대 지도에 하천망, 수위관측소, 정수장, 댐 레이어를 켠 모습. 하천은 굵기별 파란 선, 수위관측소는 네모 표시로 보입니다.">
+    </div>
+    <p class="cap" style="margin-bottom:44px">하천망, 수위관측소, 정수장·취수장, 댐·저수지 레이어를 켠 모습입니다.</p>
     <ul class="layers">
       <li><b>하천망</b><span>본류와 지류를 굵기로 구분해 표시합니다.</span></li>
       <li><b>지질도</b><span>충적층 같은 암상을 확인합니다.</span></li>
