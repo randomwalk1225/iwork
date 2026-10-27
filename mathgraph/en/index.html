@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PBPRESSM6R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PBPRESSM6R');
+</script>
+<title>mathgraph Math Graphing Tool</title>
+<meta name="description" content="Function graphs and geometry constructions on one screen. Type an equation and it is drawn at once; drag a point and every shape built on it follows. Calculus and statistics tools included, right in your browser.">
+<!-- 차용: ~/.claude/skills/landing-page — hero(outcome+audience), features, FAQ, final action, one primary action (open the app). ~/.claude/skills/high-end-visual-design — pill nav, double-bezel frame, button-in-button arrow. Color tokens and hairline sections from reaa/siting/index.html, layout from allwrite/en/index.html -->
+<link rel="alternate" hreflang="ko" href="https://randomwalk1225.github.io/iwork/mathgraph/kr/">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap">
+<link rel="stylesheet" href="../../assets/product.css">
+<style>
+:root { --accent: #6A3FC4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent: #B9A0FF; } }
+:root[data-theme="dark"] { --accent: #B9A0FF; }
+body { word-break: normal; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; color: var(--accent); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <nav class="pill-nav" aria-label="Sections">
+    <a class="brand" href="#top"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="var(--accent)"/><path d="M5 18 C9 18 9 8 13 8 S17 18 21 18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>mathgraph</a>
+    <a class="m" href="#features">Features</a>
+    <a class="m" href="#link">Points and shapes</a>
+    <a class="m" href="#faq">FAQ</a>
+    <a class="m lang" href="../kr/">KR</a>
+    <a class="go" href="https://mathgraph-pilot.pages.dev/app">Open the app</a>
+  </nav>
+</header>
+
+<main id="main">
+<div id="top"></div>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Function graphs and geometry on one screen</span>
+    <h1>Type an equation and <em>it is drawn at once</em></h1>
+    <p class="lead">Type <code>y=sin(x)</code> to get a graph, or <code>A=(1,2)</code> to get a point. Any letter you haven't defined becomes a slider, so you can change its value and watch the graph respond.</p>
+    <div class="row">
+      <a class="btn" href="https://mathgraph-pilot.pages.dev/app">Open the app <span class="arr"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 L11 3 M5 3 H11 V9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></a>
+      <a class="link" href="#features">See the features</a>
+    </div>
+    <p class="note">Runs in a web browser. Your work is saved in the browser automatically.</p>
+    <div class="bezel rise">
+      <div class="core">
+        <div class="bar"><i></i><i></i><i></i><span>A triangle with its circumcircle and an angle</span></div>
+        <img src="../img/tri.jpg" width="1440" height="900" alt="The list on the left holds point C, a polygon, a circle, a midpoint, an angle, and a perpendicular bisector. The plane on the right shows triangle ABC, its circumcircle, an angle marked 66.8 degrees, and a dashed perpendicular bisector.">
+      </div>
+    </div>
+    <p class="cap">Real screens from October 2026, taken in the Korean interface. The app also has an English interface.</p>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>From constructions to calculus and probability</h2>
+      <p class="sub">Hover over or tap an item to see it on screen.</p>
+    </div>
+    <div class="split" data-tabs>
+      <ul class="tabs" role="tablist">
+        <li class="on" tabindex="0" role="tab"><b>Geometry constructions</b><span>Draw points, lines, circles, and polygons, then add midpoints, angles, and perpendicular bisectors.</span></li>
+        <li tabindex="0" role="tab"><b>Taylor approximation</b><span>Layer degree 1, 3, 5, and 7 polynomials over sin(x) and see the fit improve.</span></li>
+        <li tabindex="0" role="tab"><b>Area under a curve</b><span>Shade the region between two points and compute the definite integral. Drag a point to change the interval.</span></li>
+        <li tabindex="0" role="tab"><b>Probability distributions</b><span>Overlay a normal curve on a binomial distribution, with sliders for n and p.</span></li>
+      </ul>
+      <div class="stage">
+        <figure class="on"><div class="bezel"><div class="core"><img src="../img/tri.jpg" width="1440" height="900" loading="lazy" alt="Triangle ABC with its circumcircle, angle A, and a perpendicular bisector"></div></div></figure>
+        <figure><div class="bezel"><div class="core"><img src="../img/taylor.jpg" width="1440" height="900" loading="lazy" alt="A blue sin(x) curve with four Taylor polynomials of degree 1, 3, 5, and 7 drawn over it in different colors"></div></div></figure>
+        <figure><div class="bezel"><div class="core"><img src="../img/int.jpg" width="1440" height="900" loading="lazy" alt="The region under the parabola f(x)=x²/2−1 between points A and B is shaded light blue, and the integral's value appears in the list on the left."></div></div></figure>
+        <figure><div class="bezel"><div class="core"><img src="../img/binom.jpg" width="1440" height="900" loading="lazy" alt="A binomial distribution with n=20 and p=0.4 drawn as bars, with an orange normal curve over it and sliders for n and p on the left"></div></div></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="link">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>Drag a point and the shapes follow</h2>
+      <p class="sub">mathgraph remembers which points and equations each shape was built from.</p>
+    </div>
+    <div class="grid rise">
+      <div><h3>Dependent shapes move too</h3><p>Drag a vertex and the sides, circles, and midpoints built from it are redrawn in place.</p></div>
+      <div><h3>Attach points to shapes</h3><p>Attach a point to a curve or segment and it stays on that path as you drag it.</p></div>
+      <div><h3>Edit an equation, the rest updates</h3><p>Change a curve's equation and the points and tangent lines on it follow the new curve.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>Find any tool by name</h2>
+      <p class="sub">Type a word like "circle", "integral", or "rotate" in the search box at the top to find the tool you need.</p>
+    </div>
+    <div class="grid rise">
+      <div><h3>Constructions</h3><p>Points and lines, circles and curves, polygons, loci, and transformations such as rotation.</p></div>
+      <div><h3>Calculus</h3><p>Derivatives and tangents, definite integrals, Riemann sums, Taylor polynomials, and Fourier series.</p></div>
+      <div><h3>Statistics and probability</h3><p>Dot plots, box plots, histograms, regression lines, and normal, binomial, and Poisson distributions.</p></div>
+      <div><h3>Examples</h3><p>Every feature comes with an example you can load and edit.</p></div>
+      <div><h3>Export</h3><p>Save drawings as .png, .pdf, or .html, and your work as a .json file.</p></div>
+      <div><h3>English and Korean</h3><p>Choose either language for the interface.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="head rise"><h2>Frequently asked questions</h2></div>
+    <div class="faq">
+      <details><summary>Do I need to install anything?</summary><div class="ans">No. Open the address in a web browser and start.</div></details>
+      <details><summary>Where is my work saved?</summary><div class="ans">It is saved automatically in the browser you are using. To continue on another device, export a .json file and open it there.</div></details>
+      <details><summary>Where can I learn how to use it?</summary><div class="ans">The <a class="link" href="https://mathgraph-pilot.pages.dev/help">help page</a> explains how to type equations and what each tool does.</div></details>
+      <details><summary>How much does it cost?</summary><div class="ans">mathgraph is a paid service. Email <a class="link" href="mailto:iworkonlabs@gmail.com?subject=mathgraph%20inquiry">iworkonlabs@gmail.com</a> for terms.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="last">
+  <div class="wrap rise">
+    <h2>Draw your next lesson's figure in mathgraph</h2>
+    <p class="sub">Start by typing a single equation.</p>
+    <a class="btn" href="https://mathgraph-pilot.pages.dev/app">Open the app <span class="arr"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 L11 3 M5 3 H11 V9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>mathgraph · iWorkOnLabs</p>
+    <p>Contact <a href="mailto:iworkonlabs@gmail.com">iworkonlabs@gmail.com</a> · <a href="../kr/">한국어</a></p>
+  </div>
+</footer>
+<script src="../../assets/product.js"></script>
+</body>
+</html>
