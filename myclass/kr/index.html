@@ -1,189 +1,141 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBPRESSM6R"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-PBPRESSM6R');
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyClass — 학원 출석 및 회비 관리 시스템</title>
-  <meta name="description" content="학원 출석 관리, 회비 청구, 매출 통계, 안내문 자동 생성. 선불/후불/횟수제 결제 방식을 모두 지원하는 학원 전용 관리 시스템.">
-  <meta name="keywords" content="학원 관리 시스템, 출석 관리, 회비 관리, 학원 행정, 매출 통계, 안내문 생성, 학원 소프트웨어">
-  <meta property="og:title" content="MyClass — 학원 출석 및 회비 관리 시스템">
-  <meta property="og:description" content="학원 출석, 회비, 매출을 한 곳에서. 선불/후불/횟수제 모두 지원.">
-  <meta property="og:type" content="website">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://randomwalk1225.github.io/iwork/myclass/kr/">
-  <link rel="alternate" hreflang="ko" href="./">
-  <link rel="alternate" hreflang="en" href="../en/">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] },
-          colors: { slate: { 925: '#0a0f1a' } }
-        }
-      }
-    }
-  </script>
-  <style>
-    body { font-family: 'Pretendard Variable', system-ui, sans-serif; font-size: 22px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-    .card { transition: transform 0.2s ease; }
-    .card:hover { transform: translateY(-2px); }
-  </style>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "MyClass",
-    "applicationCategory": "Business",
-    "operatingSystem": "Web",
-    "description": "학원 출석 및 회비 관리 웹 애플리케이션",
-    "author": { "@type": "Person", "name": "Binary" }
-  }
-  </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PBPRESSM6R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PBPRESSM6R');
+</script>
+<title>MyClass 학원 출석·회비 관리</title>
+<meta name="description" content="출석을 찍으면 선불·후불·횟수제에 맞춰 회비를 계산하고 안내문을 만드는 학원 관리 시스템입니다. 아이워크온랩스가 개발 중이며 지금은 내부에서만 씁니다.">
+<!-- 차용: ~/.claude/skills/landing-page — 히어로(결과+대상)·문제→해결·기능·순서·자주 묻는 질문. 내부 사용 제품이라 구매 행동 대신 상태를 밝힘. ~/.claude/skills/high-end-visual-design — 알약 메뉴·두 겹 화면 틀·머리 위 꼬리표. 색 토큰·괘선 구분은 reaa/siting/index.html -->
+<link rel="alternate" hreflang="en" href="https://randomwalk1225.github.io/iwork/myclass/en/">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap">
+<link rel="stylesheet" href="../../assets/product.css">
+<style>
+:root { --accent: #0F7A5C; --pre: #0F7A5C; --post: #B4561B; --count: #5B4BC4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent: #4FD1A5; --pre: #4FD1A5; --post: #F2A267; --count: #A99BFF; } }
+:root[data-theme="dark"] { --accent: #4FD1A5; --pre: #4FD1A5; --post: #F2A267; --count: #A99BFF; }
+.status { display: inline-block; padding: 10px 16px; border: 1px dashed var(--line); border-radius: 12px; color: var(--ink2); font-size: 16px; }
+.status b { color: var(--ink); white-space: nowrap; }
+.modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.modes > div { padding-top: 18px; border-top: 3px solid var(--c); }
+.modes h3 { color: var(--c); }
+.modes p { color: var(--ink2); margin: 0 0 10px; }
+.flow { list-style: none; margin: 14px 0 0; padding: 0; font-size: 16px; }
+.flow li { padding: 8px 0; border-top: 1px solid var(--line); }
+@media (max-width: 860px) { .modes { grid-template-columns: 1fr; } }
+</style>
 </head>
-<body class="bg-slate-925 text-gray-100 antialiased">
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
 
-  <nav class="fixed top-0 w-full z-50 bg-slate-925/80 backdrop-blur-md border-b border-white/5">
-    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-      <span class="text-sm font-semibold tracking-wide text-white/90">MyClass</span>
-      <div class="flex items-center gap-4">
-        <a href="#features" class="text-sm text-white/60 hover:text-white/90 transition">기능</a>
-        <a href="#billing" class="text-sm text-white/60 hover:text-white/90 transition">청구</a>
-        <a href="#contact" class="text-sm text-white/60 hover:text-white/90 transition">문의</a>
-        <a href="../en/" class="text-sm px-3 py-1.5 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 transition">EN</a>
-      </div>
-    </div>
+<header class="top">
+  <nav class="pill-nav" aria-label="구역 이동">
+    <a class="brand" href="#top"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="var(--accent)"/><path d="M7 9 H19 M7 13 H19 M7 17 H14" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>MyClass</a>
+    <a class="m" href="#billing">결제 방식</a>
+    <a class="m" href="#features">기능</a>
+    <a class="m" href="#faq">질문</a>
+    <a class="m lang" href="../en/">EN</a>
   </nav>
+</header>
 
-  <!-- Hero -->
-  <section class="pt-32 pb-20 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
-        <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-        <span class="text-base text-blue-400 font-medium">실제 학원에서 운영 중</span>
-      </div>
-      <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6 text-white">
-        출석, 회비, 매출을<br>한 곳에서 관리
-      </h1>
-      <p class="text-xl text-white/50 max-w-2xl leading-relaxed mb-6">
-        선불제, 후불제, 횟수제 — 어떤 결제 방식이든 자동으로 회비를 계산하고<br>
-        안내문을 생성합니다. 강남 학원에서 매일 사용 중인 관리 시스템.
-      </p>
-      <p class="text-base text-white/50 mb-10">Django · Python · Tailwind CSS</p>
-      <div class="flex gap-3">
-        <a href="#features" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium rounded-lg transition">기능 보기</a>
-        <a href="#contact" class="px-6 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">도입 문의</a>
-      </div>
-    </div>
-  </section>
+<main id="main">
+<div id="top"></div>
 
-  <!-- Problem -->
-  <section class="py-16 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto">
-      <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8">
-        <p class="text-base text-blue-400 font-medium mb-3">PROBLEM</p>
-        <h2 class="text-xl font-bold text-white mb-4">학원 행정, 아직도 엑셀로?</h2>
-        <div class="grid md:grid-cols-2 gap-6 text-base text-white/40">
-          <div>
-            <p class="mb-3">선불 학생은 남은 시간 계산, 후불 학생은 이번 달 출석 정산, 횟수제 학생은 남은 회차 확인 — 결제 방식마다 계산이 다릅니다.</p>
-            <p>엑셀로 관리하면 실수가 나고, 안내문 하나 보내려면 학생별로 따로 작성해야 합니다.</p>
-          </div>
-          <div>
-            <p class="mb-3"><strong class="text-white/70">MyClass는 이 모든 것을 자동화합니다.</strong></p>
-            <p>출석만 찍으면 결제 방식에 맞춰 회비가 자동 계산되고, 안내문이 생성되고, 매출 통계가 잡힙니다.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section id="features" class="py-20 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-base text-blue-400 font-medium mb-2">FEATURES</p>
-      <h2 class="text-3xl font-bold mb-12 text-white">핵심 기능</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">출석 관리</h3>
-          <p class="text-base text-white/60 leading-relaxed">학생별 출석 기록, 월별 목표시간 관리, 연간 출석 현황 추이 그래프.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">회비 자동 계산</h3>
-          <p class="text-base text-white/60 leading-relaxed">선불(잔여시간), 후불(출석 정산), 횟수제(남은 회차) 세 가지 방식 자동 처리.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">안내문 생성</h3>
-          <p class="text-base text-white/60 leading-relaxed">학생별 맞춤 회비 안내문 자동 생성. 전달 이력 관리, 납부 확인 체크.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">매출 통계</h3>
-          <p class="text-base text-white/60 leading-relaxed">결제방식별 매출 조회. 월별 매출 추이, 학생별 결제 이력 한눈에.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">횟수제 현황</h3>
-          <p class="text-base text-white/60 leading-relaxed">회차 기반 청구 관리. 남은 수업 횟수 자동 추적, 소진 알림.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">데이터 처리</h3>
-          <p class="text-base text-white/60 leading-relaxed">CSV 데이터 임포트, 검증, 리포트 자동 생성. 기존 데이터 마이그레이션 지원.</p>
-        </div>
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">학원 출석·회비 관리 시스템</span>
+    <h1>출석만 찍으면 <em>회비 계산과 안내문</em>이 따라옵니다</h1>
+    <p class="lead">학생마다 결제 방식이 다르면 회비 계산도 다릅니다. MyClass는 선불·후불·횟수제를 따로 계산하고, 학생별 안내문과 매출 통계까지 한곳에서 만듭니다.</p>
+    <p class="status"><b>개발 중</b> · 지금은 아이워크온랩스 내부에서만 쓰고 있습니다</p>
+    <div class="bezel rise" style="margin-top:56px">
+      <div class="core">
+        <div class="bar"><i></i><i></i><i></i><span>모식도: 출석 한 번이 회비로 이어지는 흐름</span></div>
+        <svg viewBox="0 0 1200 520" role="img" aria-label="모식도. 왼쪽 출석 기록에서 화살표가 세 갈래로 나뉘어 선불제(남은 시간 차감), 후불제(이번 달 출석 합산), 횟수제(남은 횟수 차감)로 가고, 세 갈래가 다시 모여 학생별 안내문과 매출 통계로 이어집니다." style="display:block;width:100%;height:auto">
+          <rect width="1200" height="520" fill="var(--surface)"/>
+          <g font-family="Pretendard Variable, sans-serif" fill="var(--ink)">
+            <rect x="60" y="210" width="220" height="100" rx="14" fill="none" stroke="var(--ink)" stroke-width="2"/>
+            <text x="170" y="252" font-size="26" font-weight="700" text-anchor="middle">출석 기록</text>
+            <text x="170" y="286" font-size="19" fill="var(--ink2)" text-anchor="middle">수업 1회 · 2시간</text>
+            <path d="M280 260 C340 260 340 110 420 110" fill="none" stroke="var(--pre)" stroke-width="3"/>
+            <path d="M280 260 H420" fill="none" stroke="var(--post)" stroke-width="3"/>
+            <path d="M280 260 C340 260 340 410 420 410" fill="none" stroke="var(--count)" stroke-width="3"/>
+            <rect x="420" y="62" width="330" height="96" rx="14" fill="none" stroke="var(--pre)" stroke-width="2"/>
+            <text x="444" y="102" font-size="24" font-weight="700" fill="var(--pre)">선불제</text>
+            <text x="444" y="136" font-size="19" fill="var(--ink2)">남은 시간 20 → 18시간</text>
+            <rect x="420" y="212" width="330" height="96" rx="14" fill="none" stroke="var(--post)" stroke-width="2"/>
+            <text x="444" y="252" font-size="24" font-weight="700" fill="var(--post)">후불제</text>
+            <text x="444" y="286" font-size="19" fill="var(--ink2)">이번 달 출석에 2시간 더함</text>
+            <rect x="420" y="362" width="330" height="96" rx="14" fill="none" stroke="var(--count)" stroke-width="2"/>
+            <text x="444" y="402" font-size="24" font-weight="700" fill="var(--count)">횟수제</text>
+            <text x="444" y="436" font-size="19" fill="var(--ink2)">남은 횟수 8 → 7회</text>
+            <path d="M750 110 C820 110 820 200 880 200 M750 260 H880 M750 410 C820 410 820 320 880 320" fill="none" stroke="var(--ink2)" stroke-width="2"/>
+            <rect x="880" y="150" width="270" height="90" rx="14" fill="none" stroke="var(--ink)" stroke-width="2"/>
+            <text x="1015" y="204" font-size="24" font-weight="700" text-anchor="middle">학생별 안내문</text>
+            <rect x="880" y="280" width="270" height="90" rx="14" fill="none" stroke="var(--ink)" stroke-width="2"/>
+            <text x="1015" y="334" font-size="24" font-weight="700" text-anchor="middle">매출 통계</text>
+          </g>
+        </svg>
       </div>
     </div>
-  </section>
+    <p class="cap">모식도입니다. 숫자는 설명을 위한 예이며 실제 학생 자료가 아닙니다. 실제 화면은 학생 정보가 들어 있어 싣지 않았습니다.</p>
+  </div>
+</div>
 
-  <!-- Billing Types -->
-  <section id="billing" class="py-20 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-base text-blue-400 font-medium mb-2">BILLING</p>
-      <h2 class="text-3xl font-bold mb-10 text-white">3가지 결제 방식 지원</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-blue-500/[0.04] border border-blue-500/10 rounded-2xl p-6 text-center">
-          <h3 class="font-bold text-white text-lg mb-2">선불제</h3>
-          <p class="text-base text-white/60">목표시간 선납 → 출석 차감 → 잔여시간 안내</p>
-        </div>
-        <div class="bg-emerald-500/[0.04] border border-emerald-500/10 rounded-2xl p-6 text-center">
-          <h3 class="font-bold text-white text-lg mb-2">후불제</h3>
-          <p class="text-base text-white/60">월말 출석 정산 → 사용 시간 기준 청구</p>
-        </div>
-        <div class="bg-purple-500/[0.04] border border-purple-500/10 rounded-2xl p-6 text-center">
-          <h3 class="font-bold text-white text-lg mb-2">횟수제</h3>
-          <p class="text-base text-white/60">회차 구매 → 수업 차감 → 소진 알림</p>
-        </div>
-      </div>
+<section id="billing">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>결제 방식 세 가지를 따로 계산합니다</h2>
+      <p class="sub">엑셀로 하면 학생마다 계산법을 바꿔 가며 손으로 맞춰야 합니다. MyClass는 학생에게 정해 둔 방식대로 계산합니다.</p>
     </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="py-20 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl font-bold mb-4 text-white">도입 문의</h2>
-      <p class="text-white/40 mb-8">학원 맞춤 관리 시스템이 필요하시면 연락주세요.<br>운영 환경에 맞게 커스터마이징해 드립니다.</p>
-      <div class="flex flex-wrap justify-center gap-3">
-        <a href="mailto:randomwalk1225@gmail.com" class="px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">randomwalk1225@gmail.com</a>
-        <a href="https://github.com/randomwalk1225/myclass" target="_blank" class="px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">GitHub</a>
-      </div>
+    <div class="modes rise">
+      <div style="--c:var(--pre)"><h3>선불제</h3><p>수업 전에 목표 시간만큼 회비를 미리 냅니다.</p><ol class="flow"><li>목표 시간 선납</li><li>출석할 때마다 차감</li><li>남은 시간을 안내</li></ol></div>
+      <div style="--c:var(--post)"><h3>후불제</h3><p>한 달 동안 들은 만큼 냅니다.</p><ol class="flow"><li>한 달 출석 기록</li><li>월말에 사용 시간 합산</li><li>합산한 시간으로 청구</li></ol></div>
+      <div style="--c:var(--count)"><h3>횟수제</h3><p>수업 횟수만큼 미리 결제합니다.</p><ol class="flow"><li>횟수권 결제</li><li>수업할 때마다 한 회 차감</li><li>다 쓰기 전에 알림</li></ol></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="py-8 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto flex items-center justify-between text-base text-white/50">
-      <span>&copy; 2026 Binary</span>
-      <div class="flex gap-4">
-        <a href="../../dev/kr/" class="hover:text-white/50 transition">Portfolio</a>
-        <a href="../en/" class="hover:text-white/50 transition">English &rarr;</a>
-      </div>
+<section id="features">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>들어 있는 기능</h2>
     </div>
-  </footer>
+    <div class="grid rise">
+      <div><h3>출석 관리</h3><p>학생별 출석 기록, 월별 목표 시간, 연간 출석 추이를 봅니다.</p></div>
+      <div><h3>회비 안내문</h3><p>학생별 안내문을 만들고, 보낸 기록과 납부 여부를 함께 관리합니다.</p></div>
+      <div><h3>매출 통계</h3><p>결제 방식별 매출, 월별 추이, 학생별 결제 이력을 봅니다.</p></div>
+      <div><h3>자료 옮기기</h3><p>엑셀 등에 있던 학생 자료를 CSV 파일로 옮겨 오면, MyClass가 빠지거나 잘못된 칸을 찾아 알려 줍니다.</p></div>
+    </div>
+  </div>
+</section>
 
+<section id="faq">
+  <div class="wrap">
+    <div class="head rise"><h2>자주 묻는 질문</h2></div>
+    <div class="faq">
+      <details><summary>우리 학원에서도 쓸 수 있나요?</summary><div class="ans">아직은 아닙니다. MyClass는 개발 중이고 지금은 아이워크온랩스 내부에서만 씁니다. 외부에 제공하지 않습니다.</div></details>
+      <details><summary>왜 실제 화면이 없나요?</summary><div class="ans">실제 화면에는 학생 이름과 결제 기록이 들어 있어서 싣지 않았습니다. 위 그림은 흐름을 설명하는 모식도입니다.</div></details>
+      <details><summary>아이워크온랩스가 외부에 제공하는 제품은 무엇인가요?</summary><div class="ans">수학 수업용 필기 도구 <a class="link" href="../../allwrite/kr/">AllWrite</a>와 기출 모의고사 서비스 <a class="link" href="../../pyquiz/kr/">Prac</a>이 있습니다.</div></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>MyClass · 아이워크온랩스 · 개발 중, 내부 사용</p>
+    <p><a href="../en/">English</a></p>
+  </div>
+</footer>
+<script src="../../assets/product.js"></script>
 </body>
 </html>

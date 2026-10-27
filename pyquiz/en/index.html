@@ -1,156 +1,165 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBPRESSM6R"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-PBPRESSM6R');
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PyQuiz — Online Exam & Quiz Platform</title>
-  <meta name="description" content="Online exam platform with multiple choice, short answer, essay, and math questions. Timed exams, auto-grading, and score tracking.">
-  <meta name="keywords" content="online exam, quiz platform, auto grading, exam management, education software, online test">
-  <meta property="og:title" content="PyQuiz — Online Exam & Quiz Platform">
-  <meta property="og:description" content="Create, administer, and auto-grade exams. Multiple choice to math problems.">
-  <meta property="og:type" content="website">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://randomwalk1225.github.io/iwork/pyquiz/en/">
-  <link rel="alternate" hreflang="ko" href="../kr/">
-  <link rel="alternate" hreflang="en" href="./">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: { extend: { fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] }, colors: { slate: { 925: '#0a0f1a' } } } }
-    }
-  </script>
-  <style>
-    body { font-family: 'Pretendard Variable', system-ui, sans-serif; font-size: 22px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-    .card { transition: transform 0.2s ease; }
-    .card:hover { transform: translateY(-2px); }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PBPRESSM6R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PBPRESSM6R');
+</script>
+<title>Prac SAT, AP and TMUA Practice</title>
+<meta name="description" content="Practice SAT Math, AP Calculus, AP Statistics, and TMUA in a Bluebook-style interface with a timer, question navigator, and built-in Desmos. AI scores free-response work against official rubrics. First diagnostic free.">
+<!-- 차용: ~/.claude/skills/landing-page — hero(outcome+audience), screens, what's inside, steps, pricing, FAQ, final action, one primary action (diagnostic), risk reducers (first one free, no card, no auto-renew). ~/.claude/skills/high-end-visual-design — pill nav, double-bezel frame, button-in-button arrow. Color tokens and hairline sections from reaa/siting/index.html -->
+<link rel="alternate" hreflang="ko" href="https://randomwalk1225.github.io/iwork/pyquiz/kr/">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap">
+<link rel="stylesheet" href="../../assets/product.css">
+<style>
+:root { --accent: #1652C8; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent: #7FA6FF; } }
+:root[data-theme="dark"] { --accent: #7FA6FF; }
+body { word-break: normal; }
+</style>
 </head>
-<body class="bg-slate-925 text-gray-100 antialiased">
+<body>
+<a class="skip" href="#main">Skip to content</a>
 
-  <nav class="fixed top-0 w-full z-50 bg-slate-925/80 backdrop-blur-md border-b border-white/5">
-    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-      <span class="text-sm font-semibold tracking-wide text-white/90">PyQuiz</span>
-      <div class="flex items-center gap-4">
-        <a href="#features" class="text-sm text-white/60 hover:text-white/90 transition">Features</a>
-        <a href="#contact" class="text-sm text-white/60 hover:text-white/90 transition">Contact</a>
-        <a href="../kr/" class="text-sm px-3 py-1.5 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 transition">KR</a>
-      </div>
-    </div>
+<header class="top">
+  <nav class="pill-nav" aria-label="Sections">
+    <a class="brand" href="#top"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="var(--accent)"/><path d="M9 19 V7 H14.5 a4 4 0 0 1 0 8 H9" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Prac</a>
+    <a class="m" href="#screens">Screens</a>
+    <a class="m" href="#frq">FRQ scoring</a>
+    <a class="m" href="#price">Pricing</a>
+    <a class="m lang" href="../kr/">KR</a>
+    <a class="go" href="https://satprac.app/eng/diagnostic/">First diagnostic free</a>
   </nav>
+</header>
 
-  <section class="pt-32 pb-20 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 mb-6">
-        <span class="text-base text-amber-400 font-medium">Education Exam Platform</span>
-      </div>
-      <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6 text-white">
-        Create exams. Take exams.<br>Grade instantly.
-      </h1>
-      <p class="text-xl text-white/50 max-w-2xl leading-relaxed mb-6">
-        Multiple choice, short answer, essay, and math questions.<br>
-        Timed exams with auto-save and auto-grading.<br>
-        Instructors focus on content. Students focus on learning.
-      </p>
-      <p class="text-base text-white/50 mb-10">Ruby on Rails · Hotwire · Devise</p>
-      <div class="flex gap-3">
-        <a href="#features" class="px-6 py-3 bg-amber-600 hover:bg-amber-500 text-white text-sm font-medium rounded-lg transition">See Features</a>
-        <a href="#contact" class="px-6 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">Get in Touch</a>
+<main id="main">
+<div id="top"></div>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">SAT · AP · TMUA practice exams</span>
+    <h1>Practice in <em>the interface you'll see on test day</em>, then see exactly where you lost points</h1>
+    <p class="lead">Prac runs SAT Math, AP Calculus, AP Statistics, and TMUA practice in a Bluebook-style screen with a timer, question navigator, and built-in Desmos. Free-response answers are scored against the official rubric, point by point.</p>
+    <div class="row">
+      <a class="btn" href="https://satprac.app/eng/diagnostic/">Take the diagnostic <span class="arr"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 L11 3 M5 3 H11 V9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></a>
+      <a class="link" href="https://satprac.app/eng/exam/">Browse the exam library</a>
+    </div>
+    <p class="note">No credit card needed. Paid plans are one-time payments with no auto-renewal.</p>
+    <div class="bezel rise">
+      <div class="core">
+        <div class="bar"><i></i><i></i><i></i><span>satprac.app · exam library</span></div>
+        <img src="../img/en-exam.jpg" width="1440" height="900" alt="The Prac exam library. Filters for SAT, AP Statistics, AP Calculus AB and BC, AMC, AIME, CEMC, UKMT, TMUA, MAT, and Physics sit above cards for SAT Adaptive Mock 1 to 3 and SAT practice tests, each with Full, English, and Math sections.">
       </div>
     </div>
-  </section>
+    <p class="cap">Live screen, captured October 27, 2026.</p>
+  </div>
+</div>
 
-  <section class="py-20 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-base text-amber-400 font-medium mb-2">QUESTION TYPES</p>
-      <h2 class="text-3xl font-bold mb-10 text-white">4 Question Types</h2>
-      <div class="grid md:grid-cols-4 gap-4">
-        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 text-center">
-          <p class="text-2xl mb-3">&#9745;</p>
-          <h3 class="font-semibold text-white text-base mb-2">Multiple Choice</h3>
-          <p class="text-base text-white/60">Auto-graded</p>
-        </div>
-        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 text-center">
-          <p class="text-2xl mb-3">&#9998;</p>
-          <h3 class="font-semibold text-white text-base mb-2">Short Answer</h3>
-          <p class="text-base text-white/60">Exact match grading</p>
-        </div>
-        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 text-center">
-          <p class="text-2xl mb-3">&#9776;</p>
-          <h3 class="font-semibold text-white text-base mb-2">Essay</h3>
-          <p class="text-base text-white/60">Manual grading</p>
-        </div>
-        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 text-center">
-          <p class="text-2xl mb-3">&#8721;</p>
-          <h3 class="font-semibold text-white text-base mb-2">Math</h3>
-          <p class="text-base text-white/60">Formula input</p>
-        </div>
+<section id="screens">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>Pick a test, sit it, read the results</h2>
+      <p class="sub">Hover over or tap an item to see the screen.</p>
+    </div>
+    <div class="split" data-tabs>
+      <ul class="tabs" role="tablist">
+        <li class="on" tabindex="0" role="tab"><b>Exam library</b><span>Filter by exam and by format: multiple choice, free response, or mixed.</span></li>
+        <li tabindex="0" role="tab"><b>Exam mode</b><span>One question at a time under a countdown. Flag the ones you're unsure of and come back before you submit.</span></li>
+        <li tabindex="0" role="tab"><b>Topic drills</b><span>Choose subject, topic, difficulty, and number of questions to drill just the parts you miss.</span></li>
+      </ul>
+      <div class="stage">
+        <figure class="on"><div class="bezel"><div class="core"><img src="../img/en-exam.jpg" width="1440" height="900" loading="lazy" alt="Exam library with SAT practice test cards"></div></div></figure>
+        <figure><div class="bezel"><div class="core"><img src="../img/kr-diag.jpg" width="1440" height="900" loading="lazy" alt="Exam mode on question 1 of 30, with a toolbar on top, five answer choices, and a Next button. This example is a Korean diagnostic test."></div></div></figure>
+        <figure><div class="bezel"><div class="core"><img src="../img/kr-practice.jpg" width="1440" height="900" loading="lazy" alt="The practice setup screen with subject buttons, random or by-topic mode, easy, medium, and hard difficulty, and a question count of 10. Labels are in Korean."></div></div></figure>
       </div>
     </div>
-  </section>
+    <p class="cap">The exam mode and drill screens shown here are from the Korean side of the site.</p>
+  </div>
+</section>
 
-  <section id="features" class="py-20 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-base text-amber-400 font-medium mb-2">FEATURES</p>
-      <h2 class="text-3xl font-bold mb-12 text-white">Core Features</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Timed Exams</h3>
-          <p class="text-base text-white/60 leading-relaxed">Per-exam time limits. Auto-submit on timeout. Real-time countdown display.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Auto-Save</h3>
-          <p class="text-base text-white/60 leading-relaxed">Answers saved as students type. Browser crash? Answers are preserved.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Auto-Grading</h3>
-          <p class="text-base text-white/60 leading-relaxed">Points calculated per question. Essays routed to graders for manual scoring.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Role-Based Access</h3>
-          <p class="text-base text-white/60 leading-relaxed">Admin, grader, student roles. Each sees different features and views.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Exam Categories</h3>
-          <p class="text-base text-white/60 leading-relaxed">Organize by type, subject, unit, or difficulty. Systematic exam management.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Attempt History</h3>
-          <p class="text-base text-white/60 leading-relaxed">Per-student records, score trends, time analysis. Admin dashboard.</p>
-        </div>
-      </div>
+<section id="bank">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>What's in the library</h2>
+      <p class="sub">Every problem is tagged with its unit, difficulty, and exam year, so you can filter to the topics you keep missing.</p>
     </div>
-  </section>
-
-  <section id="contact" class="py-20 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl font-bold mb-4 text-white">Get in Touch</h2>
-      <p class="text-white/40 mb-8">Need an exam platform for your institution? Let's talk.</p>
-      <div class="flex flex-wrap justify-center gap-3">
-        <a href="mailto:randomwalk1225@gmail.com" class="px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">randomwalk1225@gmail.com</a>
-        <a href="https://github.com/randomwalk1225/pyquiz" target="_blank" class="px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">GitHub</a>
-      </div>
+    <div class="grid rise">
+      <div><span class="k">SAT</span><h3>Digital SAT Math</h3><p>Includes a two-module adaptive flow: how you do in Module 1 sets the difficulty of Module 2.</p></div>
+      <div><span class="k">AP</span><h3>Calculus AB/BC, Statistics</h3><p>Multiple choice and free response, including released AP Calculus FRQs from 2018 through 2025.</p></div>
+      <div><span class="k">TMUA</span><h3>Past papers, both papers</h3><p>Plus competition math: AMC, AIME, CEMC, UKMT, and MAT.</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="py-8 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto flex items-center justify-between text-base text-white/50">
-      <span>&copy; 2026 Binary</span>
-      <div class="flex gap-4">
-        <a href="../../dev/en/" class="hover:text-white/50 transition">Portfolio</a>
-        <a href="../kr/" class="hover:text-white/50 transition">&larr; Korean</a>
-      </div>
+<section id="frq">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>Free response, scored the way the reader scores it</h2>
+      <p class="sub">Multiple choice checks itself. For free response, Prac uses AI to check your work against each criterion in the official rubric and shows which points you earned and which you lost.</p>
     </div>
-  </footer>
+    <ol class="steps rise">
+      <li><h3>Write your solution</h3><p>Type it with the math keyboard, or upload a photo of handwritten work.</p></li>
+      <li><h3>The rubric is applied</h3><p>Each scoring criterion is checked against your response.</p></li>
+      <li><h3>Read the breakdown</h3><p>See the points you earned, the ones you missed, and what a full-credit answer includes.</p></li>
+    </ol>
+  </div>
+</section>
 
+<section id="price">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>Pricing</h2>
+      <p class="sub">Start free. If you keep going, students pay once for a set number of days; teachers pay monthly by the number of students they manage.</p>
+    </div>
+    <div class="tbl rise">
+      <table>
+        <thead><tr><th>Plan</th><th>What you get</th><th>Price</th></tr></thead>
+        <tbody>
+          <tr><td><b>Free</b></td><td>5 public exams a month, the diagnostic test, basic statistics.</td><td class="n">$0</td></tr>
+          <tr><td><b>Self-Study</b> · students</td><td>All exams unlocked, 100 AI FRQ gradings a month, explanations, weakness analysis, PDF export. Pro (90 days) and Premium (180 days) add more gradings.</td><td class="n">$35 for 30 days</td></tr>
+          <tr><td><b>Teacher</b> · tutors and schools</td><td>Assign exams to students and review their results. Plans for 5, 20, or 50 students.</td><td class="n">from $69 a month</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cap">Prices as listed on satprac.app on October 27, 2026. See the <a class="link" href="https://satprac.app/eng/subscription/plans/">plans page</a> for current details.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="head rise"><h2>Frequently asked questions</h2></div>
+    <div class="faq">
+      <details><summary>Do paid plans renew automatically?</summary><div class="ans">No. Student plans are a one-time payment for 30, 90, or 180 days and do not auto-renew.</div></details>
+      <details><summary>Can my tutor see my results?</summary><div class="ans">Yes. You can link your account to a teacher or tutor, who can then see your results and assign exams to you.</div></details>
+      <details><summary>What is the connection between PyQuiz and Prac?</summary><div class="ans">PyQuiz is the online exam platform built by iWorkOnLabs. Prac (satprac.app) is the service that runs on it.</div></details>
+      <details><summary>Is there a Korean version?</summary><div class="ans">Yes. The Korean side covers Korean mock exams, the CSAT, and the KMO. <a class="link" href="../kr/">See the Korean page</a></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="last">
+  <div class="wrap rise">
+    <h2>Find your weak topics before the test does</h2>
+    <p class="sub">A diagnostic shows your accuracy by unit. Your first attempt is free with a free account.</p>
+    <a class="btn" href="https://satprac.app/eng/diagnostic/">Take the diagnostic <span class="arr"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 L11 3 M5 3 H11 V9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prac (satprac.app) · PyQuiz · iWorkOnLabs</p>
+    <p>Contact <a href="mailto:iworkonlabs@gmail.com">iworkonlabs@gmail.com</a> · <a href="../kr/">한국어</a></p>
+  </div>
+</footer>
+<script src="../../assets/product.js"></script>
 </body>
 </html>

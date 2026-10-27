@@ -1,127 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBPRESSM6R"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-PBPRESSM6R');
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyClass — Academy Attendance & Billing Management</title>
-  <meta name="description" content="Academy attendance tracking, automated tuition billing, revenue statistics, and notice generation. Supports prepaid, postpaid, and per-session payment models.">
-  <meta name="keywords" content="academy management, attendance tracking, tuition billing, academy software, revenue statistics, student management">
-  <meta property="og:title" content="MyClass — Academy Attendance & Billing Management">
-  <meta property="og:description" content="Track attendance, automate billing, generate reports. Built for academies.">
-  <meta property="og:type" content="website">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://randomwalk1225.github.io/iwork/myclass/en/">
-  <link rel="alternate" hreflang="ko" href="../kr/">
-  <link rel="alternate" hreflang="en" href="./">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: { extend: { fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] }, colors: { slate: { 925: '#0a0f1a' } } } }
-    }
-  </script>
-  <style>
-    body { font-family: 'Pretendard Variable', system-ui, sans-serif; font-size: 22px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-    .card { transition: transform 0.2s ease; }
-    .card:hover { transform: translateY(-2px); }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PBPRESSM6R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PBPRESSM6R');
+</script>
+<title>MyClass Attendance and Billing</title>
+<meta name="description" content="An attendance and tuition system for tutoring centers. Record attendance and MyClass works out fees for prepaid, postpaid, and per-session students, then drafts the notices. In development and used in-house by iWorkOnLabs.">
+<!-- 차용: ~/.claude/skills/landing-page — hero(outcome+audience), problem→solution, features, FAQ. In-house product, so the page states its status instead of a purchase action. ~/.claude/skills/high-end-visual-design — pill nav, double-bezel frame, eyebrow tag. Color tokens and hairline sections from reaa/siting/index.html -->
+<link rel="alternate" hreflang="ko" href="https://randomwalk1225.github.io/iwork/myclass/kr/">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap">
+<link rel="stylesheet" href="../../assets/product.css">
+<style>
+:root { --accent: #0F7A5C; --pre: #0F7A5C; --post: #B4561B; --count: #5B4BC4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent: #4FD1A5; --pre: #4FD1A5; --post: #F2A267; --count: #A99BFF; } }
+:root[data-theme="dark"] { --accent: #4FD1A5; --pre: #4FD1A5; --post: #F2A267; --count: #A99BFF; }
+body { word-break: normal; }
+.status { display: inline-block; padding: 10px 16px; border: 1px dashed var(--line); border-radius: 12px; color: var(--ink2); font-size: 16px; }
+.status b { color: var(--ink); white-space: nowrap; }
+.modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.modes > div { padding-top: 18px; border-top: 3px solid var(--c); }
+.modes h3 { color: var(--c); }
+.modes p { color: var(--ink2); margin: 0 0 10px; }
+.flow { list-style: none; margin: 14px 0 0; padding: 0; font-size: 16px; }
+.flow li { padding: 8px 0; border-top: 1px solid var(--line); }
+@media (max-width: 860px) { .modes { grid-template-columns: 1fr; } }
+</style>
 </head>
-<body class="bg-slate-925 text-gray-100 antialiased">
+<body>
+<a class="skip" href="#main">Skip to content</a>
 
-  <nav class="fixed top-0 w-full z-50 bg-slate-925/80 backdrop-blur-md border-b border-white/5">
-    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-      <span class="text-sm font-semibold tracking-wide text-white/90">MyClass</span>
-      <div class="flex items-center gap-4">
-        <a href="#features" class="text-sm text-white/60 hover:text-white/90 transition">Features</a>
-        <a href="#contact" class="text-sm text-white/60 hover:text-white/90 transition">Contact</a>
-        <a href="../kr/" class="text-sm px-3 py-1.5 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 transition">KR</a>
-      </div>
-    </div>
+<header class="top">
+  <nav class="pill-nav" aria-label="Sections">
+    <a class="brand" href="#top"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="var(--accent)"/><path d="M7 9 H19 M7 13 H19 M7 17 H14" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>MyClass</a>
+    <a class="m" href="#billing">Billing types</a>
+    <a class="m" href="#features">Features</a>
+    <a class="m" href="#faq">FAQ</a>
+    <a class="m lang" href="../kr/">KR</a>
   </nav>
+</header>
 
-  <section class="pt-32 pb-20 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
-        <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-        <span class="text-base text-blue-400 font-medium">In production at a Gangnam academy</span>
-      </div>
-      <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6 text-white">
-        Attendance, billing, revenue<br>all in one place
-      </h1>
-      <p class="text-xl text-white/50 max-w-2xl leading-relaxed mb-6">
-        Prepaid, postpaid, or per-session — tuition is calculated automatically<br>
-        based on attendance. Billing notices generated with one click.
-      </p>
-      <p class="text-base text-white/50 mb-10">Django · Python · Tailwind CSS</p>
-      <div class="flex gap-3">
-        <a href="#features" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium rounded-lg transition">See Features</a>
-        <a href="#contact" class="px-6 py-3 border border-white/20 hover:border-white/40 text-white/80 text-sm font-medium rounded-lg transition">Get in Touch</a>
-      </div>
-    </div>
-  </section>
+<main id="main">
+<div id="top"></div>
 
-  <section id="features" class="py-20 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-base text-blue-400 font-medium mb-2">FEATURES</p>
-      <h2 class="text-3xl font-bold mb-12 text-white">Core Features</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Attendance Tracking</h3>
-          <p class="text-base text-white/60 leading-relaxed">Per-student records, monthly target hours, annual attendance trend charts.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Auto Billing</h3>
-          <p class="text-base text-white/60 leading-relaxed">Prepaid (remaining hours), postpaid (monthly settlement), per-session (remaining count).</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Billing Notices</h3>
-          <p class="text-base text-white/60 leading-relaxed">Auto-generated per-student notices. Delivery history tracking and payment confirmation.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Revenue Stats</h3>
-          <p class="text-base text-white/60 leading-relaxed">Revenue by payment type. Monthly trends and per-student payment history at a glance.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Session Tracking</h3>
-          <p class="text-base text-white/60 leading-relaxed">Session-based billing with automatic count tracking and depletion alerts.</p>
-        </div>
-        <div class="card bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
-          <h3 class="font-semibold text-white text-base mb-3">Data Tools</h3>
-          <p class="text-base text-white/60 leading-relaxed">CSV import, validation, and auto-reports. Migration support for existing data.</p>
-        </div>
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Attendance and tuition for tutoring centers</span>
+    <h1>Record attendance, and <em>the fees and notices</em> follow</h1>
+    <p class="lead">When students pay in different ways, each one needs a different calculation. MyClass handles prepaid, postpaid, and per-session billing separately, then drafts each student's notice and keeps the revenue figures in one place.</p>
+    <p class="status"><b>In development</b> · currently used in-house at iWorkOnLabs only</p>
+    <div class="bezel rise" style="margin-top:56px">
+      <div class="core">
+        <div class="bar"><i></i><i></i><i></i><span>Diagram: how one attendance record becomes a fee</span></div>
+        <svg viewBox="0 0 1200 520" role="img" aria-label="Diagram. An attendance record on the left branches three ways: prepaid (hours remaining go down), postpaid (hours added to this month's total), and per-session (sessions remaining go down). The three branches meet again at per-student notices and revenue reports." style="display:block;width:100%;height:auto">
+          <rect width="1200" height="520" fill="var(--surface)"/>
+          <g font-family="Pretendard Variable, sans-serif" fill="var(--ink)">
+            <rect x="60" y="210" width="220" height="100" rx="14" fill="none" stroke="var(--ink)" stroke-width="2"/>
+            <text x="170" y="252" font-size="26" font-weight="700" text-anchor="middle">Attendance</text>
+            <text x="170" y="286" font-size="19" fill="var(--ink2)" text-anchor="middle">1 lesson · 2 hours</text>
+            <path d="M280 260 C340 260 340 110 420 110" fill="none" stroke="var(--pre)" stroke-width="3"/>
+            <path d="M280 260 H420" fill="none" stroke="var(--post)" stroke-width="3"/>
+            <path d="M280 260 C340 260 340 410 420 410" fill="none" stroke="var(--count)" stroke-width="3"/>
+            <rect x="420" y="62" width="330" height="96" rx="14" fill="none" stroke="var(--pre)" stroke-width="2"/>
+            <text x="444" y="102" font-size="24" font-weight="700" fill="var(--pre)">Prepaid</text>
+            <text x="444" y="136" font-size="19" fill="var(--ink2)">Hours left: 20 → 18</text>
+            <rect x="420" y="212" width="330" height="96" rx="14" fill="none" stroke="var(--post)" stroke-width="2"/>
+            <text x="444" y="252" font-size="24" font-weight="700" fill="var(--post)">Postpaid</text>
+            <text x="444" y="286" font-size="19" fill="var(--ink2)">+2 hours to this month</text>
+            <rect x="420" y="362" width="330" height="96" rx="14" fill="none" stroke="var(--count)" stroke-width="2"/>
+            <text x="444" y="402" font-size="24" font-weight="700" fill="var(--count)">Per-session</text>
+            <text x="444" y="436" font-size="19" fill="var(--ink2)">Sessions left: 8 → 7</text>
+            <path d="M750 110 C820 110 820 200 880 200 M750 260 H880 M750 410 C820 410 820 320 880 320" fill="none" stroke="var(--ink2)" stroke-width="2"/>
+            <rect x="880" y="150" width="270" height="90" rx="14" fill="none" stroke="var(--ink)" stroke-width="2"/>
+            <text x="1015" y="204" font-size="24" font-weight="700" text-anchor="middle">Student notices</text>
+            <rect x="880" y="280" width="270" height="90" rx="14" fill="none" stroke="var(--ink)" stroke-width="2"/>
+            <text x="1015" y="334" font-size="24" font-weight="700" text-anchor="middle">Revenue reports</text>
+          </g>
+        </svg>
       </div>
     </div>
-  </section>
+    <p class="cap">This is a diagram. The numbers are examples, not real student data. Real screens contain student information, so they are not shown.</p>
+  </div>
+</div>
 
-  <section id="contact" class="py-20 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl font-bold mb-4 text-white">Get in Touch</h2>
-      <p class="text-white/40 mb-8">Need a custom academy management system? Let's talk.</p>
-      <div class="flex flex-wrap justify-center gap-3">
-        <a href="mailto:randomwalk1225@gmail.com" class="px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">randomwalk1225@gmail.com</a>
-        <a href="https://github.com/randomwalk1225/myclass" target="_blank" class="px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-lg text-sm text-white/80 transition">GitHub</a>
-      </div>
+<section id="billing">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>Three billing types, each calculated its own way</h2>
+      <p class="sub">In a spreadsheet you switch formulas by hand for every student. MyClass applies whichever billing type the student is on.</p>
     </div>
-  </section>
-
-  <footer class="py-8 px-6 border-t border-white/5">
-    <div class="max-w-5xl mx-auto flex items-center justify-between text-base text-white/50">
-      <span>&copy; 2026 Binary</span>
-      <div class="flex gap-4">
-        <a href="../../dev/en/" class="hover:text-white/50 transition">Portfolio</a>
-        <a href="../kr/" class="hover:text-white/50 transition">&larr; Korean</a>
-      </div>
+    <div class="modes rise">
+      <div style="--c:var(--pre)"><h3>Prepaid</h3><p>The student pays for a block of hours up front.</p><ol class="flow"><li>Hours paid in advance</li><li>Each lesson is deducted</li><li>Hours remaining are reported</li></ol></div>
+      <div style="--c:var(--post)"><h3>Postpaid</h3><p>The student pays for what they attended that month.</p><ol class="flow"><li>Attendance logged all month</li><li>Hours totaled at month-end</li><li>Billed on the total</li></ol></div>
+      <div style="--c:var(--count)"><h3>Per-session</h3><p>The student buys a set number of lessons.</p><ol class="flow"><li>Sessions purchased</li><li>One deducted per lesson</li><li>Alert before they run out</li></ol></div>
     </div>
-  </footer>
+  </div>
+</section>
 
+<section id="features">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>What it does</h2>
+    </div>
+    <div class="grid rise">
+      <div><h3>Attendance</h3><p>Per-student records, monthly target hours, and yearly attendance trends.</p></div>
+      <div><h3>Tuition notices</h3><p>Draft a notice for each student and track when it was sent and whether it was paid.</p></div>
+      <div><h3>Revenue reports</h3><p>Revenue by billing type, month-by-month trends, and each student's payment history.</p></div>
+      <div><h3>Data import</h3><p>Bring in existing records as CSV; MyClass checks them and produces a report.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="head rise"><h2>Frequently asked questions</h2></div>
+    <div class="faq">
+      <details><summary>Can my center use it?</summary><div class="ans">Not yet. MyClass is still in development and is used in-house at iWorkOnLabs only. It is not offered to other centers.</div></details>
+      <details><summary>Why are there no real screenshots?</summary><div class="ans">Real screens show student names and payment records, so we don't publish them. The picture above is a diagram of the flow.</div></details>
+      <details><summary>What does iWorkOnLabs offer publicly?</summary><div class="ans"><a class="link" href="../../allwrite/en/">AllWrite</a>, a math whiteboard for teaching, and <a class="link" href="../../pyquiz/en/">Prac</a>, an exam practice service.</div></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>MyClass · iWorkOnLabs · in development, in-house use</p>
+    <p><a href="../kr/">한국어</a></p>
+  </div>
+</footer>
+<script src="../../assets/product.js"></script>
 </body>
 </html>

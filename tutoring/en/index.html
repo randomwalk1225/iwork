@@ -1,343 +1,177 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBPRESSM6R"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-PBPRESSM6R');
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bilingual Math Tutor | SAT·AP·IB Online 1-on-1 | Korean + English</title>
-  <meta name="description" content="Bilingual Korean-English math tutor for SAT, AP Calculus, AP Statistics, IB Math. Free diagnostic test. $1,100+ in learning tools included with enrollment.">
-  <meta name="keywords" content="bilingual math tutor, SAT math tutor, AP calculus tutor, IB math tutor, Korean English math, online math tutoring, bilingual tutoring">
-  <meta property="og:title" content="Bilingual Math Tutor | SAT·AP·IB 1-on-1">
-  <meta property="og:description" content="Learn math in the language that clicks. Free diagnostic test.">
-  <meta property="og:type" content="website">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://randomwalk1225.github.io/iwork/tutoring/en/">
-  <link rel="alternate" hreflang="ko" href="../kr/">
-  <link rel="alternate" hreflang="en" href="./">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: { extend: { fontFamily: { sans: ['Pretendard Variable', 'system-ui', 'sans-serif'] } } }
-    }
-  </script>
-  <style>
-    body { font-family: 'Pretendard Variable', system-ui, sans-serif; font-size: 24px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-    .card { transition: all 0.2s ease; }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PBPRESSM6R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PBPRESSM6R');
+</script>
+<title>iWork Math Online Tutoring</title>
+<meta name="description" content="One-on-one online math lessons for students living abroad. SAT Math, AP Calculus, AP Statistics, and IB Mathematics, taught in English and Korean. Get in touch through our KakaoTalk channel.">
+<!-- 차용: ~/.claude/skills/landing-page — hero(outcome+audience), subjects, lesson tools, steps, time-zone table, FAQ, final action, one primary action (KakaoTalk). ~/.claude/skills/high-end-visual-design — pill nav, double-bezel frame, button-in-button arrow. Color tokens and hairline sections from reaa/siting/index.html -->
+<link rel="alternate" hreflang="ko" href="https://randomwalk1225.github.io/iwork/tutoring/kr/">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap">
+<link rel="stylesheet" href="../../assets/product.css">
+<style>
+:root { --accent: #1D6E8C; --kakao: #FEE500; --kakao-ink: #191600; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent: #6CC6E6; } }
+:root[data-theme="dark"] { --accent: #6CC6E6; }
+body { word-break: normal; }
+.btn.kakao { background: var(--kakao); color: var(--kakao-ink); }
+.btn.kakao .arr { background: rgba(25,22,0,.1); }
+.subj { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
+.subj > div { padding: 26px 0; border-top: 1px solid var(--line); }
+.subj h3 { font: 700 26px/1.3 "Noto Serif KR", serif; margin-bottom: 6px; }
+.subj .t { color: var(--accent); font-weight: 600; font-size: 16px; margin-bottom: 8px; display: block; }
+.subj p { color: var(--ink2); margin: 0; }
+.hero-split { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.hero-split .bezel { margin-top: 0; }
+@media (max-width: 900px) { .hero-split { grid-template-columns: 1fr; } }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
+.two figure { margin: 0; }
+.two h3 { margin-top: 18px; }
+.two p { color: var(--ink2); margin: 0; }
+@media (max-width: 800px) { .subj, .two { grid-template-columns: 1fr; } }
+</style>
 </head>
-<body class="bg-white text-gray-900 antialiased">
+<body>
+<a class="skip" href="#main">Skip to content</a>
 
-  <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60">
-    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-      <span class="font-bold tracking-wide text-gray-900">MATH TUTORING</span>
-      <div class="flex items-center gap-4">
-        <a href="#subjects" class="text-lg text-gray-500 hover:text-gray-900 transition">Subjects</a>
-        <a href="#benefits" class="text-lg text-gray-500 hover:text-gray-900 transition">Benefits</a>
-        <a href="#contact" class="text-lg text-gray-500 hover:text-gray-900 transition">Contact</a>
-        <a href="../kr/" class="px-3 py-1.5 rounded-full border border-gray-300 text-gray-500 hover:text-gray-900 transition">KR</a>
-      </div>
-    </div>
+<header class="top">
+  <nav class="pill-nav" aria-label="Sections">
+    <a class="brand" href="#top"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="var(--accent)"/><path d="M7 18 L11 8 L15 18 M8.6 14 H13.4 M17 11 V17 M14 14 H20" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>iWork Math</a>
+    <a class="m" href="#subjects">Subjects</a>
+    <a class="m" href="#tools">Lesson tools</a>
+    <a class="m" href="#time">Time zones</a>
+    <a class="m lang" href="../kr/">KR</a>
+    <a class="go" href="https://pf.kakao.com/_InkJX/chat">Get in touch</a>
   </nav>
+</header>
 
-  <!-- Hero -->
-  <section class="pt-36 pb-20 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-50 border border-sky-200 mb-8">
-        <span class="w-2 h-2 rounded-full bg-sky-500"></span>
-        <span class="text-lg text-sky-700 font-medium">US · Canada · Singapore · China · Malaysia</span>
+<main id="main">
+<div id="top"></div>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-split">
+      <div>
+      <span class="eyebrow">One-on-one online math for students abroad</span>
+      <h1>Learn the concepts in <em>the language you think in</em>, prepare for the test in English</h1>
+      <p class="lead">One-on-one lessons in SAT Math, AP Calculus, AP Statistics, and IB Mathematics. Concepts are taught in whichever language the student finds easier, English or Korean, and the English used on the exam is practiced separately.</p>
+      <div class="row">
+        <a class="btn kakao" href="https://pf.kakao.com/_InkJX/chat">Message us on KakaoTalk <span class="arr"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 L11 3 M5 3 H11 V9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></a>
+        <a class="link" href="#subjects">See the subjects</a>
       </div>
-      <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-8 text-gray-900">
-        Bilingual math tutor.<br>Finally, someone who gets it.
-      </h1>
-      <p class="text-2xl text-gray-600 max-w-2xl leading-relaxed mb-6">
-        SAT · AP Calculus · AP Statistics · IB Mathematics<br>
-        Learn in the language that clicks — Korean, English, or both.
-      </p>
-      <div class="flex flex-wrap items-center gap-4 mb-12 text-lg">
-        <div class="flex items-center gap-2 text-gray-500">
-          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-          Accepting students
-        </div>
-        <span class="text-gray-300">|</span>
-        <span class="text-gray-500">6 countries</span>
-        <span class="text-gray-300">|</span>
-        <span class="text-sky-600 font-semibold">Free diagnostic test</span>
+      <p class="note">Currently teaching students who live in six countries.</p>
       </div>
-      <div class="flex flex-wrap gap-3">
-        <a href="#contact" class="px-8 py-4 bg-sky-600 hover:bg-sky-700 text-white text-lg font-semibold rounded-lg transition">Get a Free Diagnostic</a>
-        <a href="#subjects" class="px-8 py-4 border border-gray-300 hover:border-gray-400 text-gray-700 text-lg font-semibold rounded-lg transition">See What I Teach</a>
+      <div>
+        <figure class="bezel rise" style="margin:0"><div class="core"><img src="../img/allwrite.jpg" width="1600" height="1000" alt="A lesson board in AllWrite with a circle, a line, and a parabola and their labeled intersection points."></div></figure>
+        <p class="cap">The board we teach on (AllWrite).</p>
       </div>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- Pain Points -->
-  <section class="py-20 px-6 bg-gray-50">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-4xl font-bold mb-12 text-gray-900">Any of this sound familiar?</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white border border-gray-200 rounded-2xl p-7">
-          <p class="text-xl font-bold text-gray-900 mb-3">"Practice test: 1500. Real test: 1350."</p>
-          <p class="text-lg text-gray-600">Practice and the real thing are different games. I teach the strategies that actually transfer — time management, trap patterns, and mental composure under pressure.</p>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-2xl p-7">
-          <p class="text-xl font-bold text-gray-900 mb-3">"I can do the math. I just can't read the English."</p>
-          <p class="text-lg text-gray-600">You're not bad at math — you're stuck at a language wall. We lock in concepts in Korean, then train the English exam vocabulary separately. Your skill finally shows up in your score.</p>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-2xl p-7">
-          <p class="text-xl font-bold text-gray-900 mb-3">"The exam is in 3 weeks and I'm still lost."</p>
-          <p class="text-lg text-gray-600">When time is short, strategy matters most. A diagnostic test finds your weak spots fast, then we attack the easiest points first. Three weeks is enough to make a real difference.</p>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-2xl p-7">
-          <p class="text-xl font-bold text-gray-900 mb-3">"I hit a wall at AP Calc out of nowhere."</p>
-          <p class="text-lg text-gray-600">Crushed it through middle school, then suddenly nothing makes sense? There's a gap in your foundations. We find exactly where, fill it, and you move forward again.</p>
-        </div>
+<section id="subjects">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>Subjects</h2>
+    </div>
+    <div class="subj rise">
+      <div><span class="t">Digital SAT</span><h3>SAT Math</h3><p>Find where points are being lost at the student's score level, then drill those question types.</p></div>
+      <div><span class="t">AB · BC</span><h3>AP Calculus</h3><p>From understanding the concepts through to writing full-credit FRQ answers.</p></div>
+      <div><span class="t">Statistical thinking</span><h3>AP Statistics</h3><p>Experimental design, inference, and interpretation, rather than memorized procedures.</p></div>
+      <div><span class="t">SL · HL · IA</span><h3>IB Mathematics</h3><p>The full SL and HL syllabus, plus guidance on the Internal Assessment (IA).</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>Tools we use in lessons</h2>
+      <p class="sub">Both were built in-house at iWorkOnLabs.</p>
+    </div>
+    <div class="two rise">
+      <div>
+        <figure class="bezel"><div class="core"><img src="../img/allwrite.jpg" width="1600" height="1000" loading="lazy" alt="AllWrite showing a circle, a line, and a parabola with labeled intersection points"></div></figure>
+        <h3>Explaining with AllWrite</h3>
+        <p>A math whiteboard that graphs equations and marks their intersections. During the lesson, dragging a point shows how the shapes change.</p>
+      </div>
+      <div>
+        <figure class="bezel"><div class="core"><img src="../img/prac-exam.jpg" width="1440" height="900" loading="lazy" alt="Prac exam screen showing question 1 of 30 with five answer choices"></div></figure>
+        <h3>Diagnosing and practicing on Prac</h3>
+        <p>Students work through problems in an exam-style screen and see their accuracy by unit. Enrolled students can take diagnostic tests free, as often as they like.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Value Stack -->
-  <section id="benefits" class="py-20 px-6">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-lg text-sky-600 font-semibold mb-2">INCLUDED WITH ENROLLMENT</p>
-      <h2 class="text-4xl font-bold mb-4 text-gray-900">$1,100+ in learning tools — free</h2>
-      <p class="text-lg text-gray-500 mb-12">Everything below is included with your tuition. No hidden fees.</p>
-
-      <div class="grid md:grid-cols-2 gap-5 mb-8">
-        <div class="card bg-white border border-gray-200 rounded-2xl p-7">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center">
-              <span class="text-sky-600 text-xl">&#128218;</span>
-            </div>
-            <div>
-              <h3 class="text-lg font-bold text-gray-900">Digital Textbooks</h3>
-              <span class="text-base text-sky-600 font-medium">$250 value</span>
-            </div>
-          </div>
-          <p class="text-lg text-gray-600">Custom-written SAT/AP/IB textbooks in English, Korean, and French. Plus curated PDF resources from trusted publishers.</p>
-        </div>
-
-        <div class="card bg-white border border-gray-200 rounded-2xl p-7">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
-              <span class="text-amber-600 text-xl">&#128203;</span>
-            </div>
-            <div>
-              <h3 class="text-lg font-bold text-gray-900">Online Question Bank (PyQuiz)</h3>
-              <span class="text-base text-sky-600 font-medium">$300 value</span>
-            </div>
-          </div>
-          <p class="text-lg text-gray-600">Free account during enrollment. Timed mock exams, auto-grading, and score tracking. Available at a low cost even after enrollment ends.</p>
-        </div>
-
-        <div class="card bg-white border border-gray-200 rounded-2xl p-7">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center">
-              <span class="text-rose-600 text-xl">&#128200;</span>
-            </div>
-            <div>
-              <h3 class="text-lg font-bold text-gray-900">Wrong-Answer Tracking & FRQ Scoring</h3>
-              <span class="text-base text-sky-600 font-medium">$300 value</span>
-            </div>
-          </div>
-          <p class="text-lg text-gray-600">Every mistake is automatically logged. See which types you keep getting wrong — then drill only those. AP FRQ scoring service included with detailed PDF score reports.</p>
-        </div>
-
-        <div class="card bg-white border border-gray-200 rounded-2xl p-7">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
-              <span class="text-emerald-600 text-xl">&#9998;</span>
-            </div>
-            <div>
-              <h3 class="text-lg font-bold text-gray-900">AllWrite Interactive Math Tool</h3>
-              <span class="text-base text-sky-600 font-medium">$150 value</span>
-            </div>
-          </div>
-          <p class="text-lg text-gray-600">Interactive geometry, graphing, and freehand writing on one canvas. Used during lessons and available for independent study.</p>
-        </div>
-      </div>
-
-      <div class="bg-sky-50 border border-sky-200 rounded-2xl p-8 text-center">
-        <p class="text-lg text-gray-500 mb-2">Total enrollment benefits</p>
-        <p class="text-5xl font-bold text-sky-700 mb-3">$1,100+</p>
-        <p class="text-lg text-gray-600">All included with tuition. Decide after your free trial.</p>
-      </div>
+<section id="steps">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>How to get started</h2>
     </div>
-  </section>
+    <ol class="steps rise">
+      <li><h3>Get in touch</h3><p>Send the student's grade, subject, target exam, and time zone through our KakaoTalk channel.</p></li>
+      <li><h3>Diagnostic</h3><p>A diagnostic test shows the student's current level and weakest units.</p></li>
+      <li><h3>Regular lessons</h3><p>We set a lesson time that works in the student's time zone and begin.</p></li>
+    </ol>
+  </div>
+</section>
 
-  <!-- Subjects -->
-  <section id="subjects" class="py-20 px-6 bg-gray-50">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-lg text-sky-600 font-semibold mb-2">SUBJECTS</p>
-      <h2 class="text-4xl font-bold mb-12 text-gray-900">Pick your exam. I'll get you ready.</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white border border-gray-200 rounded-2xl p-7">
-          <h3 class="text-xl font-bold text-gray-900 mb-1">SAT Math</h3>
-          <p class="text-lg text-sky-600 mb-3">Digital SAT ready</p>
-          <p class="text-lg text-gray-600">Find where you lose points. Train that exact weakness. Score-range specific drills for your target.</p>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-2xl p-7">
-          <h3 class="text-xl font-bold text-gray-900 mb-1">AP Calculus AB/BC</h3>
-          <p class="text-lg text-sky-600 mb-3">Concept → FRQ mastery</p>
-          <p class="text-lg text-gray-600">Real understanding, not memorization. Learn to write FRQs that earn full credit. FRQ scoring with PDF reports.</p>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-2xl p-7">
-          <h3 class="text-xl font-bold text-gray-900 mb-1">AP Statistics</h3>
-          <p class="text-lg text-sky-600 mb-3">Think like a statistician</p>
-          <p class="text-lg text-gray-600">Most students memorize and fail. I teach you to think — design experiments, build arguments, interpret data.</p>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-2xl p-7">
-          <h3 class="text-xl font-bold text-gray-900 mb-1">IB Mathematics</h3>
-          <p class="text-lg text-sky-600 mb-3">SL / HL + IA guidance</p>
-          <p class="text-lg text-gray-600">Full SL and HL coverage. Internal Assessment guidance from topic to final draft — the part most tutors skip.</p>
-        </div>
-      </div>
+<section id="time">
+  <div class="wrap">
+    <div class="head rise">
+      <h2>Available hours</h2>
+      <p class="sub">We can adjust to the student's schedule.</p>
     </div>
-  </section>
-
-  <!-- Why -->
-  <section class="py-20 px-6">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-lg text-sky-600 font-semibold mb-2">WHY STUDENTS STAY</p>
-      <h2 class="text-4xl font-bold mb-12 text-gray-900">This isn't typical tutoring</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Bilingual by default</h3>
-          <p class="text-lg text-gray-600">Switch between Korean and English mid-sentence if you need to. Concepts click faster when explained in the right language.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Battle-tested curriculum</h3>
-          <p class="text-lg text-gray-600">Built from teaching students across 6 countries. Optimized for the actual exam questions, not textbook theory.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Data-driven learning</h3>
-          <p class="text-lg text-gray-600">Your wrong answers become data. We track patterns, identify weaknesses, and train specifically where you need it most.</p>
-        </div>
-      </div>
+    <div class="tbl rise">
+      <table>
+        <thead><tr><th>Region</th><th>Local time</th></tr></thead>
+        <tbody>
+          <tr><td>US West (PST)</td><td class="n">5 p.m. to 10 p.m.</td></tr>
+          <tr><td>US East (EST)</td><td class="n">8 p.m. to 1 a.m.</td></tr>
+          <tr><td>Asia (SGT, KST)</td><td class="n">9 a.m. to 2 p.m.</td></tr>
+        </tbody>
+      </table>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- How it works -->
-  <section class="py-20 px-6 bg-gray-50">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-4xl font-bold mb-12 text-gray-900">Getting started is easy</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="text-center">
-          <div class="w-14 h-14 rounded-full bg-sky-100 text-sky-600 font-bold text-2xl flex items-center justify-center mx-auto mb-4">1</div>
-          <h3 class="text-xl font-bold text-gray-900 mb-2">Reach out</h3>
-          <p class="text-lg text-gray-600">Send a message via KakaoTalk or email. Tell me about the student and the goal.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-14 h-14 rounded-full bg-sky-100 text-sky-600 font-bold text-2xl flex items-center justify-center mx-auto mb-4">2</div>
-          <h3 class="text-xl font-bold text-gray-900 mb-2">Free diagnostic + trial</h3>
-          <p class="text-lg text-gray-600">Level test to pinpoint strengths and gaps. A trial lesson to experience the teaching style.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-14 h-14 rounded-full bg-sky-100 text-sky-600 font-bold text-2xl flex items-center justify-center mx-auto mb-4">3</div>
-          <h3 class="text-xl font-bold text-gray-900 mb-2">Decide & start</h3>
-          <p class="text-lg text-gray-600">Tuition is decided after the trial. Regular lessons begin on your schedule.</p>
-        </div>
-      </div>
+<section id="faq">
+  <div class="wrap">
+    <div class="head rise"><h2>Frequently asked questions</h2></div>
+    <div class="faq">
+      <details><summary>Are lessons in English or Korean?</summary><div class="ans">Whichever the student is more comfortable with. Often the concepts are explained in Korean and exam questions and written answers are practiced in English.</div></details>
+      <details><summary>How much are lessons?</summary><div class="ans">It depends on the subject and how many lessons a week. We'll go over it when you get in touch on KakaoTalk.</div></details>
+      <details><summary>What if none of these hours work?</summary><div class="ans">The table shows our usual hours. Let us know the student's schedule and we'll work something out.</div></details>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Contact -->
-  <section id="contact" class="py-20 px-6">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-lg text-sky-600 font-semibold mb-2">CONTACT</p>
-      <h2 class="text-4xl font-bold mb-4 text-gray-900">Get your free diagnostic</h2>
-      <p class="text-lg text-gray-600 mb-10">Fill out the form or message me on KakaoTalk. I reply within 24 hours.</p>
+<section class="last">
+  <div class="wrap rise">
+    <h2>Tell us the student's subject and goal</h2>
+    <p class="sub">We take inquiries through our KakaoTalk channel.</p>
+    <a class="btn kakao" href="https://pf.kakao.com/_InkJX/chat">Message us on KakaoTalk <span class="arr"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 L11 3 M5 3 H11 V9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></a>
+  </div>
+</section>
+</main>
 
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-7">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Request a consultation</h3>
-          <form action="https://formspree.io/f/randomwalk1225@gmail.com" method="POST" class="space-y-4">
-            <div>
-              <label class="block text-lg text-gray-600 mb-1">Name / Student name</label>
-              <input type="text" name="name" required class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-sky-500 transition text-lg" placeholder="John Doe">
-            </div>
-            <div>
-              <label class="block text-lg text-gray-600 mb-1">Contact (Email or KakaoTalk ID)</label>
-              <input type="text" name="contact" required class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-sky-500 transition text-lg" placeholder="email or KakaoTalk ID">
-            </div>
-            <div>
-              <label class="block text-lg text-gray-600 mb-1">Subject</label>
-              <select name="subject" class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-sky-500 transition text-lg">
-                <option value="SAT Math">SAT Math</option>
-                <option value="AP Calculus">AP Calculus AB/BC</option>
-                <option value="AP Statistics">AP Statistics</option>
-                <option value="IB Mathematics">IB Mathematics</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-lg text-gray-600 mb-1">Country / Time zone</label>
-              <input type="text" name="timezone" class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-sky-500 transition text-lg" placeholder="e.g. LA (PST)">
-            </div>
-            <div>
-              <label class="block text-lg text-gray-600 mb-1">Message (optional)</label>
-              <textarea name="message" rows="3" class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-sky-500 transition resize-none text-lg" placeholder="Anything you'd like me to know"></textarea>
-            </div>
-            <button type="submit" class="w-full py-4 bg-sky-600 hover:bg-sky-700 text-white text-lg font-semibold rounded-lg transition">Book My Free Diagnostic</button>
-          </form>
-        </div>
-
-        <div class="space-y-4">
-          <a href="https://pf.kakao.com/_InkJX/chat" target="_blank" class="card block bg-amber-50 border border-amber-200 rounded-2xl p-7">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 rounded-xl bg-amber-200 flex items-center justify-center">
-                <span class="text-amber-700 text-xl font-bold">K</span>
-              </div>
-              <div>
-                <h3 class="text-lg font-bold text-gray-900">KakaoTalk</h3>
-                <p class="text-lg text-gray-500">Fastest way to reach me</p>
-              </div>
-            </div>
-            <p class="text-xl text-amber-700 font-bold">카카오톡 채널: 아이워크 수학</p>
-          </a>
-
-          <a href="mailto:randomwalk1225@gmail.com" class="card block bg-white border border-gray-200 rounded-2xl p-7">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center">
-                <span class="text-gray-600 text-xl">@</span>
-              </div>
-              <div>
-                <h3 class="text-lg font-bold text-gray-900">Email</h3>
-                <p class="text-lg text-gray-500">For detailed inquiries</p>
-              </div>
-            </div>
-            <p class="text-lg text-gray-700">randomwalk1225@gmail.com</p>
-          </a>
-
-          <div class="bg-white border border-gray-200 rounded-2xl p-7">
-            <h3 class="text-lg font-bold text-gray-900 mb-4">Available time zones</h3>
-            <div class="space-y-2 text-lg text-gray-600">
-              <p><span class="font-semibold text-gray-900">West Coast (PST):</span> 5 PM – 10 PM</p>
-              <p><span class="font-semibold text-gray-900">East Coast (EST):</span> 8 PM – 1 AM</p>
-              <p><span class="font-semibold text-gray-900">Asia (SGT/KST):</span> 9 AM – 2 PM</p>
-            </div>
-            <p class="text-base text-gray-400 mt-3">* Flexible — we'll match the student's schedule</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="py-8 px-6 border-t border-gray-200">
-    <div class="max-w-5xl mx-auto flex items-center justify-between text-lg text-gray-400">
-      <span>&copy; 2026</span>
-      <a href="../kr/" class="hover:text-gray-600 transition">&larr; Korean</a>
-    </div>
-  </footer>
-
+<footer>
+  <div class="wrap">
+    <p>iWork Math · one-on-one online math lessons</p>
+    <p>Contact <a href="https://pf.kakao.com/_InkJX/chat">KakaoTalk channel</a> · <a href="../kr/">한국어</a></p>
+  </div>
+</footer>
+<script src="../../assets/product.js"></script>
 </body>
 </html>
